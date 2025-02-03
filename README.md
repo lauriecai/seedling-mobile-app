@@ -14,15 +14,16 @@
 # Seedling
 
 ## Summary
-Seedling is a simple journaling app to track your plant progress. Write about growth patterns and track important milestones, keep track of plant care requirements from sunlight preferences to soil types, and manage your garden tasks through categorized to-do lists.
+Seedling is a simple journaling app for gardeners to document their plant progress with a timeline of notes, photos, and significant milestones.
 
 ## About the developer
 Seedling was created by [Laurie Cai](https://www.linkedin.com/in/lauriecai), a product designer based in California. 
 
-## Technologies
+## Tech Stack
 * SwiftUI
 * CoreData
 * MVVM architecture
+* Firebase
 
 ## Features
 <img src="images/ui/01-plant-list.png" width="60%">
