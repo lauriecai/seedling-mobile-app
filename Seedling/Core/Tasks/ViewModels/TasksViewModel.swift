@@ -39,7 +39,9 @@ class TasksViewModel: ObservableObject {
 	@Published var selectedTask: TaskItem? = nil
 	
 	init() {
-		if taskCategories.isEmpty {
+		fetchTaskCategories()
+		
+		if !taskCategories.contains(where: { $0.name == "None" }) {
 			manager.addTaskCategory(name: "None")
 			fetchTaskCategories()
 		}
@@ -54,15 +56,19 @@ class TasksViewModel: ObservableObject {
 		
 		do {
 			var categories = try manager.context.fetch(request)
-			if let noneCategoryIndex = categories.firstIndex(where: { $0.name == "None" }) {
-				let noneCategory = categories.remove(at: noneCategoryIndex)
-				
-				categories.insert(noneCategory, at: 0)
-			}
+			prioritizeNoneCategory(in: &categories)
 			
 			taskCategories = categories
 		} catch let error {
 			print("Error fetching task categories from Core Data. \(error)")
+		}
+	}
+	
+	private func prioritizeNoneCategory(in categories: inout [TaskCategory]) {
+		if let noneCategoryIndex = categories.firstIndex(where: { $0.name == "None" }) {
+			let noneCategory = categories.remove(at: noneCategoryIndex)
+			
+			categories.insert(noneCategory, at: 0)
 		}
 	}
 	
