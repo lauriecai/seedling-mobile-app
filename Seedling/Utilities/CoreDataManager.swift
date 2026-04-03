@@ -179,7 +179,7 @@ class CoreDataManager {
 		newEvent.plant = plant
 		newEvent.timestamp = Date()
 		
-		let newStage = PlantStage(rawValue: newStage)!
+		let newStage = PlantStage(rawValue: newStage) ?? .seedling
 		newEvent.title = "Your \(plant.wrappedFullNameSentence) \(newStage.updateMessage)"
 		
 		save()

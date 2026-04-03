@@ -81,13 +81,13 @@ class DetailViewModel: ObservableObject {
 	init(plant: Plant) {
 		self.plant = plant
 		
-		let savedPlantStage = PlantStage(rawValue: plant.wrappedStage)!
+		let savedPlantStage = PlantStage(rawValue: plant.wrappedStage) ?? .seedling
 		selectedStage = savedPlantStage
-		selectedStageIndex = PlantStage.allCases.firstIndex(of: savedPlantStage)!
+		selectedStageIndex = PlantStage.allCases.firstIndex(of: savedPlantStage) ?? 0
 		
-		let savedPlantType = PlantType(rawValue: plant.wrappedType)!
+		let savedPlantType = PlantType(rawValue: plant.wrappedType) ?? .vegetable
 		selectedType = savedPlantType
-		selectedTypeIndex = PlantType.allCases.firstIndex(of: savedPlantType)!
+		selectedTypeIndex = PlantType.allCases.firstIndex(of: savedPlantType) ?? 0
 		
 		fetchPlantGeneralDetails(for: plant)
 	}
@@ -119,15 +119,15 @@ class DetailViewModel: ObservableObject {
 //	MARK: - Plant functions
 	
 	func fetchPlantStage(for plant: Plant) {
-		let savedPlantStage = PlantStage(rawValue: plant.wrappedStage)!
+		let savedPlantStage = PlantStage(rawValue: plant.wrappedStage) ?? .seedling
 		selectedStage = savedPlantStage
-		selectedStageIndex = PlantStage.allCases.firstIndex(of: savedPlantStage)!
+		selectedStageIndex = PlantStage.allCases.firstIndex(of: savedPlantStage) ?? 0
 	}
 	
 	func fetchPlantType(for plant: Plant) {
-		let savedPlantType = PlantType(rawValue: plant.wrappedType)!
+		let savedPlantType = PlantType(rawValue: plant.wrappedType) ?? .vegetable
 		selectedType = savedPlantType
-		selectedTypeIndex = PlantType.allCases.firstIndex(of: savedPlantType)!
+		selectedTypeIndex = PlantType.allCases.firstIndex(of: savedPlantType) ?? 0
 	}
 	
 	func updatePlantStage(for plant: Plant) {
