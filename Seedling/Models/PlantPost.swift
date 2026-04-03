@@ -1,13 +1,14 @@
 //
-//  DetailViewPosts.swift
+//  PlantPost.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 4/4/24.
 //
 
+import CoreData
 import Foundation
 
-struct PlantPost: Hashable {
+struct PlantPost: Identifiable {
 	
 	let type: CoreDataEntityType
 	
@@ -22,25 +23,12 @@ struct PlantPost: Hashable {
 		}
 	}
 	
-	func hash(into hasher: inout Hasher) {
+	var id: NSManagedObjectID {
 		switch type {
-		case .event(let event):
-			hasher.combine(event.title)
-			hasher.combine(event.wrappedTimestamp)
-		
-		case .note(let note):
-			hasher.combine(note.wrappedTitle)
-			hasher.combine(note.wrappedBody)
-			hasher.combine(note.wrappedTimestamp)
-		
-		case .photo(let photo):
-			hasher.combine(photo.wrappedCaption)
-			hasher.combine(photo.wrappedTimestamp)
+		case .event(let event): event.objectID
+		case .note(let note): note.objectID
+		case .photo(let photo): photo.objectID
 		}
-	}
-	
-	static func == (lhs: PlantPost, rhs: PlantPost) -> Bool {
-		lhs.hashValue == rhs.hashValue
 	}
 }
 
