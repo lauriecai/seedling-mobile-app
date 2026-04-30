@@ -39,14 +39,14 @@ extension PlantCardView {
 	private var plantNameAndStage: some View {
 		VStack(alignment: .leading, spacing: 4) {
 			Text(plant.wrappedVariety.isEmpty ? plant.wrappedName : "\(plant.wrappedName): \(plant.wrappedVariety)")
-				.font(.handjet(.bold, size: 24))
+				.font(.handjet(.bold, size: 22))
 				.foregroundStyle(Color.theme.textPrimary)
 				.lineLimit(1)
 				.truncationMode(.tail)
 			
 			HStack(alignment: .center) {
 				Text(plant.wrappedStage)
-					.font(.handjet(.regular, size: 20))
+					.font(.handjet(.medium, size: 18))
 					.foregroundStyle(Color.theme.textPrimary)
 				
 				Spacer()

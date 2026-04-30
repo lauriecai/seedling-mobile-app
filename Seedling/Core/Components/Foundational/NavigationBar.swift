@@ -64,7 +64,7 @@ extension NavigationBar {
 				.frame(width: 28, height: 28)
 			
 			Text(tab.title)
-				.font(.handjet(.medium, size: 16))
+				.font(.handjet(.bold, size: 16))
 				.foregroundStyle(selection == tab ? Color.theme.accentLightGreen : Color.theme.textLight)
 		}
 		.padding(.vertical, 10)
