@@ -53,7 +53,7 @@ extension NoteCardView {
 	private var timestamp: some View {
 		HStack {
 			Text(note.wrappedTimestamp.asDateAndTime())
-				.font(.handjet(.regular, size: 18))
+				.font(.handjet(.medium, size: 18))
 				.foregroundStyle(Color.theme.textSecondary)
 			
 			Spacer()
