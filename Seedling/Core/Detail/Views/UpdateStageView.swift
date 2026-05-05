@@ -25,7 +25,7 @@ struct UpdateStageView: View {
 			VStack {
 				updateStagePrompt
 
-				StageSelectionList(
+				StageOptionsList(
 					items: PlantStage.allCases,
 					accentTheme: true,
 					selectedPillLabel: "Selected",

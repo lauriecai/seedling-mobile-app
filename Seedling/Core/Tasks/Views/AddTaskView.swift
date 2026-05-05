@@ -27,7 +27,7 @@ struct AddTaskView: View {
 							.focused($keyboardFocused)
 							.onAppear { keyboardFocused.toggle() }
 						
-						categorySelectionButton
+						categoryPickerRow
 					}
 					.padding(.horizontal)
 				}
@@ -72,7 +72,7 @@ extension AddTaskView {
 		)
 	}
 	
-	private var categorySelectionButton: some View {
+	private var categoryPickerRow: some View {
 		NavigationLink(destination: CategorySelectionView(viewModel: viewModel)) {
 			HStack {
 				Text("Category")

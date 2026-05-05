@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategorySelectionCard: View {
+struct CategoryOptionCard: View {
 	
 	let category: TaskCategory
 	
@@ -55,7 +55,7 @@ struct CategorySelectionCard: View {
 	}
 }
 
-extension CategorySelectionCard {
+extension CategoryOptionCard {
 	
 	private var selectedBorder: some View {
 		RoundedRectangle(cornerRadius: 8)

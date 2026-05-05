@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StageSelectionList<T>: View where T: Hashable & RawRepresentable & Definable, T.RawValue == String {
+struct StageOptionsList<T>: View where T: Hashable & RawRepresentable & Definable, T.RawValue == String {
 	
 	let items: [T]
 	
@@ -39,7 +39,7 @@ struct StageSelectionList<T>: View where T: Hashable & RawRepresentable & Defina
 }
 
 #Preview {
-	StageSelectionList(
+	StageOptionsList(
 		items: PlantStage.allCases,
 		accentTheme: true,
 		selectedPillLabel: "Selected",

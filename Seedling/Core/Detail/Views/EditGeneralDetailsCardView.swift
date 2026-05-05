@@ -75,7 +75,7 @@ extension EditGeneralDetailsCardView {
 				.font(.handjet(.bold, size: 16))
 				.foregroundStyle(Color.theme.textGrey)
 			
-			StageSelectionList(
+			StageOptionsList(
 				items: PlantStage.allCases,
 				accentTheme: false,
 				selectedPillLabel: "Selected",

@@ -66,7 +66,7 @@
 		D3CBB1642BECAD280092096B /* PlantDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CBB1632BECAD280092096B /* PlantDetailsView.swift */; };
 		D3CD06452BF5546100E25369 /* EditCareRequirementsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD06442BF5546100E25369 /* EditCareRequirementsCardView.swift */; };
 		D3D6C0142C97626C00071810 /* FirebaseEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D6C0132C97626C00071810 /* FirebaseEventManager.swift */; };
-		D3D87F6F2C06E9C300AF90A3 /* StageSelectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D87F6E2C06E9C300AF90A3 /* StageSelectionList.swift */; };
+		D3D87F6F2C06E9C300AF90A3 /* StageOptionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D87F6E2C06E9C300AF90A3 /* StageOptionsList.swift */; };
 		D3EA61C12B8FEA69002676F4 /* TextEditorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA61C02B8FEA69002676F4 /* TextEditorInput.swift */; };
 		D3EFDE092B76B70C00A6D22C /* AddPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFDE082B76B70C00A6D22C /* AddPlantView.swift */; };
 		D3EFDE0B2B77E74D00A6D22C /* ButtonCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFDE0A2B77E74D00A6D22C /* ButtonCircle.swift */; };
@@ -77,7 +77,7 @@
 		D3EFDE522B82973F00A6D22C /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFDE512B82973F00A6D22C /* AddNoteView.swift */; };
 		D3EFDE542B8298D900A6D22C /* NoteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFDE532B8298D900A6D22C /* NoteCardView.swift */; };
 		D3F00EC12BF575EC006C7A5C /* EditAdditionalCareNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F00EC02BF575EC006C7A5C /* EditAdditionalCareNotesView.swift */; };
-		D3FCA4DA2C0CEE1700DC2213 /* CategorySelectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4D92C0CEE1700DC2213 /* CategorySelectionCard.swift */; };
+		D3FCA4DA2C0CEE1700DC2213 /* CategoryOptionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4D92C0CEE1700DC2213 /* CategoryOptionCard.swift */; };
 		D3FCA4DC2C0F91D400DC2213 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4DB2C0F91D400DC2213 /* TasksViewModel.swift */; };
 		D3FCA4DE2C0FB12F00DC2213 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4DD2C0FB12F00DC2213 /* UINavigationController.swift */; };
 		D3FCA4E42C1252EB00DC2213 /* TabItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4E32C1252EB00DC2213 /* TabItemsPreferenceKey.swift */; };
@@ -142,7 +142,7 @@
 		D3CBB1632BECAD280092096B /* PlantDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailsView.swift; sourceTree = "<group>"; };
 		D3CD06442BF5546100E25369 /* EditCareRequirementsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCareRequirementsCardView.swift; sourceTree = "<group>"; };
 		D3D6C0132C97626C00071810 /* FirebaseEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEventManager.swift; sourceTree = "<group>"; };
-		D3D87F6E2C06E9C300AF90A3 /* StageSelectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSelectionList.swift; sourceTree = "<group>"; };
+		D3D87F6E2C06E9C300AF90A3 /* StageOptionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageOptionsList.swift; sourceTree = "<group>"; };
 		D3EA61C02B8FEA69002676F4 /* TextEditorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorInput.swift; sourceTree = "<group>"; };
 		D3EFDE082B76B70C00A6D22C /* AddPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantView.swift; sourceTree = "<group>"; };
 		D3EFDE0A2B77E74D00A6D22C /* ButtonCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCircle.swift; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 		D3EFDE512B82973F00A6D22C /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
 		D3EFDE532B8298D900A6D22C /* NoteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCardView.swift; sourceTree = "<group>"; };
 		D3F00EC02BF575EC006C7A5C /* EditAdditionalCareNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAdditionalCareNotesView.swift; sourceTree = "<group>"; };
-		D3FCA4D92C0CEE1700DC2213 /* CategorySelectionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionCard.swift; sourceTree = "<group>"; };
+		D3FCA4D92C0CEE1700DC2213 /* CategoryOptionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryOptionCard.swift; sourceTree = "<group>"; };
 		D3FCA4DB2C0F91D400DC2213 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		D3FCA4DD2C0FB12F00DC2213 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		D3FCA4E32C1252EB00DC2213 /* TabItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemsPreferenceKey.swift; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 				D37A30D62C34A66A00633D83 /* PhotoCardView.swift */,
 				D37706B62BFEC37B005179E3 /* TaskRowView.swift */,
 				D39643EA2C069CD500E9267F /* TaskGroupView.swift */,
-				D3D87F6E2C06E9C300AF90A3 /* StageSelectionList.swift */,
+				D3D87F6E2C06E9C300AF90A3 /* StageOptionsList.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 				D31FBCF92B8D1F4D00C10F9D /* ButtonPill.swift */,
 				D31FBCFB2B8D205300C10F9D /* ButtonPillRow.swift */,
 				D349D9E02BE2E7A30081ABE5 /* CardSelectable.swift */,
-				D3FCA4D92C0CEE1700DC2213 /* CategorySelectionCard.swift */,
+				D3FCA4D92C0CEE1700DC2213 /* CategoryOptionCard.swift */,
 				D3B635822BA0EB7600CE3BE1 /* Dropdown.swift */,
 				D3B4116D2B9778C500CD1F41 /* NavigationBar.swift */,
 				D31FBCF52B8D199200C10F9D /* TextInput.swift */,
@@ -632,9 +632,9 @@
 				D3EFDE542B8298D900A6D22C /* NoteCardView.swift in Sources */,
 				D37A30D42C2E058000633D83 /* Photo+Extension.swift in Sources */,
 				D3385B432B164C330055234B /* Color.swift in Sources */,
-				D3D87F6F2C06E9C300AF90A3 /* StageSelectionList.swift in Sources */,
+				D3D87F6F2C06E9C300AF90A3 /* StageOptionsList.swift in Sources */,
 				D3EFDE522B82973F00A6D22C /* AddNoteView.swift in Sources */,
-				D3FCA4DA2C0CEE1700DC2213 /* CategorySelectionCard.swift in Sources */,
+				D3FCA4DA2C0CEE1700DC2213 /* CategoryOptionCard.swift in Sources */,
 				D37A30D22C2DFD7F00633D83 /* PhotoService.swift in Sources */,
 				D30CE7C42BA4DD9A00B28F67 /* EventCardView.swift in Sources */,
 				D38AB7902BBF6F95006B015B /* PlantPost.swift in Sources */,

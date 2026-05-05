@@ -68,7 +68,7 @@ extension CategorySelectionView {
 		ScrollView(showsIndicators: false) {
 			VStack(alignment: .leading, spacing: 10) {
 				ForEach(Array(viewModel.taskCategories.enumerated()), id: \.1) { index, category in
-					CategorySelectionCard(
+					CategoryOptionCard(
 						category: category,
 						isSelected: index == viewModel.selectedCategoryIndex,
 						showActionSheet: $showingActionSheet,
