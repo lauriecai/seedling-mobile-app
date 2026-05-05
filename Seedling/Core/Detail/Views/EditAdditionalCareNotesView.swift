@@ -58,7 +58,7 @@ extension EditAdditionalCareNotesView {
 	}
 	
 	private var saveChangesButton: some View {
-		Button("Save Changes") {
+		Button("Save") {
 			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if viewModel.plantAdditionalCareNotesEdited {

@@ -90,7 +90,7 @@ extension PlantDetailsView {
 	}
 	
 	private var saveGeneralDetailsButton: some View {
-		Button("Save Changes") {
+		Button("Save") {
 			FirebaseEventManager.shared.logEvent(name: "saveGeneralDetailsButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if viewModel.plantGeneralDetailsEdited {
@@ -139,7 +139,7 @@ extension PlantDetailsView {
 	}
 	
 	private var saveCareRequirementsButton: some View {
-		Button("Save Changes") {
+		Button("Save") {
 			FirebaseEventManager.shared.logEvent(name: "saveCareRequirementsButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if viewModel.plantCareRequirementsEdited {
@@ -202,7 +202,7 @@ extension PlantDetailsView {
 	}
 	
 	private var saveAdditionalCareNotesButton: some View {
-		Button("Save Changes") {
+		Button("Save") {
 			FirebaseEventManager.shared.logEvent(name: "saveAdditionalCareNotesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if viewModel.plantAdditionalCareNotesEdited {
