@@ -41,14 +41,14 @@ extension TaskRowView {
 	
 	private var uncheckedBox: some View {
 		RoundedRectangle(cornerRadius: 4)
-			.frame(width: 25, height: 25)
+			.frame(width: 24, height: 24)
 			.foregroundStyle(Color.theme.backgroundAccent)
 	}
 	
 	private var checkedBox: some View {
 		ZStack(alignment: .center) {
 			RoundedRectangle(cornerRadius: 4)
-				.frame(width: 25, height: 25)
+				.frame(width: 24, height: 24)
 				.foregroundStyle(Color.theme.backgroundAccent)
 			
 			Image("icon-checkmark")
