@@ -35,7 +35,7 @@ struct UpdateStageView: View {
 			}
 			.padding()
 		}
-		 .navigationTitle("Update Stage")
+		.navigationTitle("Update Stage")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden(true)
 		.onAppear {
@@ -44,11 +44,6 @@ struct UpdateStageView: View {
 		}
 		.toolbar {
 			ToolbarItem(placement: .topBarLeading) { cancelButton }
-//			ToolbarItem(placement: .principal) { 
-//				Text("Update Stage") 
-//					.font(.handjet(.extraBold, size: 20))
-//					.foregroundStyle(Color.theme.textPrimary)
-//			}
 			ToolbarItem(placement: .topBarTrailing) { saveChangesButton }
 		}
 		.onChange(of: viewModel.selectedStage) { viewModel.plantStageUpdated = true }

@@ -30,7 +30,7 @@ extension EventCardView {
 	
 	private var eventTitle: some View {
 		Text(event.wrappedTitle)
-			.font(.handjet(.bold, size: 20))
+			.font(.handjet(.bold, size: 22))
 			.foregroundStyle(Color.theme.textPrimary)
 	}
 	

@@ -20,7 +20,7 @@ struct CategorySelectionCard: View {
 		VStack(alignment: .leading, spacing: 5) {
 			HStack(spacing: 8) {
 				Text(category.wrappedName)
-					.font(.handjet(.bold, size: 20))
+					.font(.handjet(.bold, size: 22))
 					.foregroundStyle(Color.theme.textPrimary)
 				
 				if !category.tasksList.isEmpty {
