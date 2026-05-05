@@ -24,8 +24,8 @@ struct CategoryCreationView: View {
 				ScrollView(showsIndicators: false) {
 					VStack(spacing: 15) {
 						TextInput(
-							inputHeader: "Category Name",
-							headerDescription: nil, 
+							inputLabel: "Category Name",
+							labelDescription: nil, 
 							inputPlaceholder: "e.g. Wishlist",
 							text: $viewModel.taskCategoryInput
 						)

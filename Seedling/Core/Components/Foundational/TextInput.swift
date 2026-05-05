@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TextInput: View {
 	
-	let inputHeader: String
-	let headerDescription: String?
+	let inputLabel: String
+	let labelDescription: String?
 	
 	let inputPlaceholder: String
 	
@@ -19,11 +19,11 @@ struct TextInput: View {
 	var body: some View {
 		VStack(alignment: .leading, spacing: 8) {
 			HStack {
-				Text(inputHeader)
+				Text(inputLabel)
 					.font(.handjet(.bold, size: 20))
 					.foregroundStyle(Color.theme.textPrimary)
 				
-				if let description = headerDescription {
+				if let description = labelDescription {
 					Text("(\(description))")
 						.font(.handjet(.regular, size: 18))
 						.foregroundStyle(Color.theme.textSecondary)
@@ -42,11 +42,11 @@ struct TextInput: View {
 	}
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
 	ZStack {
 		Color.theme.backgroundPrimary
 			.ignoresSafeArea()
 		
-		TextInput(inputHeader: "Variety", headerDescription: "Optional", inputPlaceholder: "e.g. Beefsteak, Roma", text: .constant(""))
+		TextInput(inputLabel: "Variety", labelDescription: "Optional", inputPlaceholder: "e.g. Beefsteak, Roma", text: .constant(""))
 	}
 }

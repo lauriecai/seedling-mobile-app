@@ -70,7 +70,7 @@ struct EditPhotoView: View {
 extension EditPhotoView {
 	
 	private var noteBodyInput: some View {
-		TextEditorInput(inputHeader: "Description", headerDescription: "Optional", inputPlaceholder: "Start writing...", accentTheme: true, text: $viewModel.caption)
+		TextEditorInput(inputLabel: "Description", labelDescription: "Optional", inputPlaceholder: "Start writing...", accentTheme: true, text: $viewModel.caption)
 	}
 	
 	private var addPhotoButton: some View {

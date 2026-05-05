@@ -68,15 +68,15 @@ struct AddPlantView: View {
 extension AddPlantView {
 	
 	private var plantTextInput: some View {
-		TextInput(inputHeader: "Name", headerDescription: nil, inputPlaceholder: "e.g. Tomato", text: $viewModel.plantNameInput)
+		TextInput(inputLabel: "Name", labelDescription: nil, inputPlaceholder: "e.g. Tomato", text: $viewModel.plantNameInput)
 	}
 	
 	private var plantVarietyInput: some View {
-		TextInput(inputHeader: "Variety", headerDescription: "Optional", inputPlaceholder: "e.g. Beefsteak, Roma", text: $viewModel.plantVarietyInput)
+		TextInput(inputLabel: "Variety", labelDescription: "Optional", inputPlaceholder: "e.g. Beefsteak, Roma", text: $viewModel.plantVarietyInput)
 	}
 	
 	private var plantStageSelection: some View {
-		VStack(alignment: .leading, spacing: 10) {
+		VStack(alignment: .leading, spacing: 8) {
 			ButtonPillRow(rowLabel: "Stage", items: PlantStage.allCases, accentTheme: true, selectedItem: $viewModel.selectedStage, selectedIndex: $viewModel.selectedStageIndex)
 			
 			selectedPlantStageDefinition

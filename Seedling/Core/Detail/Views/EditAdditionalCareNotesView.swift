@@ -24,7 +24,7 @@ struct EditAdditionalCareNotesView: View {
 					VStack(alignment: .leading, spacing: 15) {
 						header
 						
-						TextEditorInput(inputHeader: nil, headerDescription: nil, inputPlaceholder: "Start writing...", accentTheme: false, text: $viewModel.additionalCareNotesInput)
+						TextEditorInput(inputLabel: nil, labelDescription: nil, inputPlaceholder: "Start writing...", accentTheme: false, text: $viewModel.additionalCareNotesInput)
 							.focused($keyboardFocused)
 							.onAppear { keyboardFocused.toggle() }
 					}
