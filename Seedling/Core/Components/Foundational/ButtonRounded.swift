@@ -9,17 +9,39 @@ import SwiftUI
 
 struct ButtonRounded: View {
 	
-	let iconName: String?
-	let text: String
-	
-	init(text: String) {
-		self.text = text
-		self.iconName = nil
+	enum Style {
+		case light
+		case green
+		
+		var foregroundColor: Color {
+			switch self {
+			case .light: Color.theme.accentGreen
+			case .green: Color.theme.textLight
+			}
+		}
+		
+		var backgroundColor: Color {
+			switch self {
+			case .light: Color.theme.backgroundLight
+			case .green: Color.theme.accentGreen
+			}
+		}
 	}
 	
-	init(iconName: String, text: String) {
+	let iconName: String?
+	let text: String
+	let style: Style
+	
+	init(text: String, style: Style = .light) {
+		self.text = text
+		self.iconName = nil
+		self.style = style
+	}
+	
+	init(iconName: String, text: String, style: Style = .light) {
 		self.iconName = iconName
 		self.text = text
+		self.style = style
 	}
 	
     var body: some View {
@@ -34,8 +56,8 @@ struct ButtonRounded: View {
 				.frame(height: 55)
 		}
 		.padding(.horizontal, 20)
-		.foregroundStyle(Color.theme.accentGreen)
-		.background(Color.theme.backgroundLight)
+		.foregroundStyle(style.foregroundColor)
+		.background(style.backgroundColor)
 		.clipShape(
 			RoundedRectangle(cornerRadius: 100)
 		)
