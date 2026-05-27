@@ -16,7 +16,7 @@ struct ButtonRounded: View {
 		var foregroundColor: Color {
 			switch self {
 			case .light: Color.theme.accentGreen
-			case .green: Color.theme.textLight
+			case .green: Color.theme.textWhite
 			}
 		}
 		
