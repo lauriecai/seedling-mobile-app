@@ -81,6 +81,11 @@
 		D3FCA4DC2C0F91D400DC2213 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4DB2C0F91D400DC2213 /* TasksViewModel.swift */; };
 		D3FCA4DE2C0FB12F00DC2213 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4DD2C0FB12F00DC2213 /* UINavigationController.swift */; };
 		D3FCA4E42C1252EB00DC2213 /* TabItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA4E32C1252EB00DC2213 /* TabItemsPreferenceKey.swift */; };
+		D3PK00022F28000100000002 /* PickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3PK00012F28000100000001 /* PickerRow.swift */; };
+		D3HP00062F26000100000006 /* PlantSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3HP00052F26000100000005 /* PlantSelectionView.swift */; };
+		D3HP00082F26000100000008 /* HomeAddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3HP00072F26000100000007 /* HomeAddNoteView.swift */; };
+		D3HP000A2F2600010000000A /* HomeAddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3HP00092F26000100000009 /* HomeAddPhotoView.swift */; };
+		D3HP000C2F2600010000000C /* HomeUpdateStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3HP000B2F2600010000000B /* HomeUpdateStageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +162,11 @@
 		D3FCA4DB2C0F91D400DC2213 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		D3FCA4DD2C0FB12F00DC2213 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		D3FCA4E32C1252EB00DC2213 /* TabItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemsPreferenceKey.swift; sourceTree = "<group>"; };
+		D3PK00012F28000100000001 /* PickerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerRow.swift; sourceTree = "<group>"; };
+		D3HP00052F26000100000005 /* PlantSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantSelectionView.swift; sourceTree = "<group>"; };
+		D3HP00072F26000100000007 /* HomeAddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNoteView.swift; sourceTree = "<group>"; };
+		D3HP00092F26000100000009 /* HomeAddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddPhotoView.swift; sourceTree = "<group>"; };
+		D3HP000B2F2600010000000B /* HomeUpdateStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUpdateStageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +212,7 @@
 				D3EA61C02B8FEA69002676F4 /* TextEditorInput.swift */,
 				D38AB78D2BBF2605006B015B /* MenuKebab.swift */,
 				D3243A042CA35519004873C0 /* ChevronRight.swift */,
+				D3PK00012F28000100000001 /* PickerRow.swift */,
 				D349D9E22BE2EF4D0081ABE5 /* TextPill.swift */,
 			);
 			path = Foundational;
@@ -265,6 +276,10 @@
 			children = (
 				D3385B6C2B16EB1F0055234B /* HomeView.swift */,
 				D3EFDE082B76B70C00A6D22C /* AddPlantView.swift */,
+				D3HP00052F26000100000005 /* PlantSelectionView.swift */,
+				D3HP00072F26000100000007 /* HomeAddNoteView.swift */,
+				D3HP00092F26000100000009 /* HomeAddPhotoView.swift */,
+				D3HP000B2F2600010000000B /* HomeUpdateStageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -338,6 +353,7 @@
 				D3A54D942C18CC8D00D9DE3C /* Plant+Extension.swift */,
 				D37A30D32C2E058000633D83 /* Photo+Extension.swift */,
 				D3A54D962C18CCDF00D9DE3C /* Task+Extension.swift */,
+				D3A54D982C18CD1000D9DE3C /* TaskCategory+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -402,7 +418,6 @@
 				D37A30D52C3475B200633D83 /* Extensions */,
 				D31FBCF72B8D1CC500C10F9D /* PlantEnums.swift */,
 				D38AB78F2BBF6F95006B015B /* PlantPost.swift */,
-				D3A54D982C18CD1000D9DE3C /* TaskCategory+Extension.swift */,
 				D37A30E72C3DA11700633D83 /* EditPhotoMode.swift */,
 			);
 			path = Models;
@@ -518,7 +533,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					D36D58212B156DD100E541E4 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -658,6 +673,11 @@
 				D31FBCF62B8D199200C10F9D /* TextInput.swift in Sources */,
 				D3F00EC12BF575EC006C7A5C /* EditAdditionalCareNotesView.swift in Sources */,
 				D39187CC2BF5248100A7B375 /* EditGeneralDetailsCardView.swift in Sources */,
+				D3PK00022F28000100000002 /* PickerRow.swift in Sources */,
+				D3HP00062F26000100000006 /* PlantSelectionView.swift in Sources */,
+				D3HP00082F26000100000008 /* HomeAddNoteView.swift in Sources */,
+				D3HP000A2F2600010000000A /* HomeAddPhotoView.swift in Sources */,
+				D3HP000C2F2600010000000C /* HomeUpdateStageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +719,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -722,6 +743,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -762,6 +784,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -778,6 +801,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -794,7 +818,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Seedling/Preview Content\"";
-				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seedling/Info.plist;
@@ -838,7 +861,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Seedling/Preview Content\"";
-				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seedling/Info.plist;
