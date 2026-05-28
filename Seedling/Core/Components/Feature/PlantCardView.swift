@@ -57,6 +57,7 @@ extension PlantCardView {
 	private var plantActions: some View {
 		HStack(alignment: .center, spacing: 30) {
 			ChevronRight()
+				.font(.handjet(.bold, size: 20))
 			moreOptions
 		}
 		.padding(.leading, 8)
