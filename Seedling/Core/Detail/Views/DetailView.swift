@@ -59,9 +59,10 @@ struct DetailView: View {
 		}
 		.photosPicker(isPresented: $viewModel.showingPhotosPicker, selection: $imagePickerService.selectedPhotosPickerItem)
 		.onChange(of: imagePickerService.selectedImage) { _, newImage in
-			if let newImage {
-				editPhotoMode = .create(viewModel.plant, newImage)
-			}
+			guard let newImage, imagePickerService.pickerSource == .detail else { return }
+			editPhotoMode = .create(viewModel.plant, newImage)
+			imagePickerService.clearPickerState()
+			viewModel.showingPhotosPicker = false
 		}
 		.sheet(item: $editPhotoMode) {
 			$0.onDisappear {
@@ -214,7 +215,7 @@ extension DetailView {
 			.onTapGesture {
 				FirebaseEventManager.shared.logEvent(name: "addPhotoButton_tapped")
 				UIImpactFeedbackGenerator(style: .light).impactOccurred()
-				imagePickerService.selectedPhotosPickerItem = nil
+				imagePickerService.prepareForPicker(source: .detail)
 				viewModel.showingPhotosPicker.toggle()
 				viewModel.showingAddPostOptions.toggle()
 			}

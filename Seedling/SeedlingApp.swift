@@ -13,7 +13,6 @@ struct SeedlingApp: App {
 	
 	@UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 	
-	@StateObject private var viewModel = HomeViewModel()
 	@StateObject private var imagePickerService = ImagePickerService()
 	
 	@State private var showLaunchView: Bool = true
@@ -28,7 +27,6 @@ struct SeedlingApp: App {
     var body: some Scene {
 		WindowGroup {
 			ContentView()
-				.environmentObject(viewModel)
 				.environmentObject(imagePickerService)
 		}
     }

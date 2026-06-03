@@ -9,11 +9,24 @@ import SwiftUI
 
 struct AddPlantView: View {
 	
-	@EnvironmentObject private var viewModel: HomeViewModel
+	@ObservedObject var viewModel: HomeViewModel
 	
 	@Environment(\.dismiss) var dismiss
 	
 	@FocusState private var keyboardFocused: Bool
+	
+	private let presentation: AddPlantPresentation
+	private let onPlantCreated: ((Plant) -> Void)?
+	
+	init(
+		viewModel: HomeViewModel,
+		presentation: AddPlantPresentation = .standalone,
+		onPlantCreated: ((Plant) -> Void)? = nil
+	) {
+		self.viewModel = viewModel
+		self.presentation = presentation
+		self.onPlantCreated = onPlantCreated
+	}
 	
     var body: some View {
 		NavigationStack {
@@ -43,7 +56,7 @@ struct AddPlantView: View {
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationBarBackButtonHidden(true)
 				.toolbar {
-					ToolbarItem(placement: .topBarLeading) { cancelButton }
+					ToolbarItem(placement: .topBarLeading) { leadingButton }
 					ToolbarItem(placement: .topBarTrailing) {
 						if viewModel.editingExistingPlant {
 							saveChangesButton
@@ -62,7 +75,7 @@ struct AddPlantView: View {
 }
 
 #Preview {
-    AddPlantView()
+    AddPlantView(viewModel: HomeViewModel())
 }
 
 extension AddPlantView {
@@ -99,12 +112,14 @@ extension AddPlantView {
 		Button("Add Plant") {
 			FirebaseEventManager.shared.logEvent(name: "addPlantButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
-			viewModel.addPlant(
+			let newPlant = viewModel.addPlant(
 				name: viewModel.plantNameInput,
 				variety: viewModel.plantVarietyInput,
 				stage: viewModel.selectedStage.rawValue,
 				type: viewModel.selectedType.rawValue
 			)
+			
+			onPlantCreated?(newPlant)
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
@@ -133,10 +148,12 @@ extension AddPlantView {
 		.disabled(!viewModel.plantDetailsEdited)
 	}
 	
-	private var cancelButton: some View {
-		Button("Cancel") {
+	private var leadingButton: some View {
+		Button(presentation.usesBackButton ? "Back" : "Cancel") {
 			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
-			viewModel.resetAddPlantFormInputsAndFlags()
+			if presentation.resetsFormOnDismiss {
+				viewModel.resetAddPlantFormInputsAndFlags()
+			}
 			dismiss()
 		}
 		.font(.handjet(.medium, size: 20))
