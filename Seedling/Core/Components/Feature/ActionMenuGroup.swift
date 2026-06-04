@@ -22,31 +22,19 @@ struct ActionMenuGroup: View {
 			if isExpanded {
 				VStack(alignment: .trailing, spacing: 12) {
 					ButtonRounded(iconName: "pencil", text: "Add Note")
-						.onTapGesture {
-							UIImpactFeedbackGenerator(style: .light).impactOccurred()
-							onAddNote()
-						}
+						.onTapGesture { tap(onAddNote) }
 
 					ButtonRounded(iconName: "photo", text: "Add Photo")
-						.onTapGesture {
-							UIImpactFeedbackGenerator(style: .light).impactOccurred()
-							onAddPhoto()
-						}
+						.onTapGesture { tap(onAddPhoto) }
 
 					if let onUpdateStage {
 						ButtonRounded(iconName: "sparkles", text: "Update Stage")
-							.onTapGesture {
-								UIImpactFeedbackGenerator(style: .light).impactOccurred()
-								onUpdateStage()
-							}
+							.onTapGesture { tap(onUpdateStage) }
 					}
 
 					if let onNewPlant {
 						ButtonRounded(iconName: "plus", text: "New Plant", style: .green)
-							.onTapGesture {
-								UIImpactFeedbackGenerator(style: .light).impactOccurred()
-								onNewPlant()
-							}
+							.onTapGesture { tap(onNewPlant) }
 					}
 				}
 			}
@@ -59,6 +47,11 @@ struct ActionMenuGroup: View {
 }
 
 extension ActionMenuGroup {
+
+	private func tap(_ action: () -> Void) {
+		UIImpactFeedbackGenerator(style: .light).impactOccurred()
+		action()
+	}
 
 	private var toggleButton: some View {
 		ButtonCircle(iconName: "icon-plus")
