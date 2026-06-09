@@ -30,16 +30,16 @@ struct HomeView: View {
 				}
 				.padding(.horizontal)
 				
-				if viewModel.showingCreateActionMenu {
-					darkOverlay
+				if viewModel.showingActionMenu {
+					DarkOverlay { viewModel.closeActionMenu() }
 				}
-				
-				createActionGroup
+
+				actionMenuGroup
 			}
 			.onAppear {
 				FirebaseEventManager.shared.logEvent(name: "HomeView_appeared")
 				viewModel.fetchPlants()
-				viewModel.showingCreateActionMenu = false
+				viewModel.showingActionMenu = false
 			}
 			.sheet(item: $viewModel.activeSheet) { sheet in
 				homeSheetContent(for: sheet)
@@ -87,7 +87,7 @@ struct HomeView: View {
 		case .addNote:
 			HomeAddNoteView(viewModel: viewModel)
 		case .addPhoto:
-			HomeAddPhotoView(viewModel: viewModel)
+			HomeEditPhotoView(viewModel: viewModel)
 		case .updateStage:
 			HomeUpdateStageView(viewModel: viewModel)
 		}
@@ -150,72 +150,31 @@ extension HomeView {
 		}
 	}
 	
-	private var createActionGroup: some View {
-		VStack(alignment: .trailing, spacing: 20) {
-			if viewModel.showingCreateActionMenu {
-				createActionButtons
-			}
-			
-			createMenuToggleButton
-		}
-		.padding(.horizontal, 20)
-		.padding(.bottom, 85)
-	}
-	
-	private var createActionButtons: some View {
-		VStack(alignment: .trailing, spacing: 12) {
-			ButtonRounded(iconName: "pencil", text: "Add Note")
-				.onTapGesture {
-					FirebaseEventManager.shared.logEvent(name: "homeAddNoteButton_tapped")
-					UIImpactFeedbackGenerator(style: .light).impactOccurred()
-					viewModel.openAddNoteFromMenu()
-				}
-			
-			ButtonRounded(iconName: "photo", text: "Add Photo")
-				.onTapGesture {
-					FirebaseEventManager.shared.logEvent(name: "homeAddPhotoButton_tapped")
-					UIImpactFeedbackGenerator(style: .light).impactOccurred()
-					imagePickerService.prepareForPicker(source: .home)
-					viewModel.openAddPhotoFromMenu()
-				}
-			
-			if viewModel.canShowUpdateStageAction {
-				ButtonRounded(iconName: "sparkles", text: "Update Stage")
-					.onTapGesture {
-						FirebaseEventManager.shared.logEvent(name: "homeUpdateStageButton_tapped")
-						UIImpactFeedbackGenerator(style: .light).impactOccurred()
-						viewModel.openUpdateStageFromMenu()
-					}
-			}
-			
-			ButtonRounded(iconName: "plus", text: "New Plant", style: .green)
-				.onTapGesture {
-					FirebaseEventManager.shared.logEvent(name: "homeNewPlantButton_tapped")
-					UIImpactFeedbackGenerator(style: .light).impactOccurred()
-					viewModel.openAddPlantFromMenu()
-				}
-		}
-	}
-	
-	private var createMenuToggleButton: some View {
-		ButtonCircle(iconName: "icon-plus")
-			.frame(width: 65, height: 65)
-			.onTapGesture {
+	private var actionMenuGroup: some View {
+		ActionMenuGroup(
+			isExpanded: $viewModel.showingActionMenu,
+			onToggle: {
 				FirebaseEventManager.shared.logEvent(name: "homeCreateMenuButton_tapped")
-				UIImpactFeedbackGenerator(style: .light).impactOccurred()
-				withAnimation(Animation.bouncy(duration: 0.25, extraBounce: 0.10)) {
-					viewModel.showingCreateActionMenu.toggle()
-				}
+				viewModel.showingActionMenu.toggle()
+			},
+			onAddNote: {
+				FirebaseEventManager.shared.logEvent(name: "homeAddNoteButton_tapped")
+				viewModel.openAddNoteFromMenu()
+			},
+			onAddPhoto: {
+				FirebaseEventManager.shared.logEvent(name: "homeAddPhotoButton_tapped")
+				imagePickerService.prepareForPicker(source: .home)
+				viewModel.openAddPhotoFromMenu()
+			},
+			onUpdateStage: viewModel.canShowUpdateStageAction ? {
+				FirebaseEventManager.shared.logEvent(name: "homeUpdateStageButton_tapped")
+				viewModel.openUpdateStageFromMenu()
+			} : nil,
+			onNewPlant: {
+				FirebaseEventManager.shared.logEvent(name: "homeNewPlantButton_tapped")
+				viewModel.openAddPlantFromMenu()
 			}
-			.rotationEffect(viewModel.showingCreateActionMenu ? .degrees(45) : .degrees(0))
-	}
-	
-	private var darkOverlay: some View {
-		Color.black.opacity(0.30)
-			.ignoresSafeArea()
-			.onTapGesture {
-				viewModel.closeCreateActionMenu()
-			}
+		)
 	}
 	
 	private var editPlantNameButton: some View {
