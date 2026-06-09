@@ -31,9 +31,9 @@ struct DetailView: View {
 			
 			postsList
 			
-			if viewModel.showingAddPostOptions { darkOverlay }
-			
-			addPostActionGroup
+			if viewModel.showingActionMenu { DarkOverlay { viewModel.showingActionMenu = false } }
+
+			actionMenuGroup
 		}
 		.navigationTitle(viewModel.plant.wrappedFullNameLabel)
 		.navigationBarTitleDisplayMode(.inline)
@@ -45,7 +45,7 @@ struct DetailView: View {
 		.onAppear {
 			FirebaseEventManager.shared.logEvent(name: "DetailView_appeared")
 			viewModel.fetchPosts(for: viewModel.plant)
-			viewModel.showingAddPostOptions = false
+			viewModel.showingActionMenu = false
 		}
 		.sheet(isPresented: $viewModel.showingAddNoteView) {
 			NavigationView {
@@ -64,8 +64,16 @@ struct DetailView: View {
 			imagePickerService.clearPickerState()
 			viewModel.showingPhotosPicker = false
 		}
-		.sheet(item: $editPhotoMode) {
-			$0.onDisappear {
+		.sheet(item: $editPhotoMode) { mode in
+			NavigationView {
+				switch mode {
+				case .create(let plant, let image):
+					EditPhotoView(viewModel: EditPhotoViewModel(plant: plant, newImage: image))
+				case .edit(let plant, let photo):
+					EditPhotoView(viewModel: EditPhotoViewModel(plant: plant, existingPhoto: photo))
+				}
+			}
+			.onDisappear {
 				viewModel.fetchPosts(for: viewModel.plant)
 			}
 		}
@@ -181,73 +189,29 @@ extension DetailView {
 		PhotoCardView(photo: photo, showActionSheet: $viewModel.showPhotoActionSheet, showActionsForPhoto: $viewModel.selectedPhoto)
 	}
 	
-	private var addPostActionGroup: some View {
-		VStack(alignment: .trailing, spacing: 20) {
-			if viewModel.showingAddPostOptions {
-				addPostOptionsButtons
-			}
-			
-			addPostButton
-		}
-		.padding(.horizontal, 20)
-		.padding(.bottom, 85)
-	}
-	
-	private var addPostOptionsButtons: some View {
-		VStack(alignment: .trailing, spacing: 12) {
-			addNoteButton
-			addPhotoButton
-			updateStageButton
-		}
-	}
-	
-	private var addNoteButton: some View {
-		ButtonRounded(iconName: "pencil", text: "Add Note")
-			.onTapGesture {
+	private var actionMenuGroup: some View {
+		ActionMenuGroup(
+			isExpanded: $viewModel.showingActionMenu,
+			onToggle: {
+				FirebaseEventManager.shared.logEvent(name: "addPostButton_tapped")
+				viewModel.showingActionMenu.toggle()
+			},
+			onAddNote: {
 				FirebaseEventManager.shared.logEvent(name: "addNoteButton_tapped")
-				UIImpactFeedbackGenerator(style: .light).impactOccurred()
 				viewModel.showingAddNoteView.toggle()
-			}
-	}
-	
-	private var addPhotoButton: some View {
-		ButtonRounded(iconName: "photo", text: "Add Photo")
-			.onTapGesture {
+			},
+			onAddPhoto: {
 				FirebaseEventManager.shared.logEvent(name: "addPhotoButton_tapped")
-				UIImpactFeedbackGenerator(style: .light).impactOccurred()
 				imagePickerService.prepareForPicker(source: .detail)
 				viewModel.showingPhotosPicker.toggle()
-				viewModel.showingAddPostOptions.toggle()
-			}
-	}
-	
-	private var updateStageButton: some View {
-		ButtonRounded(iconName: "sparkles", text: "Update Stage")
-			.onTapGesture {
+				viewModel.showingActionMenu.toggle()
+			},
+			onUpdateStage: {
 				FirebaseEventManager.shared.logEvent(name: "updateStageButton_tapped")
-				UIImpactFeedbackGenerator(style: .light).impactOccurred()
 				viewModel.showingUpdateStageView = true
-			}
-	}
-	
-	private var addPostButton: some View {
-		ButtonCircle(iconName: "icon-plus")
-			.onTapGesture {
-				FirebaseEventManager.shared.logEvent(name: "addPostButton_tapped")
-				UIImpactFeedbackGenerator(style: .light).impactOccurred()
-				withAnimation(Animation.bouncy(duration: 0.25, extraBounce: 0.10)) {
-					viewModel.showingAddPostOptions.toggle()
-				}
-			}
-			.rotationEffect(viewModel.showingAddPostOptions ? .degrees(45) : .degrees(0))
-	}
-	
-	private var darkOverlay: some View {
-		Color.black.opacity(0.30)
-			.ignoresSafeArea()
-			.onTapGesture {
-				viewModel.showingAddPostOptions = false
-			}
+			},
+			onNewPlant: nil
+		)
 	}
 	
 	private var backButton: some View {
