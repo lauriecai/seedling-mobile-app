@@ -121,25 +121,25 @@ class HomeViewModel: ObservableObject {
 	
 //	MARK: - Home actions
 	
-	func openAddPlantFromMenu() {
+	func beginPlantDraft() {
 		closeActionMenu()
 		resetAddPlantFormInputsAndFlags()
 		activeSheet = .addPlant(.standalone)
 	}
 	
-	func openAddNoteFromMenu() {
+	func beginNoteDraft() {
 		closeActionMenu()
 		resetNoteDraft()
 		activeSheet = .addNote
 	}
 	
-	func openAddPhotoFromMenu() {
+	func beginPhotoDraft() {
 		closeActionMenu()
 		resetPhotoDraft()
 		showingPhotosPicker = true
 	}
 	
-	func openUpdateStageFromMenu() {
+	func beginStageDraft() {
 		closeActionMenu()
 		resetStageDraft()
 		activeSheet = .updateStage
@@ -226,7 +226,7 @@ class HomeViewModel: ObservableObject {
 		dismissActiveSheet()
 	}
 
-	func saveNoteDraft() {
+	func postNoteDraft() {
 		guard let plant = draftAssignedPlant else { return }
 		manager.addNote(for: plant, title: noteTitleInput, body: noteBodyInput)
 		resetNoteDraft()
@@ -244,7 +244,7 @@ class HomeViewModel: ObservableObject {
 		dismissActiveSheet()
 	}
 
-	func savePhotoDraft() {
+	func postPhotoDraft() {
 		guard let plant = draftAssignedPlant, let photoDraftViewModel else { return }
 		photoDraftViewModel.createPhoto(for: plant)
 		resetPhotoDraft()
@@ -264,7 +264,7 @@ class HomeViewModel: ObservableObject {
 		dismissActiveSheet()
 	}
 
-	func saveStageDraft() {
+	func postStageDraft() {
 		guard let plant = stageDraftPlant else { return }
 		manager.addStageUpdate(plant: plant, newStage: stageDraftSelectedStage.rawValue)
 		resetStageDraft()

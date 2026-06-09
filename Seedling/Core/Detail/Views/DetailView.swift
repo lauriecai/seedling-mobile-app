@@ -31,7 +31,7 @@ struct DetailView: View {
 			
 			postsList
 			
-			if viewModel.showingActionMenu { DarkOverlay { viewModel.showingActionMenu = false } }
+			if viewModel.showingActionMenu { DarkOverlay { viewModel.closeActionMenu() } }
 
 			actionMenuGroup
 		}
@@ -198,17 +198,17 @@ extension DetailView {
 			},
 			onAddNote: {
 				FirebaseEventManager.shared.logEvent(name: "addNoteButton_tapped")
-				viewModel.showingAddNoteView.toggle()
+				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
 				FirebaseEventManager.shared.logEvent(name: "addPhotoButton_tapped")
 				imagePickerService.prepareForPicker(source: .detail)
 				viewModel.showingPhotosPicker.toggle()
-				viewModel.showingActionMenu.toggle()
+				viewModel.closeActionMenu()
 			},
 			onUpdateStage: {
 				FirebaseEventManager.shared.logEvent(name: "updateStageButton_tapped")
-				viewModel.showingUpdateStageView = true
+				viewModel.beginStageDraft()
 			},
 			onNewPlant: nil
 		)

@@ -63,10 +63,7 @@ extension UpdateStageView {
 		Button("Save") {
 			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
-			if viewModel.plantStageUpdated {
-				viewModel.updatePlantStage(for: viewModel.plant)
-			}
-			viewModel.resetStageUpdatedFlag()
+			viewModel.postStageDraft()
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
@@ -77,7 +74,7 @@ extension UpdateStageView {
 	private var cancelButton: some View {
 		Button {
 			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
-			viewModel.resetStageUpdatedFlag()
+			viewModel.cancelStageDraft()
 			dismiss()
 		} label: {
 			Text("Cancel")

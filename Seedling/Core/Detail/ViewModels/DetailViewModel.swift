@@ -17,7 +17,7 @@ class DetailViewModel: ObservableObject {
 	@Published var plant: Plant
 	@Published var posts: [PlantPost] = []
 	
-	@Published var showingAddPostOptions: Bool = false
+	@Published var showingActionMenu: Bool = false
 	
 	// Add Note View
 	@Published var noteTitleInput: String = ""
@@ -135,9 +135,54 @@ class DetailViewModel: ObservableObject {
 		fetchPosts(for: plant)
 	}
 	
-	func resetStageUpdatedFlag() {
+	func closeActionMenu() {
+		showingActionMenu = false
+	}
+	
+	func beginNoteDraft() {
+		closeActionMenu()
+		resetNoteDraft()
+		showingAddNoteView = true
+	}
+	
+	func cancelNoteDraft() {
+		resetNoteDraft()
+		showingAddNoteView = false
+	}
+	
+	func postNoteDraft() {
+		guard !noteTitleInput.isEmpty || !noteBodyInput.isEmpty else { return }
+		addNote(for: plant, title: noteTitleInput, body: noteBodyInput)
+		resetNoteDraft()
+		showingAddNoteView = false
+	}
+	
+	func beginStageDraft() {
+		closeActionMenu()
+		resetStageDraft()
+		showingUpdateStageView = true
+	}
+	
+	func postStageDraft() {
+		guard plantStageUpdated else { return }
+		updatePlantStage(for: plant)
+		resetStageDraft()
+		showingUpdateStageView = false
+	}
+	
+	func cancelStageDraft() {
+		resetStageDraft()
+		showingUpdateStageView = false
+	}
+	
+	func resetStageDraft() {
+		fetchPlantStage(for: plant)
 		plantStageUpdated = false
-		showingAddPostOptions = false
+	}
+	
+	func resetStageUpdatedFlag() {
+		resetStageDraft()
+		closeActionMenu()
 	}
 	
 	func fetchPlantGeneralDetails(for plant: Plant) {
@@ -233,9 +278,13 @@ class DetailViewModel: ObservableObject {
 		noteBodyInput = note.wrappedBody
 	}
 	
-	func resetAddNoteFormInputs() {
+	func resetNoteDraft() {
 		resetTitleAndBodyTextFields()
 		editingExistingNote = false
+	}
+	
+	func resetAddNoteFormInputs() {
+		resetNoteDraft()
 	}
 	
 	func resetNoteEditedFlag() {

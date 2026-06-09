@@ -74,11 +74,7 @@ extension AddNoteView {
 		Button("Add Note") {
 			FirebaseEventManager.shared.logEvent(name: "addNoteButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
-			if !viewModel.noteBodyInput.isEmpty || !viewModel.noteTitleInput.isEmpty {
-				viewModel.addNote(for: viewModel.plant, title: viewModel.noteTitleInput, body: viewModel.noteBodyInput)
-			}
-			viewModel.showingAddPostOptions = false
-			viewModel.resetAddNoteFormInputs()
+			viewModel.postNoteDraft()
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
@@ -97,7 +93,7 @@ extension AddNoteView {
 					body: viewModel.noteBodyInput
 				)
 			}
-			viewModel.showingAddPostOptions = false
+			viewModel.closeActionMenu()
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
@@ -108,8 +104,13 @@ extension AddNoteView {
 	private var cancelButton: some View {
 		Button {
 			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
-			viewModel.showingAddPostOptions = false
-			dismiss()
+			if viewModel.editingExistingNote {
+				viewModel.closeActionMenu()
+				dismiss()
+			} else {
+				viewModel.cancelNoteDraft()
+				dismiss()
+			}
 		} label: {
 			Text("Cancel")
 				.font(.handjet(.medium, size: 20))

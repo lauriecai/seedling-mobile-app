@@ -159,20 +159,20 @@ extension HomeView {
 			},
 			onAddNote: {
 				FirebaseEventManager.shared.logEvent(name: "homeAddNoteButton_tapped")
-				viewModel.openAddNoteFromMenu()
+				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
 				FirebaseEventManager.shared.logEvent(name: "homeAddPhotoButton_tapped")
 				imagePickerService.prepareForPicker(source: .home)
-				viewModel.openAddPhotoFromMenu()
+				viewModel.beginPhotoDraft()
 			},
 			onUpdateStage: viewModel.canShowUpdateStageAction ? {
 				FirebaseEventManager.shared.logEvent(name: "homeUpdateStageButton_tapped")
-				viewModel.openUpdateStageFromMenu()
+				viewModel.beginStageDraft()
 			} : nil,
 			onNewPlant: {
 				FirebaseEventManager.shared.logEvent(name: "homeNewPlantButton_tapped")
-				viewModel.openAddPlantFromMenu()
+				viewModel.beginPlantDraft()
 			}
 		)
 	}
