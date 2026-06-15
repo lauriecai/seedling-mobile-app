@@ -20,12 +20,8 @@ class DetailViewModel: ObservableObject {
 	@Published var showingActionMenu: Bool = false
 	
 	// Add Note View
-	@Published var noteTitleInput: String = ""
-	@Published var noteBodyInput: String = ""
-	
-	@Published var editingExistingNote: Bool = false
-	@Published var noteEdited: Bool = false
-	
+	@Published var noteDraftViewModel = NoteDraftViewModel()
+
 	// Update Stage View
 	@Published var selectedStage: PlantStage
 	@Published var selectedStageIndex: Int
@@ -144,15 +140,16 @@ class DetailViewModel: ObservableObject {
 		resetNoteDraft()
 		showingAddNoteView = true
 	}
-	
+
 	func cancelNoteDraft() {
 		resetNoteDraft()
 		showingAddNoteView = false
 	}
-	
+
 	func postNoteDraft() {
-		guard !noteTitleInput.isEmpty || !noteBodyInput.isEmpty else { return }
-		addNote(for: plant, title: noteTitleInput, body: noteBodyInput)
+		guard noteDraftViewModel.canSave else { return }
+		noteDraftViewModel.createNote(for: plant)
+		fetchPosts(for: plant)
 		resetNoteDraft()
 		showingAddNoteView = false
 	}
@@ -258,42 +255,23 @@ class DetailViewModel: ObservableObject {
 		}
 	}
 	
-	func addNote(for plant: Plant, title: String, body: String) {
-		coreDataManager.addNote(for: plant, title: title, body: body)
-		fetchPosts(for: plant)
-	}
-	
 	func deleteNote(note: Note) {
 		coreDataManager.deleteNote(note: note)
 		fetchPosts(for: plant)
 	}
-	
-	func updateNoteTitleAndBody(for note: Note, title: String, body: String) {
-		coreDataManager.updateNoteTitleAndBody(for: note, title: title, body: body)
+
+	func updateNote(_ note: Note) {
+		noteDraftViewModel.updateNote(note)
 		fetchPosts(for: plant)
 	}
-	
-	func fetchExistingNoteTitleAndBody(for note: Note) {
-		noteTitleInput = note.wrappedTitle
-		noteBodyInput = note.wrappedBody
+
+	func beginEditingNote(_ note: Note) {
+		noteDraftViewModel = NoteDraftViewModel(existingNote: note)
+		showingAddNoteView = true
 	}
-	
+
 	func resetNoteDraft() {
-		resetTitleAndBodyTextFields()
-		editingExistingNote = false
-	}
-	
-	func resetAddNoteFormInputs() {
-		resetNoteDraft()
-	}
-	
-	func resetNoteEditedFlag() {
-		noteEdited = false
-	}
-	
-	private func resetTitleAndBodyTextFields() {
-		noteTitleInput = ""
-		noteBodyInput = ""
+		noteDraftViewModel = NoteDraftViewModel()
 	}
 	
 //	MARK: - Event functions

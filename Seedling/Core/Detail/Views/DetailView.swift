@@ -68,9 +68,9 @@ struct DetailView: View {
 			NavigationView {
 				switch mode {
 				case .create(let plant, let image):
-					EditPhotoView(viewModel: EditPhotoViewModel(plant: plant, newImage: image))
+					EditPhotoView(viewModel: PhotoDraftViewModel(plant: plant, newImage: image))
 				case .edit(let plant, let photo):
-					EditPhotoView(viewModel: EditPhotoViewModel(plant: plant, existingPhoto: photo))
+					EditPhotoView(viewModel: PhotoDraftViewModel(plant: plant, existingPhoto: photo))
 				}
 			}
 			.onDisappear {
@@ -164,12 +164,9 @@ extension DetailView {
 	private var editNoteButton: some View {
 		Button("Edit note") {
 			FirebaseEventManager.shared.logEvent(name: "editNoteButton_tapped")
-			viewModel.resetNoteEditedFlag()
-			
+
 			if let selectedNote = viewModel.selectedNote {
-				viewModel.editingExistingNote = true
-				viewModel.showingAddNoteView = true
-				viewModel.fetchExistingNoteTitleAndBody(for: selectedNote)
+				viewModel.beginEditingNote(selectedNote)
 			}
 		}
 	}

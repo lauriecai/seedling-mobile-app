@@ -11,18 +11,31 @@ private enum HomeAddNoteRoute: Hashable {
 }
 
 struct HomeAddNoteView: View {
-	
+
 	@ObservedObject var viewModel: HomeViewModel
-	
+
+	var body: some View {
+		HomeAddNoteContent(
+			viewModel: viewModel,
+			noteDraftViewModel: viewModel.noteDraftViewModel
+		)
+	}
+}
+
+private struct HomeAddNoteContent: View {
+
+	@ObservedObject var viewModel: HomeViewModel
+	@ObservedObject var noteDraftViewModel: NoteDraftViewModel
+
 	@State private var navigationPath = NavigationPath()
 	@FocusState private var keyboardFocused: Bool
-	
+
 	var body: some View {
 		NavigationStack(path: $navigationPath) {
 			ZStack {
 				Color.theme.backgroundPrimary
 					.ignoresSafeArea()
-				
+
 				ScrollView(showsIndicators: false) {
 					VStack(spacing: 15) {
 						NavigationLink(value: HomeAddNoteRoute.plantSelection) {
@@ -32,22 +45,22 @@ struct HomeAddNoteView: View {
 							)
 						}
 						.buttonStyle(.plain)
-						
+
 						TextInput(
 							inputLabel: "Title",
 							labelDescription: "Optional",
 							inputPlaceholder: "e.g. It sprouted!",
-							text: $viewModel.noteTitleInput
+							text: $noteDraftViewModel.titleInput
 						)
 						.focused($keyboardFocused)
 						.onAppear { keyboardFocused = true }
-						
+
 						TextEditorInput(
 							inputLabel: "Description",
 							labelDescription: "Optional",
 							inputPlaceholder: "Start writing...",
 							accentTheme: true,
-							text: $viewModel.noteBodyInput
+							text: $noteDraftViewModel.bodyInput
 						)
 					}
 					.padding(.horizontal)
@@ -86,7 +99,7 @@ struct HomeAddNoteView: View {
 			FirebaseEventManager.shared.logEvent(name: "HomeAddNoteView_appeared")
 		}
 	}
-	
+
 	private var addNoteButton: some View {
 		Button("Add Note") {
 			FirebaseEventManager.shared.logEvent(name: "HomeAddNote_saveButton_tapped")
@@ -97,7 +110,7 @@ struct HomeAddNoteView: View {
 		.foregroundStyle(viewModel.canSaveNoteDraft ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
 		.disabled(!viewModel.canSaveNoteDraft)
 	}
-	
+
 	private var cancelButton: some View {
 		Button("Cancel") {
 			FirebaseEventManager.shared.logEvent(name: "HomeAddNote_cancelButton_tapped")

@@ -10,39 +10,52 @@ private enum HomeUpdateStageRoute: Hashable {
 }
 
 struct HomeUpdateStageView: View {
-	
+
 	@ObservedObject var viewModel: HomeViewModel
-	
+
+	var body: some View {
+		HomeUpdateStageContent(
+			viewModel: viewModel,
+			stageDraftViewModel: viewModel.stageDraftViewModel
+		)
+	}
+}
+
+private struct HomeUpdateStageContent: View {
+
+	@ObservedObject var viewModel: HomeViewModel
+	@ObservedObject var stageDraftViewModel: StageDraftViewModel
+
 	@State private var navigationPath = NavigationPath()
-	
+
 	var body: some View {
 		NavigationStack(path: $navigationPath) {
 			ZStack {
 				Color.theme.backgroundPrimary
 					.ignoresSafeArea()
-				
+
 				ScrollView(showsIndicators: false) {
 					VStack(alignment: .leading, spacing: 15) {
 						NavigationLink(value: HomeUpdateStageRoute.plantSelection) {
 							PickerRow(
 								prompt: "Which plant is this for?",
-								selectedValue: viewModel.stageDraftPlant?.wrappedFullNameLabel ?? "None"
+								selectedValue: stageDraftViewModel.plant?.wrappedFullNameLabel ?? "None"
 							)
 						}
 						.buttonStyle(.plain)
-						
-						if viewModel.stageDraftPlant != nil {
+
+						if stageDraftViewModel.plant != nil {
 							Text("Select a new stage:")
 								.font(.handjet(.extraBold, size: 22))
 								.foregroundStyle(Color.theme.textPrimary)
 								.frame(maxWidth: .infinity, alignment: .leading)
-							
+
 							StageOptionsList(
 								items: PlantStage.allCases,
 								accentTheme: true,
 								selectedPillLabel: "Selected",
-								selectedItem: $viewModel.stageDraftSelectedStage,
-								selectedItemIndex: $viewModel.stageDraftSelectedStageIndex
+								selectedItem: $stageDraftViewModel.selectedStage,
+								selectedItemIndex: $stageDraftViewModel.selectedStageIndex
 							)
 						}
 					}
@@ -62,27 +75,27 @@ struct HomeUpdateStageView: View {
 					PlantSelectionView(
 						plants: viewModel.plants,
 						configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: false),
-						selectedPlant: $viewModel.stageDraftPlant
+						selectedPlant: $stageDraftViewModel.plant
 					)
 					.onDisappear {
 						viewModel.handleStageDraftPlantSelection()
 					}
 				}
 			}
-			.onChange(of: viewModel.stageDraftSelectedStage) { _, newStage in
-				guard let plant = viewModel.stageDraftPlant else {
-					viewModel.stageDraftUpdated = false
+			.onChange(of: stageDraftViewModel.selectedStage) { _, newStage in
+				guard let plant = stageDraftViewModel.plant else {
+					stageDraftViewModel.updated = false
 					return
 				}
 				let currentStage = PlantStage(rawValue: plant.wrappedStage) ?? .seedling
-				viewModel.stageDraftUpdated = newStage != currentStage
+				stageDraftViewModel.updated = newStage != currentStage
 			}
 		}
 		.onAppear {
 			FirebaseEventManager.shared.logEvent(name: "HomeUpdateStageView_appeared")
 		}
 	}
-	
+
 	private var saveButton: some View {
 		Button("Update Stage") {
 			FirebaseEventManager.shared.logEvent(name: "HomeUpdateStage_saveButton_tapped")

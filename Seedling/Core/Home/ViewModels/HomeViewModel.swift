@@ -90,33 +90,29 @@ class HomeViewModel: ObservableObject {
 	@Published var showingActionSheet: Bool = false
 	
 	// Note draft
-	@Published var noteTitleInput: String = ""
-	@Published var noteBodyInput: String = ""
+	@Published var noteDraftViewModel = NoteDraftViewModel()
 	@Published var draftAssignedPlant: Plant?
-	
+
 	// Photo draft
-	@Published var photoDraftViewModel: EditPhotoViewModel?
-	
+	@Published var photoDraftViewModel: PhotoDraftViewModel?
+
 	// Stage draft
-	@Published var stageDraftPlant: Plant?
-	@Published var stageDraftSelectedStage: PlantStage = .seed
-	@Published var stageDraftSelectedStageIndex: Int = 0
-	@Published var stageDraftUpdated: Bool = false
-	
+	@Published var stageDraftViewModel = StageDraftViewModel()
+
 	var canShowUpdateStageAction: Bool {
 		!plants.isEmpty
 	}
-	
+
 	var canSaveNoteDraft: Bool {
-		(!noteTitleInput.isEmpty || !noteBodyInput.isEmpty) && draftAssignedPlant != nil
+		noteDraftViewModel.canSave && draftAssignedPlant != nil
 	}
-	
+
 	var canSavePhotoDraft: Bool {
 		photoDraftViewModel != nil && draftAssignedPlant != nil
 	}
-	
+
 	var canSaveStageDraft: Bool {
-		stageDraftPlant != nil && stageDraftUpdated
+		stageDraftViewModel.canSave
 	}
 	
 //	MARK: - Home actions
@@ -146,7 +142,7 @@ class HomeViewModel: ObservableObject {
 	}
 	
 	func handlePhotoPickerResult(_ image: UIImage) {
-		photoDraftViewModel = EditPhotoViewModel(newImage: image)
+		photoDraftViewModel = PhotoDraftViewModel(newImage: image)
 		activeSheet = .addPhoto
 	}
 	
@@ -216,8 +212,7 @@ class HomeViewModel: ObservableObject {
 //	MARK: - Draft lifecycle
 	
 	func resetNoteDraft() {
-		noteTitleInput = ""
-		noteBodyInput = ""
+		noteDraftViewModel = NoteDraftViewModel()
 		draftAssignedPlant = nil
 	}
 
@@ -228,7 +223,7 @@ class HomeViewModel: ObservableObject {
 
 	func postNoteDraft() {
 		guard let plant = draftAssignedPlant else { return }
-		manager.addNote(for: plant, title: noteTitleInput, body: noteBodyInput)
+		noteDraftViewModel.createNote(for: plant)
 		resetNoteDraft()
 		fetchPlants()
 		dismissActiveSheet()
@@ -253,10 +248,7 @@ class HomeViewModel: ObservableObject {
 	}
 	
 	func resetStageDraft() {
-		stageDraftPlant = nil
-		stageDraftSelectedStage = .seed
-		stageDraftSelectedStageIndex = 0
-		stageDraftUpdated = false
+		stageDraftViewModel = StageDraftViewModel()
 	}
 
 	func cancelStageDraft() {
@@ -265,23 +257,14 @@ class HomeViewModel: ObservableObject {
 	}
 
 	func postStageDraft() {
-		guard let plant = stageDraftPlant else { return }
-		manager.addStageUpdate(plant: plant, newStage: stageDraftSelectedStage.rawValue)
+		stageDraftViewModel.postUpdate()
 		resetStageDraft()
 		fetchPlants()
 		dismissActiveSheet()
 	}
-	
-	func syncStageDraftSelection(for plant: Plant) {
-		let savedPlantStage = PlantStage(rawValue: plant.wrappedStage) ?? .seedling
-		stageDraftSelectedStage = savedPlantStage
-		stageDraftSelectedStageIndex = PlantStage.allCases.firstIndex(of: savedPlantStage) ?? 0
-		stageDraftUpdated = false
-	}
-	
+
 	func handleStageDraftPlantSelection() {
-		guard let plant = stageDraftPlant else { return }
-		syncStageDraftSelection(for: plant)
+		stageDraftViewModel.handlePlantSelection()
 	}
 	
 	private func resetNameAndVarietyTextFields() {

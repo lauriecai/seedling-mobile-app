@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EditPhotoView: View {
 	
-	@ObservedObject var viewModel: EditPhotoViewModel
+	@ObservedObject var viewModel: PhotoDraftViewModel
 	
 	@EnvironmentObject var imagePickerService: ImagePickerService
 	
@@ -77,7 +77,8 @@ extension EditPhotoView {
 		Button("Add Photo") {
 			FirebaseEventManager.shared.logEvent(name: "addPhotoButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
-			viewModel.createPhoto(for: viewModel.plant)
+			guard let plant = viewModel.plant else { return }
+			viewModel.createPhoto(for: plant)
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
@@ -88,7 +89,8 @@ extension EditPhotoView {
 		Button("Save") {
 			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
-			viewModel.saveChanges(for: viewModel.plant)
+			guard let plant = viewModel.plant else { return }
+			viewModel.saveChanges(for: plant)
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))

@@ -27,7 +27,7 @@ struct HomeEditPhotoView: View {
 private struct HomeEditPhotoContent: View {
 	
 	@ObservedObject var viewModel: HomeViewModel
-	@ObservedObject var photoDraftViewModel: EditPhotoViewModel
+	@ObservedObject var photoDraftViewModel: PhotoDraftViewModel
 	
 	@State private var navigationPath = NavigationPath()
 	@FocusState private var keyboardFocused: Bool
