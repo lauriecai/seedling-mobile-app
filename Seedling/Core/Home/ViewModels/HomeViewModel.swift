@@ -11,20 +11,20 @@ import UIKit
 
 enum HomeSheet: Identifiable {
 	case addPlant(AddPlantPresentation)
-	case addNote
-	case addPhoto
-	case updateStage
+	case noteDraft
+	case photoDraft
+	case stageDraft
 	
 	var id: String {
 		switch self {
 		case .addPlant(let presentation):
 			return "addPlant-\(presentation.id)"
-		case .addNote:
-			return "addNote"
-		case .addPhoto:
-			return "addPhoto"
-		case .updateStage:
-			return "updateStage"
+		case .noteDraft:
+			return "noteDraft"
+		case .photoDraft:
+			return "photoDraft"
+		case .stageDraft:
+			return "stageDraft"
 		}
 	}
 }
@@ -126,7 +126,7 @@ class HomeViewModel: ObservableObject {
 	func beginNoteDraft() {
 		closeActionMenu()
 		resetNoteDraft()
-		activeSheet = .addNote
+		activeSheet = .noteDraft
 	}
 	
 	func beginPhotoDraft() {
@@ -138,12 +138,12 @@ class HomeViewModel: ObservableObject {
 	func beginStageDraft() {
 		closeActionMenu()
 		resetStageDraft()
-		activeSheet = .updateStage
+		activeSheet = .stageDraft
 	}
 	
 	func handlePhotoPickerResult(_ image: UIImage) {
 		photoDraftViewModel = PhotoDraftViewModel(newImage: image)
-		activeSheet = .addPhoto
+		activeSheet = .photoDraft
 	}
 	
 	func closeActionMenu() {

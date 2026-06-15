@@ -47,14 +47,14 @@ struct DetailView: View {
 			viewModel.fetchPosts(for: viewModel.plant)
 			viewModel.showingActionMenu = false
 		}
-		.sheet(isPresented: $viewModel.showingAddNoteView) {
+		.sheet(isPresented: $viewModel.showingNoteDraftView) {
 			NavigationView {
-				AddNoteView(viewModel: viewModel)
+				NoteDraftView(viewModel: viewModel)
 			}
 		}
-		.sheet(isPresented: $viewModel.showingUpdateStageView) {
+		.sheet(isPresented: $viewModel.showingStageDraftView) {
 			NavigationView {
-				UpdateStageView(viewModel: viewModel)
+				StageDraftView(viewModel: viewModel)
 			}
 		}
 		.photosPicker(isPresented: $viewModel.showingPhotosPicker, selection: $imagePickerService.selectedPhotosPickerItem)
@@ -68,9 +68,9 @@ struct DetailView: View {
 			NavigationView {
 				switch mode {
 				case .create(let plant, let image):
-					EditPhotoView(viewModel: PhotoDraftViewModel(plant: plant, newImage: image))
+					PhotoDraftView(viewModel: PhotoDraftViewModel(plant: plant, newImage: image))
 				case .edit(let plant, let photo):
-					EditPhotoView(viewModel: PhotoDraftViewModel(plant: plant, existingPhoto: photo))
+					PhotoDraftView(viewModel: PhotoDraftViewModel(plant: plant, existingPhoto: photo))
 				}
 			}
 			.onDisappear {

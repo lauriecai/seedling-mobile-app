@@ -34,9 +34,9 @@ struct TasksView: View {
 				FirebaseEventManager.shared.logEvent(name: "TasksView_appeared")
 				viewModel.fetchTaskCategories()
 			}
-			.sheet(isPresented: $viewModel.showingAddTaskView) {
+			.sheet(isPresented: $viewModel.showingTaskDraftView) {
 				NavigationView {
-					AddTaskView(viewModel: viewModel)
+					TaskDraftView(viewModel: viewModel)
 				}
 			}
 			.confirmationDialog("Task Options", isPresented: $viewModel.showingActionSheet) {
@@ -105,7 +105,7 @@ extension TasksView {
 			.onTapGesture {
 				FirebaseEventManager.shared.logEvent(name: "addTaskButton_tapped")
 				UIImpactFeedbackGenerator(style: .light).impactOccurred()
-				viewModel.showingAddTaskView.toggle()
+				viewModel.beginTaskDraft()
 			}
 	}
 	
@@ -115,9 +115,7 @@ extension TasksView {
 			viewModel.resetTaskDetailsChangedFlag()
 			
 			if let selectedTask = viewModel.selectedTask {
-				viewModel.editingExistingTask = true
-				viewModel.showingAddTaskView = true
-				viewModel.fetchExistingTaskDetails(for: selectedTask)
+				viewModel.beginEditingTask(selectedTask)
 			}
 		}
 	}

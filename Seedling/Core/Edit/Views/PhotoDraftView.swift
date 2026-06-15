@@ -1,5 +1,5 @@
 //
-//  EditPhotoView.swift
+//  PhotoDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 7/2/24.
@@ -8,7 +8,7 @@
 import PhotosUI
 import SwiftUI
 
-struct EditPhotoView: View {
+struct PhotoDraftView: View {
 	
 	@ObservedObject var viewModel: PhotoDraftViewModel
 	
@@ -34,7 +34,7 @@ struct EditPhotoView: View {
 						.clipShape(RoundedRectangle(cornerRadius: 8))
 						.frame(maxHeight: 300)
 					
-					noteBodyInput
+					photoCaptionInput
 						.focused($keyboardFocused)
 						.onAppear { keyboardFocused.toggle() }
 					
@@ -44,7 +44,7 @@ struct EditPhotoView: View {
 			}
 		}
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "EditPhotoView_appeared")
+			FirebaseEventManager.shared.logEvent(name: "PhotoDraftView_appeared")
 		}
 		.navigationTitle(viewModel.editingExistingImage ? "Edit Caption" : "New Photo")
 		.navigationBarTitleDisplayMode(.inline)
@@ -67,9 +67,9 @@ struct EditPhotoView: View {
     }
 }
 
-extension EditPhotoView {
+extension PhotoDraftView {
 	
-	private var noteBodyInput: some View {
+	private var photoCaptionInput: some View {
 		TextEditorInput(inputLabel: "Description", labelDescription: "Optional", inputPlaceholder: "Start writing...", accentTheme: true, text: $viewModel.caption)
 	}
 	

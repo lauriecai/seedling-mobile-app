@@ -15,16 +15,8 @@ class TasksViewModel: ObservableObject {
 	// Tasks View
 	@Published var taskCategories: [TaskCategory] = []
 	
-	// Add Task View
-	@Published var taskTitleInput: String = ""
-	
-	@Published var editingExistingTask: Bool = false
-	@Published var taskDetailsEdited: Bool = false
-	
-	
-	// Category Selection View
-	@Published var selectedCategory: TaskCategory? = nil
-	@Published var selectedCategoryIndex: Int = 0
+	// Task draft
+	@Published var taskDraftViewModel = TaskDraftViewModel()
 	
 	@Published var showingActionSheet: Bool = false
 	
@@ -34,7 +26,7 @@ class TasksViewModel: ObservableObject {
 	@Published var taskCategoryInput: String = ""
 	
 	// Segues
-	@Published var showingAddTaskView: Bool = false
+	@Published var showingTaskDraftView: Bool = false
 	
 	@Published var selectedTask: TaskItem? = nil
 	
@@ -46,7 +38,7 @@ class TasksViewModel: ObservableObject {
 			fetchTaskCategories()
 		}
 		
-		selectedCategory = taskCategories.first(where: { $0.name == "None" })
+		taskDraftViewModel.selectDefaultCategory(from: taskCategories)
 	}
 	
 	//	MARK: - Task Category functions
@@ -59,6 +51,9 @@ class TasksViewModel: ObservableObject {
 			prioritizeNoneCategory(in: &categories)
 			
 			taskCategories = categories
+			if taskDraftViewModel.selectedCategory == nil {
+				taskDraftViewModel.selectDefaultCategory(from: taskCategories)
+			}
 		} catch let error {
 			print("Error fetching task categories from Core Data. \(error)")
 		}
@@ -91,21 +86,34 @@ class TasksViewModel: ObservableObject {
 	
 	//	MARK: - Task functions
 	
-	func addTask(categoryName: String, title: String) {
-		manager.addTask(categoryName: categoryName, title: title, isCompleted: false)
-		resetTaskTitleAndCategoryNameInputsAndFlags()
+	func beginTaskDraft() {
+		resetTaskDraft()
+		showingTaskDraftView = true
+	}
+	
+	func beginEditingTask(_ task: TaskItem) {
+		resetTaskDetailsChangedFlag()
+		taskDraftViewModel = TaskDraftViewModel(existingTask: task, categories: taskCategories)
+		showingTaskDraftView = true
+	}
+	
+	func cancelTaskDraft() {
+		resetTaskDraft()
+		showingTaskDraftView = false
+	}
+	
+	func postTaskDraft() {
+		guard taskDraftViewModel.canSave else { return }
+		taskDraftViewModel.createTask()
+		resetTaskDraft()
 		eraseCategoryNameInput()
 		fetchTaskCategories()
+		showingTaskDraftView = false
 	}
 	
-	func updateTask(task: TaskItem, title: String, categoryName: String) {
-		manager.updateTask(task: task, title: title, categoryName: categoryName)
+	func updateTask(_ task: TaskItem) {
+		taskDraftViewModel.updateTask(task)
 		fetchTaskCategories()
-	}
-	
-	func fetchExistingTaskDetails(for task: TaskItem) {
-		taskTitleInput = task.wrappedTitle
-		selectedCategory = task.category
 	}
 	
 	func deleteTask(task: TaskItem) {
@@ -113,21 +121,17 @@ class TasksViewModel: ObservableObject {
 		fetchTaskCategories()
 	}
 	
-	func resetTaskTitleAndCategoryNameInputsAndFlags() {
-		self.taskTitleInput = ""
-		self.resetSelectedCategory()
-		self.eraseCategoryNameInput()
-		
-		self.editingExistingTask = false
+	func resetTaskDraft() {
+		taskDraftViewModel = TaskDraftViewModel()
+		taskDraftViewModel.selectDefaultCategory(from: taskCategories)
 	}
 	
 	func resetTaskDetailsChangedFlag() {
-		taskDetailsEdited = false
+		taskDraftViewModel.taskDetailsEdited = false
 	}
 	
 	func resetSelectedCategory() {
-		self.selectedCategory = taskCategories.first(where: { $0.name == "None" })
-		self.selectedCategoryIndex = 0
+		taskDraftViewModel.selectDefaultCategory(from: taskCategories)
 	}
 	
 	func eraseCategoryNameInput() {

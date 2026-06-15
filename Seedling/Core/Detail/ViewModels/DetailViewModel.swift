@@ -48,9 +48,9 @@ class DetailViewModel: ObservableObject {
 	@Published var plantAdditionalCareNotesEdited: Bool = false
 	
 	// Detail View Segues
-	@Published var showingAddNoteView: Bool = false
+	@Published var showingNoteDraftView: Bool = false
 	@Published var showingAddPhotoView: Bool = false
-	@Published var showingUpdateStageView: Bool = false
+	@Published var showingStageDraftView: Bool = false
 	@Published var showingPlantDetailsView: Bool = false
 	
 	// Add Post View Segues
@@ -138,12 +138,12 @@ class DetailViewModel: ObservableObject {
 	func beginNoteDraft() {
 		closeActionMenu()
 		resetNoteDraft()
-		showingAddNoteView = true
+		showingNoteDraftView = true
 	}
 
 	func cancelNoteDraft() {
 		resetNoteDraft()
-		showingAddNoteView = false
+		showingNoteDraftView = false
 	}
 
 	func postNoteDraft() {
@@ -151,25 +151,25 @@ class DetailViewModel: ObservableObject {
 		noteDraftViewModel.createNote(for: plant)
 		fetchPosts(for: plant)
 		resetNoteDraft()
-		showingAddNoteView = false
+		showingNoteDraftView = false
 	}
 	
 	func beginStageDraft() {
 		closeActionMenu()
 		resetStageDraft()
-		showingUpdateStageView = true
+		showingStageDraftView = true
 	}
 	
 	func postStageDraft() {
 		guard plantStageUpdated else { return }
 		updatePlantStage(for: plant)
 		resetStageDraft()
-		showingUpdateStageView = false
+		showingStageDraftView = false
 	}
 	
 	func cancelStageDraft() {
 		resetStageDraft()
-		showingUpdateStageView = false
+		showingStageDraftView = false
 	}
 	
 	func resetStageDraft() {
@@ -267,7 +267,7 @@ class DetailViewModel: ObservableObject {
 
 	func beginEditingNote(_ note: Note) {
 		noteDraftViewModel = NoteDraftViewModel(existingNote: note)
-		showingAddNoteView = true
+		showingNoteDraftView = true
 	}
 
 	func resetNoteDraft() {

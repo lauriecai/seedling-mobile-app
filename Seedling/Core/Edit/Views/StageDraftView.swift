@@ -1,5 +1,5 @@
 //
-//  UpdateStageView.swift
+//  StageDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 5/1/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UpdateStageView: View {
+struct StageDraftView: View {
 	
 	@ObservedObject var viewModel: DetailViewModel
 	
@@ -39,7 +39,7 @@ struct UpdateStageView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden(true)
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "UpdateStageView_appeared")
+			FirebaseEventManager.shared.logEvent(name: "StageDraftView_appeared")
 			viewModel.fetchPlantStage(for: viewModel.plant)
 		}
 		.toolbar {
@@ -50,7 +50,7 @@ struct UpdateStageView: View {
     }
 }
 
-extension UpdateStageView {
+extension StageDraftView {
 	
 	private var updateStagePrompt: some View {
 		Text("Select a new stage:")

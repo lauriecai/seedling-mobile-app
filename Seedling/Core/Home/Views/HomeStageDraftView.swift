@@ -1,27 +1,27 @@
 //
-//  HomeUpdateStageView.swift
+//  HomeStageDraftView.swift
 //  Seedling
 //
 
 import SwiftUI
 
-private enum HomeUpdateStageRoute: Hashable {
+private enum HomeStageDraftRoute: Hashable {
 	case plantSelection
 }
 
-struct HomeUpdateStageView: View {
+struct HomeStageDraftView: View {
 
 	@ObservedObject var viewModel: HomeViewModel
 
 	var body: some View {
-		HomeUpdateStageContent(
+		HomeStageDraftContent(
 			viewModel: viewModel,
 			stageDraftViewModel: viewModel.stageDraftViewModel
 		)
 	}
 }
 
-private struct HomeUpdateStageContent: View {
+private struct HomeStageDraftContent: View {
 
 	@ObservedObject var viewModel: HomeViewModel
 	@ObservedObject var stageDraftViewModel: StageDraftViewModel
@@ -36,7 +36,7 @@ private struct HomeUpdateStageContent: View {
 
 				ScrollView(showsIndicators: false) {
 					VStack(alignment: .leading, spacing: 15) {
-						NavigationLink(value: HomeUpdateStageRoute.plantSelection) {
+						NavigationLink(value: HomeStageDraftRoute.plantSelection) {
 							PickerRow(
 								prompt: "Which plant is this for?",
 								selectedValue: stageDraftViewModel.plant?.wrappedFullNameLabel ?? "None"
@@ -69,7 +69,7 @@ private struct HomeUpdateStageContent: View {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) { saveButton }
 			}
-			.navigationDestination(for: HomeUpdateStageRoute.self) { route in
+			.navigationDestination(for: HomeStageDraftRoute.self) { route in
 				switch route {
 				case .plantSelection:
 					PlantSelectionView(
@@ -92,7 +92,7 @@ private struct HomeUpdateStageContent: View {
 			}
 		}
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "HomeUpdateStageView_appeared")
+			FirebaseEventManager.shared.logEvent(name: "HomeStageDraftView_appeared")
 		}
 	}
 

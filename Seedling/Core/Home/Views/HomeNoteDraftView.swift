@@ -1,28 +1,28 @@
 //
-//  HomeAddNoteView.swift
+//  HomeNoteDraftView.swift
 //  Seedling
 //
 
 import SwiftUI
 
-private enum HomeAddNoteRoute: Hashable {
+private enum HomeNoteDraftRoute: Hashable {
 	case plantSelection
 	case addPlant
 }
 
-struct HomeAddNoteView: View {
+struct HomeNoteDraftView: View {
 
 	@ObservedObject var viewModel: HomeViewModel
 
 	var body: some View {
-		HomeAddNoteContent(
+		HomeNoteDraftContent(
 			viewModel: viewModel,
 			noteDraftViewModel: viewModel.noteDraftViewModel
 		)
 	}
 }
 
-private struct HomeAddNoteContent: View {
+private struct HomeNoteDraftContent: View {
 
 	@ObservedObject var viewModel: HomeViewModel
 	@ObservedObject var noteDraftViewModel: NoteDraftViewModel
@@ -38,7 +38,7 @@ private struct HomeAddNoteContent: View {
 
 				ScrollView(showsIndicators: false) {
 					VStack(spacing: 15) {
-						NavigationLink(value: HomeAddNoteRoute.plantSelection) {
+						NavigationLink(value: HomeNoteDraftRoute.plantSelection) {
 							PickerRow(
 								prompt: "Which plant is this for?",
 								selectedValue: viewModel.draftAssignedPlant?.wrappedFullNameLabel ?? "None"
@@ -73,14 +73,14 @@ private struct HomeAddNoteContent: View {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) { addNoteButton }
 			}
-			.navigationDestination(for: HomeAddNoteRoute.self) { route in
+			.navigationDestination(for: HomeNoteDraftRoute.self) { route in
 				switch route {
 				case .plantSelection:
 					PlantSelectionView(
 						plants: viewModel.plants,
 						configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: true),
 						selectedPlant: $viewModel.draftAssignedPlant,
-						onRequestNewPlant: { navigationPath.append(HomeAddNoteRoute.addPlant) }
+						onRequestNewPlant: { navigationPath.append(HomeNoteDraftRoute.addPlant) }
 					)
 				case .addPlant:
 					AddPlantView(
@@ -96,7 +96,7 @@ private struct HomeAddNoteContent: View {
 			}
 		}
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "HomeAddNoteView_appeared")
+			FirebaseEventManager.shared.logEvent(name: "HomeNoteDraftView_appeared")
 		}
 	}
 

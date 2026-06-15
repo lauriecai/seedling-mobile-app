@@ -1,5 +1,5 @@
 //
-//  AddTaskView.swift
+//  TaskDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 5/20/24.
@@ -7,9 +7,22 @@
 
 import SwiftUI
 
-struct AddTaskView: View {
+struct TaskDraftView: View {
 	
 	@ObservedObject var viewModel: TasksViewModel
+	
+	var body: some View {
+		TaskDraftContent(
+			viewModel: viewModel,
+			taskDraftViewModel: viewModel.taskDraftViewModel
+		)
+	}
+}
+
+private struct TaskDraftContent: View {
+	
+	@ObservedObject var viewModel: TasksViewModel
+	@ObservedObject var taskDraftViewModel: TaskDraftViewModel
 	
 	@Environment(\.dismiss) var dismiss
 	
@@ -33,34 +46,34 @@ struct AddTaskView: View {
 				}
 			}
 			.onAppear {
-				FirebaseEventManager.shared.logEvent(name: "AddTaskView_appeared")
+				FirebaseEventManager.shared.logEvent(name: "TaskDraftView_appeared")
 			}
-			.navigationTitle(viewModel.editingExistingTask ? "Edit Task" : "New Task")
+			.navigationTitle(taskDraftViewModel.editingExistingTask ? "Edit Task" : "New Task")
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationBarBackButtonHidden(true)
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) {
-					if viewModel.editingExistingTask {
+					if taskDraftViewModel.editingExistingTask {
 						saveChangesButton
 					} else {
 						addTaskButton
 					}
 				}
 			}
-			.onChange(of: viewModel.taskTitleInput) { viewModel.taskDetailsEdited = true }
-			.onChange(of: viewModel.selectedCategory) { viewModel.taskDetailsEdited = true }
+			.onChange(of: taskDraftViewModel.titleInput) { taskDraftViewModel.taskDetailsEdited = true }
+			.onChange(of: taskDraftViewModel.selectedCategory) { taskDraftViewModel.taskDetailsEdited = true }
 		}
     }
 }
 
 #Preview {
-    AddTaskView(viewModel: TasksViewModel())
+    TaskDraftView(viewModel: TasksViewModel())
 }
 
-extension AddTaskView {
+private extension TaskDraftContent {
 	
-//	MARK: - Add Task View
+//	MARK: - Task Draft View
 	
 	private var taskTitleInput: some View {
 		TextEditorInput(
@@ -68,32 +81,18 @@ extension AddTaskView {
 			labelDescription: nil,
 			inputPlaceholder: "e.g. Fertilize tomatoes",
 			accentTheme: true,
-			text: $viewModel.taskTitleInput
+			text: $taskDraftViewModel.titleInput
 		)
 	}
 	
 	private var categoryPickerRow: some View {
-		NavigationLink(destination: CategorySelectionView(viewModel: viewModel)) {
-			HStack {
-				Text("Category")
-					.font(.handjet(.bold, size: 20))
-					.foregroundStyle(Color.theme.textPrimary)
-				
-				Spacer()
-				
-				HStack(spacing: 15) {
-					Text(viewModel.selectedCategory?.wrappedName ?? "")
-						.font(.handjet(.medium, size: 20))
-					
-					Text(">")
-						.font(.handjet(.bold, size: 22))
-				}
-				.foregroundStyle(Color.theme.textSecondary)
-			}
-			.padding()
-			.background(Color.theme.backgroundAccent)
-			.clipShape(RoundedRectangle(cornerRadius: 8))
+		NavigationLink(destination: CategorySelectionView(viewModel: viewModel, taskDraftViewModel: taskDraftViewModel)) {
+			PickerRow(
+				prompt: "Category",
+				selectedValue: taskDraftViewModel.selectedCategory?.wrappedName ?? "None"
+			)
 		}
+		.buttonStyle(.plain)
 	}
 	
 	private var addTaskButton: some View {
@@ -101,15 +100,12 @@ extension AddTaskView {
 			FirebaseEventManager.shared.logEvent(name: "addTaskButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			
-			viewModel.addTask(
-				categoryName: viewModel.selectedCategory?.wrappedName ?? "",
-				title: viewModel.taskTitleInput)
-			
+			viewModel.postTaskDraft()
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
-		.foregroundStyle(viewModel.taskTitleInput.isEmpty ? Color.theme.textSecondary.opacity(0.5) : Color.theme.accentGreen)
-		.disabled(viewModel.taskTitleInput.isEmpty)
+		.foregroundStyle(taskDraftViewModel.canSave ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
+		.disabled(!taskDraftViewModel.canSave)
 	}
 	
 	private var saveChangesButton: some View {
@@ -118,26 +114,21 @@ extension AddTaskView {
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			
 			if let selectedTask = viewModel.selectedTask {
-				viewModel.updateTask(
-					task: selectedTask,
-					title: viewModel.taskTitleInput,
-					categoryName: viewModel.selectedCategory?.wrappedName ?? ""
-				)
-				
-				viewModel.resetTaskTitleAndCategoryNameInputsAndFlags()
+				viewModel.updateTask(selectedTask)
+				viewModel.resetTaskDraft()
 			}
 			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
-		.foregroundStyle(viewModel.taskDetailsEdited ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
-		.disabled(!viewModel.taskDetailsEdited)
+		.foregroundStyle(taskDraftViewModel.taskDetailsEdited ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
+		.disabled(!taskDraftViewModel.taskDetailsEdited)
 	}
 	
 	private var cancelButton: some View {
 		Button("Cancel") {
 			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			dismiss()
-			viewModel.resetTaskTitleAndCategoryNameInputsAndFlags()
+			viewModel.cancelTaskDraft()
 		}
 		.font(.handjet(.medium, size: 20))
 		.foregroundStyle(Color.theme.textSecondary)

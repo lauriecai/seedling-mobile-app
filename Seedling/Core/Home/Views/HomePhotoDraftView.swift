@@ -1,22 +1,22 @@
 //
-//  HomeEditPhotoView.swift
+//  HomePhotoDraftView.swift
 //  Seedling
 //
 
 import SwiftUI
 
-private enum HomeAddPhotoRoute: Hashable {
+private enum HomePhotoDraftRoute: Hashable {
 	case plantSelection
 	case addPlant
 }
 
-struct HomeEditPhotoView: View {
+struct HomePhotoDraftView: View {
 	
 	@ObservedObject var viewModel: HomeViewModel
 	
 	var body: some View {
 		if let photoDraftViewModel = viewModel.photoDraftViewModel {
-			HomeEditPhotoContent(
+			HomePhotoDraftContent(
 				viewModel: viewModel,
 				photoDraftViewModel: photoDraftViewModel
 			)
@@ -24,7 +24,7 @@ struct HomeEditPhotoView: View {
 	}
 }
 
-private struct HomeEditPhotoContent: View {
+private struct HomePhotoDraftContent: View {
 	
 	@ObservedObject var viewModel: HomeViewModel
 	@ObservedObject var photoDraftViewModel: PhotoDraftViewModel
@@ -46,7 +46,7 @@ private struct HomeEditPhotoContent: View {
 							.clipShape(RoundedRectangle(cornerRadius: 8))
 							.frame(maxHeight: 300)
 						
-						NavigationLink(value: HomeAddPhotoRoute.plantSelection) {
+						NavigationLink(value: HomePhotoDraftRoute.plantSelection) {
 							PickerRow(
 								prompt: "Which plant is this for?",
 								selectedValue: viewModel.draftAssignedPlant?.wrappedFullNameLabel ?? "None"
@@ -73,14 +73,14 @@ private struct HomeEditPhotoContent: View {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) { addPhotoButton }
 			}
-			.navigationDestination(for: HomeAddPhotoRoute.self) { route in
+			.navigationDestination(for: HomePhotoDraftRoute.self) { route in
 				switch route {
 				case .plantSelection:
 					PlantSelectionView(
 						plants: viewModel.plants,
 						configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: true),
 						selectedPlant: $viewModel.draftAssignedPlant,
-						onRequestNewPlant: { navigationPath.append(HomeAddPhotoRoute.addPlant) }
+						onRequestNewPlant: { navigationPath.append(HomePhotoDraftRoute.addPlant) }
 					)
 				case .addPlant:
 					AddPlantView(
@@ -96,7 +96,7 @@ private struct HomeEditPhotoContent: View {
 			}
 		}
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "HomeEditPhotoView_appeared")
+			FirebaseEventManager.shared.logEvent(name: "HomePhotoDraftView_appeared")
 		}
 	}
 	

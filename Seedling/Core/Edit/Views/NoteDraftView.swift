@@ -1,5 +1,5 @@
 //
-//  AddNoteView.swift
+//  NoteDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 2/18/24.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct AddNoteView: View {
+struct NoteDraftView: View {
 
 	@ObservedObject var viewModel: DetailViewModel
 
 	var body: some View {
-		AddNoteContent(
+		NoteDraftContent(
 			viewModel: viewModel,
 			noteDraftViewModel: viewModel.noteDraftViewModel
 		)
 	}
 }
 
-private struct AddNoteContent: View {
+private struct NoteDraftContent: View {
 
 	@ObservedObject var viewModel: DetailViewModel
 	@ObservedObject var noteDraftViewModel: NoteDraftViewModel
@@ -45,7 +45,7 @@ private struct AddNoteContent: View {
 			}
 		}
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "AddNoteView_appeared")
+			FirebaseEventManager.shared.logEvent(name: "NoteDraftView_appeared")
 		}
 		.navigationTitle(noteDraftViewModel.editingExistingNote ? "Edit Note" : "New Note")
 		.navigationBarTitleDisplayMode(.inline)
@@ -66,7 +66,7 @@ private struct AddNoteContent: View {
     }
 }
 
-private extension AddNoteContent {
+private extension NoteDraftContent {
 
 	var notePrompt: some View {
 		Text("How's your \(viewModel.plant.wrappedFullNameSentence.lowercased())?")

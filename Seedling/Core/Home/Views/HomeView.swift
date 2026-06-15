@@ -84,12 +84,12 @@ struct HomeView: View {
 				}
 				viewModel.fetchPlants()
 			}
-		case .addNote:
-			HomeAddNoteView(viewModel: viewModel)
-		case .addPhoto:
-			HomeEditPhotoView(viewModel: viewModel)
-		case .updateStage:
-			HomeUpdateStageView(viewModel: viewModel)
+		case .noteDraft:
+			HomeNoteDraftView(viewModel: viewModel)
+		case .photoDraft:
+			HomePhotoDraftView(viewModel: viewModel)
+		case .stageDraft:
+			HomeStageDraftView(viewModel: viewModel)
 		}
 	}
 }

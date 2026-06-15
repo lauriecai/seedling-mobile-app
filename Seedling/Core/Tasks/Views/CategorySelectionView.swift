@@ -10,6 +10,7 @@ import SwiftUI
 struct CategorySelectionView: View {
 	
 	@ObservedObject var viewModel: TasksViewModel
+	@ObservedObject var taskDraftViewModel: TaskDraftViewModel
 	
 	@Environment(\.dismiss) var dismiss
 	
@@ -52,7 +53,7 @@ struct CategorySelectionView: View {
 }
 
 #Preview {
-	CategorySelectionView(viewModel: TasksViewModel())
+	CategorySelectionView(viewModel: TasksViewModel(), taskDraftViewModel: TaskDraftViewModel())
 }
 
 extension CategorySelectionView {
@@ -70,14 +71,14 @@ extension CategorySelectionView {
 				ForEach(Array(viewModel.taskCategories.enumerated()), id: \.1) { index, category in
 					CategoryOptionCard(
 						category: category,
-						isSelected: index == viewModel.selectedCategoryIndex,
+						isSelected: index == taskDraftViewModel.selectedCategoryIndex,
 						showActionSheet: $showingActionSheet,
 						showActionForCategory: $viewModel.showingActionSheetForCategory)
 					.onTapGesture {
 						FirebaseEventManager.shared.logEvent(name: "CategorySelectionCard_tapped")
 						withAnimation(.spring()) {
-							viewModel.selectedCategory = category
-							viewModel.selectedCategoryIndex = index
+							taskDraftViewModel.selectedCategory = category
+							taskDraftViewModel.selectedCategoryIndex = index
 							viewModel.taskCategoryInput = category.wrappedName
 							
 							DispatchQueue.main.asyncAfter(deadline: .now() + 0.50) {
