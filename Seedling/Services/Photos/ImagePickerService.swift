@@ -12,6 +12,11 @@ import SwiftUI
 // MARK: Description
 // Takes a selected image and converts it into a usable image
 
+enum PhotoPickerSource {
+	case home
+	case detail
+}
+
 @MainActor
 class ImagePickerService: ObservableObject {
 	
@@ -22,10 +27,23 @@ class ImagePickerService: ObservableObject {
 	}
 	
 	@Published var selectedImage: UIImage?
+	@Published private(set) var pickerSource: PhotoPickerSource?
 	
 	let coreDataManager = CoreDataManager.shared
 	
 //	MARK: - Methods
+	
+	func prepareForPicker(source: PhotoPickerSource) {
+		pickerSource = source
+		selectedImage = nil
+		selectedPhotosPickerItem = nil
+	}
+	
+	func clearPickerState() {
+		selectedImage = nil
+		selectedPhotosPickerItem = nil
+		pickerSource = nil
+	}
 	
 	func convertPhotosPickerItem(from photosPickerItem: PhotosPickerItem?) async throws {
 		do {
