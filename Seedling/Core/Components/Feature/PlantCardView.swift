@@ -63,6 +63,12 @@ extension PlantCardView {
 		.padding(.leading, 8)
 	}
 	
+	private var shadow: some View {
+		Rectangle()
+			.frame(height: 8)
+			.foregroundStyle(Color.theme.textSecondary).opacity(0.40)
+	}
+
 	private var moreOptions: some View {
 		Button {
 			FirebaseEventManager.shared.logEvent(name: "plantActions_tapped")
@@ -75,9 +81,4 @@ extension PlantCardView {
 		}
 	}
 	
-	private var shadow: some View {
-		Rectangle()
-			.frame(height: 8)
-			.foregroundStyle(Color.theme.textSecondary).opacity(0.40)
-	}
 }
