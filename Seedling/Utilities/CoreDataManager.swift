@@ -61,7 +61,8 @@ class CoreDataManager {
 		return request
 	}
 	
-	func addPlant(name: String, variety: String, stage: String, type: String) {
+	@discardableResult
+	func addPlant(name: String, variety: String, stage: String, type: String) -> Plant {
 		let newPlant = Plant(context: context)
 		newPlant.name = name
 		newPlant.variety = variety
@@ -71,6 +72,7 @@ class CoreDataManager {
 		createPlantAddedEvent(for: newPlant)
 		
 		save()
+		return newPlant
 	}
 	
 	func addStageUpdate(plant: Plant, newStage: String) {
