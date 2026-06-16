@@ -6,7 +6,6 @@
 import SwiftUI
 
 private enum HomeNoteDraftRoute: Hashable {
-	case plantSelection
 	case addPlant
 }
 
@@ -38,13 +37,12 @@ private struct HomeNoteDraftContent: View {
 
 				ScrollView(showsIndicators: false) {
 					VStack(spacing: 15) {
-						NavigationLink(value: HomeNoteDraftRoute.plantSelection) {
-							PickerRow(
-								prompt: "Which plant is this for?",
-								selectedValue: viewModel.draftAssignedPlant?.wrappedFullNameLabel ?? "None"
-							)
-						}
-						.buttonStyle(.plain)
+						PlantPickerRow(
+							plants: viewModel.plants,
+							configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: true),
+							selectedPlant: $viewModel.draftAssignedPlant,
+							onRequestNewPlant: { navigationPath.append(HomeNoteDraftRoute.addPlant) }
+						)
 
 						TextInput(
 							inputLabel: "Title",
@@ -73,26 +71,16 @@ private struct HomeNoteDraftContent: View {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) { addNoteButton }
 			}
-			.navigationDestination(for: HomeNoteDraftRoute.self) { route in
-				switch route {
-				case .plantSelection:
-					PlantSelectionView(
-						plants: viewModel.plants,
-						configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: true),
-						selectedPlant: $viewModel.draftAssignedPlant,
-						onRequestNewPlant: { navigationPath.append(HomeNoteDraftRoute.addPlant) }
-					)
-				case .addPlant:
-					AddPlantView(
-						viewModel: viewModel,
-						presentation: .fromNoteDraft,
-						onPlantCreated: { plant in
-							viewModel.draftAssignedPlant = plant
-							viewModel.fetchPlants()
-							navigationPath = NavigationPath()
-						}
-					)
-				}
+			.navigationDestination(for: HomeNoteDraftRoute.self) { _ in
+				AddPlantView(
+					viewModel: viewModel,
+					presentation: .fromNoteDraft,
+					onPlantCreated: { plant in
+						viewModel.draftAssignedPlant = plant
+						viewModel.fetchPlants()
+						navigationPath = NavigationPath()
+					}
+				)
 			}
 		}
 		.onAppear {

@@ -1,5 +1,5 @@
 //
-//  NoteDraftView.swift
+//  DetailNoteDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 2/18/24.
@@ -7,24 +7,22 @@
 
 import SwiftUI
 
-struct NoteDraftView: View {
+struct DetailNoteDraftView: View {
 
 	@ObservedObject var viewModel: DetailViewModel
 
 	var body: some View {
-		NoteDraftContent(
+		DetailNoteDraftContent(
 			viewModel: viewModel,
 			noteDraftViewModel: viewModel.noteDraftViewModel
 		)
 	}
 }
 
-private struct NoteDraftContent: View {
+private struct DetailNoteDraftContent: View {
 
 	@ObservedObject var viewModel: DetailViewModel
 	@ObservedObject var noteDraftViewModel: NoteDraftViewModel
-
-	@Environment(\.dismiss) var dismiss
 
 	@FocusState private var keyboardFocused: Bool
 
@@ -45,7 +43,7 @@ private struct NoteDraftContent: View {
 			}
 		}
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "NoteDraftView_appeared")
+			FirebaseEventManager.shared.logEvent(name: "DetailNoteDraftView_appeared")
 		}
 		.navigationTitle(noteDraftViewModel.editingExistingNote ? "Edit Note" : "New Note")
 		.navigationBarTitleDisplayMode(.inline)
@@ -66,7 +64,7 @@ private struct NoteDraftContent: View {
     }
 }
 
-private extension NoteDraftContent {
+private extension DetailNoteDraftContent {
 
 	var notePrompt: some View {
 		Text("How's your \(viewModel.plant.wrappedFullNameSentence.lowercased())?")
@@ -88,7 +86,6 @@ private extension NoteDraftContent {
 			FirebaseEventManager.shared.logEvent(name: "addNoteButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.postNoteDraft()
-			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
 		.foregroundStyle(noteDraftViewModel.canSave ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
@@ -100,10 +97,8 @@ private extension NoteDraftContent {
 			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if let selectedNote = viewModel.selectedNote {
-				viewModel.updateNote(selectedNote)
+				viewModel.saveNoteEdit(selectedNote)
 			}
-			viewModel.closeActionMenu()
-			dismiss()
 		}
 		.font(.handjet(.extraBold, size: 20))
 		.foregroundStyle(noteDraftViewModel.noteEdited ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
@@ -113,13 +108,7 @@ private extension NoteDraftContent {
 	var cancelButton: some View {
 		Button {
 			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
-			if noteDraftViewModel.editingExistingNote {
-				viewModel.closeActionMenu()
-				dismiss()
-			} else {
-				viewModel.cancelNoteDraft()
-				dismiss()
-			}
+			viewModel.cancelNoteDraft()
 		} label: {
 			Text("Cancel")
 				.font(.handjet(.medium, size: 20))

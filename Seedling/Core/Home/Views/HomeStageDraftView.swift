@@ -5,10 +5,6 @@
 
 import SwiftUI
 
-private enum HomeStageDraftRoute: Hashable {
-	case plantSelection
-}
-
 struct HomeStageDraftView: View {
 
 	@ObservedObject var viewModel: HomeViewModel
@@ -26,23 +22,20 @@ private struct HomeStageDraftContent: View {
 	@ObservedObject var viewModel: HomeViewModel
 	@ObservedObject var stageDraftViewModel: StageDraftViewModel
 
-	@State private var navigationPath = NavigationPath()
-
 	var body: some View {
-		NavigationStack(path: $navigationPath) {
+		NavigationStack {
 			ZStack {
 				Color.theme.backgroundPrimary
 					.ignoresSafeArea()
 
 				ScrollView(showsIndicators: false) {
 					VStack(alignment: .leading, spacing: 15) {
-						NavigationLink(value: HomeStageDraftRoute.plantSelection) {
-							PickerRow(
-								prompt: "Which plant is this for?",
-								selectedValue: stageDraftViewModel.plant?.wrappedFullNameLabel ?? "None"
-							)
-						}
-						.buttonStyle(.plain)
+						PlantPickerRow(
+							plants: viewModel.plants,
+							configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: false),
+							selectedPlant: $stageDraftViewModel.plant,
+							onPlantSelected: { viewModel.handleStageDraftPlantSelection() }
+						)
 
 						if stageDraftViewModel.plant != nil {
 							Text("Select a new stage:")
@@ -69,19 +62,6 @@ private struct HomeStageDraftContent: View {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) { saveButton }
 			}
-			.navigationDestination(for: HomeStageDraftRoute.self) { route in
-				switch route {
-				case .plantSelection:
-					PlantSelectionView(
-						plants: viewModel.plants,
-						configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: false),
-						selectedPlant: $stageDraftViewModel.plant
-					)
-					.onDisappear {
-						viewModel.handleStageDraftPlantSelection()
-					}
-				}
-			}
 			.onChange(of: stageDraftViewModel.selectedStage) { _, newStage in
 				guard let plant = stageDraftViewModel.plant else {
 					stageDraftViewModel.updated = false
@@ -106,7 +86,7 @@ private struct HomeStageDraftContent: View {
 		.foregroundStyle(viewModel.canSaveStageDraft ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
 		.disabled(!viewModel.canSaveStageDraft)
 	}
-	
+
 	private var cancelButton: some View {
 		Button("Cancel") {
 			FirebaseEventManager.shared.logEvent(name: "HomeUpdateStage_cancelButton_tapped")

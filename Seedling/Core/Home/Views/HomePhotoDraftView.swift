@@ -6,14 +6,13 @@
 import SwiftUI
 
 private enum HomePhotoDraftRoute: Hashable {
-	case plantSelection
 	case addPlant
 }
 
 struct HomePhotoDraftView: View {
-	
+
 	@ObservedObject var viewModel: HomeViewModel
-	
+
 	var body: some View {
 		if let photoDraftViewModel = viewModel.photoDraftViewModel {
 			HomePhotoDraftContent(
@@ -25,19 +24,19 @@ struct HomePhotoDraftView: View {
 }
 
 private struct HomePhotoDraftContent: View {
-	
+
 	@ObservedObject var viewModel: HomeViewModel
 	@ObservedObject var photoDraftViewModel: PhotoDraftViewModel
-	
+
 	@State private var navigationPath = NavigationPath()
 	@FocusState private var keyboardFocused: Bool
-	
+
 	var body: some View {
 		NavigationStack(path: $navigationPath) {
 			ZStack {
 				Color.theme.backgroundPrimary
 					.ignoresSafeArea()
-				
+
 				ScrollView(showsIndicators: false) {
 					VStack(spacing: 15) {
 						Image(uiImage: photoDraftViewModel.image)
@@ -45,15 +44,14 @@ private struct HomePhotoDraftContent: View {
 							.scaledToFit()
 							.clipShape(RoundedRectangle(cornerRadius: 8))
 							.frame(maxHeight: 300)
-						
-						NavigationLink(value: HomePhotoDraftRoute.plantSelection) {
-							PickerRow(
-								prompt: "Which plant is this for?",
-								selectedValue: viewModel.draftAssignedPlant?.wrappedFullNameLabel ?? "None"
-							)
-						}
-						.buttonStyle(.plain)
-						
+
+						PlantPickerRow(
+							plants: viewModel.plants,
+							configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: true),
+							selectedPlant: $viewModel.draftAssignedPlant,
+							onRequestNewPlant: { navigationPath.append(HomePhotoDraftRoute.addPlant) }
+						)
+
 						TextEditorInput(
 							inputLabel: "Description",
 							labelDescription: "Optional",
@@ -73,33 +71,23 @@ private struct HomePhotoDraftContent: View {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) { addPhotoButton }
 			}
-			.navigationDestination(for: HomePhotoDraftRoute.self) { route in
-				switch route {
-				case .plantSelection:
-					PlantSelectionView(
-						plants: viewModel.plants,
-						configuration: PlantSelectionConfiguration(allowsNone: true, allowsNewPlant: true),
-						selectedPlant: $viewModel.draftAssignedPlant,
-						onRequestNewPlant: { navigationPath.append(HomePhotoDraftRoute.addPlant) }
-					)
-				case .addPlant:
-					AddPlantView(
-						viewModel: viewModel,
-						presentation: .fromPhotoDraft,
-						onPlantCreated: { plant in
-							viewModel.draftAssignedPlant = plant
-							viewModel.fetchPlants()
-							navigationPath = NavigationPath()
-						}
-					)
-				}
+			.navigationDestination(for: HomePhotoDraftRoute.self) { _ in
+				AddPlantView(
+					viewModel: viewModel,
+					presentation: .fromPhotoDraft,
+					onPlantCreated: { plant in
+						viewModel.draftAssignedPlant = plant
+						viewModel.fetchPlants()
+						navigationPath = NavigationPath()
+					}
+				)
 			}
 		}
 		.onAppear {
 			FirebaseEventManager.shared.logEvent(name: "HomePhotoDraftView_appeared")
 		}
 	}
-	
+
 	private var addPhotoButton: some View {
 		Button("Add Photo") {
 			FirebaseEventManager.shared.logEvent(name: "HomeAddPhoto_saveButton_tapped")
@@ -110,7 +98,7 @@ private struct HomePhotoDraftContent: View {
 		.foregroundStyle(viewModel.canSavePhotoDraft ? Color.theme.accentGreen : Color.theme.textSecondary.opacity(0.5))
 		.disabled(!viewModel.canSavePhotoDraft)
 	}
-	
+
 	private var cancelButton: some View {
 		Button("Cancel") {
 			FirebaseEventManager.shared.logEvent(name: "HomeAddPhoto_cancelButton_tapped")

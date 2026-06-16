@@ -9,28 +9,26 @@ import PhotosUI
 import SwiftUI
 
 struct DetailView: View {
-	
+
 	@StateObject private var viewModel: DetailViewModel
-	
-	@State private var editPhotoMode: EditPhotoMode?
-	
+
 	@EnvironmentObject var imagePickerService: ImagePickerService
-	
+
 	@Environment(\.dismiss) var dismiss
-	
+
 //	MARK: - Init
 	init(plant: Plant) {
 		_viewModel = StateObject(wrappedValue: DetailViewModel(plant: plant))
 	}
-	
+
 //	MARK: - View
 	var body: some View {
 		ZStack(alignment: .bottomTrailing) {
 			Color.theme.backgroundPrimary
 				.ignoresSafeArea()
-			
+
 			postsList
-			
+
 			if viewModel.showingActionMenu { DarkOverlay { viewModel.closeActionMenu() } }
 
 			actionMenuGroup
@@ -47,35 +45,28 @@ struct DetailView: View {
 			viewModel.fetchPosts(for: viewModel.plant)
 			viewModel.showingActionMenu = false
 		}
-		.sheet(isPresented: $viewModel.showingNoteDraftView) {
-			NavigationView {
-				NoteDraftView(viewModel: viewModel)
-			}
-		}
-		.sheet(isPresented: $viewModel.showingStageDraftView) {
-			NavigationView {
-				StageDraftView(viewModel: viewModel)
+		.sheet(item: $viewModel.activeSheet) { sheet in
+			switch sheet {
+			case .noteDraft:
+				NavigationView {
+					DetailNoteDraftView(viewModel: viewModel)
+				}
+			case .stageDraft:
+				NavigationView {
+					DetailStageDraftView(viewModel: viewModel)
+				}
+			case .photoDraft:
+				NavigationView {
+					DetailPhotoDraftView(viewModel: viewModel)
+				}
 			}
 		}
 		.photosPicker(isPresented: $viewModel.showingPhotosPicker, selection: $imagePickerService.selectedPhotosPickerItem)
 		.onChange(of: imagePickerService.selectedImage) { _, newImage in
 			guard let newImage, imagePickerService.pickerSource == .detail else { return }
-			editPhotoMode = .create(viewModel.plant, newImage)
+			viewModel.beginPhotoDraft(image: newImage)
 			imagePickerService.clearPickerState()
 			viewModel.showingPhotosPicker = false
-		}
-		.sheet(item: $editPhotoMode) { mode in
-			NavigationView {
-				switch mode {
-				case .create(let plant, let image):
-					PhotoDraftView(viewModel: PhotoDraftViewModel(plant: plant, newImage: image))
-				case .edit(let plant, let photo):
-					PhotoDraftView(viewModel: PhotoDraftViewModel(plant: plant, existingPhoto: photo))
-				}
-			}
-			.onDisappear {
-				viewModel.fetchPosts(for: viewModel.plant)
-			}
 		}
 		.navigationDestination(isPresented: $viewModel.showingPlantDetailsView) {
 			PlantDetailsView(viewModel: viewModel)
@@ -86,7 +77,7 @@ struct DetailView: View {
 // MARK: - UI
 
 extension DetailView {
-	
+
 	private var postsList: some View {
 		ScrollView(showsIndicators: false) {
 			VStack(alignment: .leading, spacing: 10) {
@@ -123,11 +114,11 @@ extension DetailView {
 			.padding(.bottom, 160)
 		}
 	}
-	
+
 	private func eventCard(for event: Event) -> EventCardView {
 		EventCardView(event: event, showActionSheet: $viewModel.showEventActionSheet, showActionsForEvent: $viewModel.selectedEvent)
 	}
-	
+
 	private var deleteEventButton: some View {
 		Button("Delete Post", role: .destructive) {
 			FirebaseEventManager.shared.logEvent(name: "deleteEventButton_tapped")
@@ -138,16 +129,16 @@ extension DetailView {
 			}
 		}
 	}
-	
+
 	private var editCaptionButton: some View {
 		Button("Edit Caption") {
 			FirebaseEventManager.shared.logEvent(name: "editCaptionButton_tapped")
 			if let selectedPhoto = viewModel.selectedPhoto {
-				editPhotoMode = .edit(viewModel.plant, selectedPhoto)
+				viewModel.beginEditingPhoto(selectedPhoto)
 			}
 		}
 	}
-	
+
 	private var deletePhotoButton: some View {
 		Button("Delete Post", role: .destructive) {
 			FirebaseEventManager.shared.logEvent(name: "deletePhotoButton_tapped")
@@ -156,11 +147,11 @@ extension DetailView {
 			}
 		}
 	}
-	
+
 	private func noteCard(for note: Note) -> NoteCardView {
 		NoteCardView(note: note, showActionSheet: $viewModel.showNoteActionSheet, showActionsForNote: $viewModel.selectedNote)
 	}
-	
+
 	private var editNoteButton: some View {
 		Button("Edit note") {
 			FirebaseEventManager.shared.logEvent(name: "editNoteButton_tapped")
@@ -170,7 +161,7 @@ extension DetailView {
 			}
 		}
 	}
-	
+
 	private var deleteNoteButton: some View {
 		Button("Delete Post", role: .destructive) {
 			FirebaseEventManager.shared.logEvent(name: "deleteNoteButton_tapped")
@@ -181,11 +172,11 @@ extension DetailView {
 			}
 		}
 	}
-	
+
 	private func photoCard(for photo: Photo) -> PhotoCardView {
 		PhotoCardView(photo: photo, showActionSheet: $viewModel.showPhotoActionSheet, showActionsForPhoto: $viewModel.selectedPhoto)
 	}
-	
+
 	private var actionMenuGroup: some View {
 		ActionMenuGroup(
 			isExpanded: $viewModel.showingActionMenu,
@@ -210,7 +201,7 @@ extension DetailView {
 			onNewPlant: nil
 		)
 	}
-	
+
 	private var backButton: some View {
 		Button {
 			FirebaseEventManager.shared.logEvent(name: "backButton_tapped")
@@ -225,7 +216,7 @@ extension DetailView {
 			.foregroundStyle(Color.theme.textSecondary)
 		}
 	}
-	
+
 	private var detailsButton: some View {
 		Button {
 			FirebaseEventManager.shared.logEvent(name: "detailsButton_tapped")

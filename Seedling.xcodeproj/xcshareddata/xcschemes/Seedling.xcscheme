@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D36D58212B156DD100E541E4"
+               BlueprintIdentifier = "A0961CE07B6C29CD85E7CF0F"
                BuildableName = "Seedling.app"
                BlueprintName = "Seedling"
                ReferencedContainer = "container:Seedling.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D36D58212B156DD100E541E4"
+            BlueprintIdentifier = "A0961CE07B6C29CD85E7CF0F"
             BuildableName = "Seedling.app"
             BlueprintName = "Seedling"
             ReferencedContainer = "container:Seedling.xcodeproj">
@@ -86,7 +86,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D36D58212B156DD100E541E4"
+            BlueprintIdentifier = "A0961CE07B6C29CD85E7CF0F"
             BuildableName = "Seedling.app"
             BlueprintName = "Seedling"
             ReferencedContainer = "container:Seedling.xcodeproj">

@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "fp=$(jq -r '.tool_input.file_path'); echo \"$fp\" | grep -q '^/Users/lauriecai/Developer/projects/seedling' && xcodegen generate 2>/dev/null || true",
+            "statusMessage": "Syncing Xcode project..."
+          }
+        ]
+      }
+    ]
+  }
+}
