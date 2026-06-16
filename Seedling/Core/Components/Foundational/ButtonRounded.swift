@@ -31,13 +31,12 @@ struct ButtonRounded: View {
 	let iconName: String?
 	let text: String
 	let style: Style
-	
 	init(text: String, style: Style = .light) {
 		self.text = text
 		self.iconName = nil
 		self.style = style
 	}
-	
+
 	init(iconName: String, text: String, style: Style = .light) {
 		self.iconName = iconName
 		self.text = text
@@ -53,8 +52,9 @@ struct ButtonRounded: View {
 			
 			Text(text)
 				.font(.handjet(.bold, size: 20))
-				.frame(height: 55)
+				.frame(height: 65)
 		}
+		.frame(height: 65)
 		.padding(.horizontal, 20)
 		.foregroundStyle(style.foregroundColor)
 		.background(style.backgroundColor)

@@ -12,6 +12,7 @@
 		0E59E2FA0FEC0CABC7F16648 /* TaskDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E2EFE52B84328093AFBD4E /* TaskDraftViewModel.swift */; };
 		12B56589B3D6082F812835B4 /* ButtonRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = A300827DE80B2FA2C3DB0B6D /* ButtonRounded.swift */; };
 		14915DD86D0056C790282A68 /* HomeStageDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726C8DCD764CBE4BE12D2BF2 /* HomeStageDraftView.swift */; };
+		1C32AC5C696349C1A61376C0 /* DetailNoteDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E92E4BA01648A58D6F8A56 /* DetailNoteDraftView.swift */; };
 		1D74AA5340A116C61B3F3960 /* EditGeneralDetailsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818C4037209AFB227F598C8 /* EditGeneralDetailsCardView.swift */; };
 		1DE7AF632BAA3A497C5CE3B4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BED42430AEFA9F63D361711 /* DetailView.swift */; };
 		1DF7621BE1ECFC5A6D36669F /* EditPhotoMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4DA0C5A6BAF1499011A92F /* EditPhotoMode.swift */; };
@@ -22,12 +23,11 @@
 		327061D420DAFF26A215B86B /* AddPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28B3D621922EAB133C2D48B /* AddPlantView.swift */; };
 		349E3B19BCA70730E7D37EC2 /* CategoryOptionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CBE5E5F8A10D0D5D2BDBD /* CategoryOptionCard.swift */; };
 		3621159740D9EE028934C5ED /* TabItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E220B7457E183933B5AB4279 /* TabItemsPreferenceKey.swift */; };
+		36CD804E8A644654BC98F99E /* DetailStageDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D42CD598841379F76874C /* DetailStageDraftView.swift */; };
 		416D910E919ABD7BBD95E555 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3FFD5CEE1F2D7E29B56184 /* UINavigationController.swift */; };
 		4362592B8DEA282E77FDF1C2 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66A088B86EF0E49ABB7918 /* TextInput.swift */; };
 		46182A61E4DDE6E42FE17B72 /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB5F00F8B21E39605A48C3E /* Note+Extension.swift */; };
-		FCDB18CB15D24AB59DDE52DF /* DetailPhotoDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3A6CC414DE4DB88E298413 /* DetailPhotoDraftView.swift */; };
 		503DE72DBEF0212E618BEACE /* ButtonPillRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44140BC85C6AB182525F177 /* ButtonPillRow.swift */; };
-		36CD804E8A644654BC98F99E /* DetailStageDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D42CD598841379F76874C /* DetailStageDraftView.swift */; };
 		57081C20FEB9532316C23448 /* EventCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94455A82AF037A51C83AD3A8 /* EventCardView.swift */; };
 		61335FBE8800E6798FC2FBE5 /* TaskCategory+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D943BE97AA414007F7F78 /* TaskCategory+Extension.swift */; };
 		69F50C7C594A6B04CF44B7AC /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDCD832D948758DC741774E /* TasksViewModel.swift */; };
@@ -48,8 +48,8 @@
 		97FE50B4A75C2A687C55FCC8 /* Handjet-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7177FC809F4BBD6A9367B8A2 /* Handjet-ExtraBold.ttf */; };
 		A7CFF51E21EE7AF76E7D392F /* DarkOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB9A135AF7129E42DA5743 /* DarkOverlay.swift */; };
 		A8B6A07DEE6C521FB928D18C /* ActionMenuGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584C110DC9A94EEEE619E0E /* ActionMenuGroup.swift */; };
-		B3C1D2E4F5A6B7C8D9E0F1A2 /* PlantPickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6A7B8C9D0E1F2A3B4 /* PlantPickerRow.swift */; };
 		B07BAA0619E2CD2277DFD1C8 /* PhotoDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECD33E99CF2466F66057EFF /* PhotoDraftViewModel.swift */; };
+		B3C1D2E4F5A6B7C8D9E0F1A2 /* PlantPickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6A7B8C9D0E1F2A3B4 /* PlantPickerRow.swift */; };
 		B41D5BC90F4A078EBE504FF3 /* PlantSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD247EC86D782FDCBCEE58B4 /* PlantSelectionView.swift */; };
 		B5FB4F3C5EB73F8C7CA3B714 /* Plant+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA47DDCA511A77927498E /* Plant+Extension.swift */; };
 		B650291AC07E6DD2453ED531 /* SeedlingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018D37208FB7344A01EBA488 /* SeedlingApp.swift */; };
@@ -72,7 +72,6 @@
 		DD190FC5E3CE453A419C613B /* EditAdditionalCareNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991D279A3536405BFF52D1BE /* EditAdditionalCareNotesView.swift */; };
 		DF6BD114B039512347599033 /* MenuKebab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F9A05B64A47579152B86D4 /* MenuKebab.swift */; };
 		E02C375F0564DF6EC61CF70C /* TaskDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598403F2A5DABACD7FB41E04 /* TaskDraftView.swift */; };
-		1C32AC5C696349C1A61376C0 /* DetailNoteDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E92E4BA01648A58D6F8A56 /* DetailNoteDraftView.swift */; };
 		E225413F572F21D1C29FDAC5 /* ChevronRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA837D6D1E4CA7DFD3AB810 /* ChevronRight.swift */; };
 		E72DE8C6337445BCF016C522 /* NoteDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709A81F97228FCE52706987B /* NoteDraftViewModel.swift */; };
 		E931D5DB4A0DF060F424B86E /* PhotoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10690ADB8C5C2B90806E9334 /* PhotoCardView.swift */; };
@@ -83,6 +82,7 @@
 		F5D16FCF24826D1787E03D1E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F3E7A47B676CD80E9BCF4E /* CoreDataManager.swift */; };
 		F5E32CA0F04B4B2797420651 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645D92F27D7E309610182FDE /* HomeView.swift */; };
 		F6F2B2D1B4DE770553A216B9 /* Photo+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7894F92DD20E618AC0511DF /* Photo+Extension.swift */; };
+		FCDB18CB15D24AB59DDE52DF /* DetailPhotoDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3A6CC414DE4DB88E298413 /* DetailPhotoDraftView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,12 +97,15 @@
 		2A5BA47DDCA511A77927498E /* Plant+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plant+Extension.swift"; sourceTree = "<group>"; };
 		2D12511084921D1D72186725 /* TaskGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGroupView.swift; sourceTree = "<group>"; };
 		2EF7E4989403FECAEA253C23 /* Handjet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handjet-Regular.ttf"; sourceTree = "<group>"; };
+		2F3A6CC414DE4DB88E298413 /* DetailPhotoDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoDraftView.swift; sourceTree = "<group>"; };
 		317662488EE76AC6073D26F8 /* PlantCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCardView.swift; sourceTree = "<group>"; };
 		318A0F23A710FCFD0573D306 /* PlantEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantEnums.swift; sourceTree = "<group>"; };
+		33E92E4BA01648A58D6F8A56 /* DetailNoteDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNoteDraftView.swift; sourceTree = "<group>"; };
 		37B8F1867215E153538B3752 /* StageOptionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageOptionsList.swift; sourceTree = "<group>"; };
 		3818C4037209AFB227F598C8 /* EditGeneralDetailsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGeneralDetailsCardView.swift; sourceTree = "<group>"; };
 		45E087333AE7E55B4D7D534D /* CategorySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionView.swift; sourceTree = "<group>"; };
 		466CBE5E5F8A10D0D5D2BDBD /* CategoryOptionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryOptionCard.swift; sourceTree = "<group>"; };
+		4D8D42CD598841379F76874C /* DetailStageDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStageDraftView.swift; sourceTree = "<group>"; };
 		4DA837D6D1E4CA7DFD3AB810 /* ChevronRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronRight.swift; sourceTree = "<group>"; };
 		54D3C3FBD4980B7FC97BD502 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		564A6D282AD699C3B888D20C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -110,15 +113,11 @@
 		63E3419F362AEED07E36F730 /* ImagePickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerService.swift; sourceTree = "<group>"; };
 		645D92F27D7E309610182FDE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		647D943BE97AA414007F7F78 /* TaskCategory+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskCategory+Extension.swift"; sourceTree = "<group>"; };
-		2F3A6CC414DE4DB88E298413 /* DetailPhotoDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoDraftView.swift; sourceTree = "<group>"; };
-		4D8D42CD598841379F76874C /* DetailStageDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStageDraftView.swift; sourceTree = "<group>"; };
-		33E92E4BA01648A58D6F8A56 /* DetailNoteDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNoteDraftView.swift; sourceTree = "<group>"; };
 		6BDCD832D948758DC741774E /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		709A81F97228FCE52706987B /* NoteDraftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDraftViewModel.swift; sourceTree = "<group>"; };
 		7177FC809F4BBD6A9367B8A2 /* Handjet-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handjet-ExtraBold.ttf"; sourceTree = "<group>"; };
 		726C8DCD764CBE4BE12D2BF2 /* HomeStageDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStageDraftView.swift; sourceTree = "<group>"; };
 		7584C110DC9A94EEEE619E0E /* ActionMenuGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuGroup.swift; sourceTree = "<group>"; };
-		C3D4E5F6A7B8C9D0E1F2A3B4 /* PlantPickerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantPickerRow.swift; sourceTree = "<group>"; };
 		76D312403CF4E714898275E1 /* Task+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extension.swift"; sourceTree = "<group>"; };
 		7A2A06B891AE431F765B552F /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		7AD2515C4585A4C4577F542D /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
@@ -150,6 +149,7 @@
 		B6E673746A0BCBB64ADB1734 /* Event+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+Extension.swift"; sourceTree = "<group>"; };
 		BECD33E99CF2466F66057EFF /* PhotoDraftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDraftViewModel.swift; sourceTree = "<group>"; };
 		C21E8DF35538C8B97E0CF058 /* CardSelectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSelectable.swift; sourceTree = "<group>"; };
+		C3D4E5F6A7B8C9D0E1F2A3B4 /* PlantPickerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantPickerRow.swift; sourceTree = "<group>"; };
 		C5D5C49C7FE4D56BD60AEDBC /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		C6F9A05B64A47579152B86D4 /* MenuKebab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuKebab.swift; sourceTree = "<group>"; };
 		CB334C8AED5F09BD635CB911 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		EE8EB2ACD0C0750E989B62BB /* NoteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCardView.swift; sourceTree = "<group>"; };
 		EFD50B3888366B8C0D51D5A6 /* EditCareRequirementsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCareRequirementsCardView.swift; sourceTree = "<group>"; };
 		F1920E721692FD05B73296A0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		F7EDADC12F23C663E48548E2 /* Seedling.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Seedling.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7EDADC12F23C663E48548E2 /* Seedling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seedling.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD3FFD5CEE1F2D7E29B56184 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -512,7 +512,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					A0961CE07B6C29CD85E7CF0F = {
 						DevelopmentTeam = 7YPJCXPNAH;
@@ -671,8 +671,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -693,6 +695,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -710,7 +713,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Seedling/Preview Content\"";
-				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seedling/Info.plist;
@@ -725,7 +727,10 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = lauriecai.Seedling;
@@ -751,7 +756,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Seedling/Preview Content\"";
-				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seedling/Info.plist;
@@ -766,7 +770,10 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = lauriecai.Seedling;
@@ -816,8 +823,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7YPJCXPNAH;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -831,6 +840,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;

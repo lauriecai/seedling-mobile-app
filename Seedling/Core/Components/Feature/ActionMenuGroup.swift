@@ -17,6 +17,8 @@ struct ActionMenuGroup: View {
 	let onUpdateStage: (() -> Void)?
 	let onNewPlant: (() -> Void)?
 
+	private let actionButtonSize: CGFloat = 65
+
 	var body: some View {
 		VStack(alignment: .trailing, spacing: 20) {
 			if isExpanded {
@@ -31,15 +33,25 @@ struct ActionMenuGroup: View {
 						ButtonRounded(iconName: "sparkles", text: "Update Stage")
 							.onTapGesture { tap(onUpdateStage) }
 					}
-
-					if let onNewPlant {
-						ButtonRounded(iconName: "plus", text: "New Plant", style: .green)
-							.onTapGesture { tap(onNewPlant) }
-					}
 				}
+				.transition(.offset(y: 10).combined(with: .opacity))
+			.animation(.bouncy(duration: 0.25, extraBounce: 0.10), value: isExpanded)
 			}
 
-			toggleButton
+			HStack(spacing: 20) {
+				if isExpanded, let onNewPlant {
+					ButtonRounded(
+						iconName: "plus",
+						text: "New Plant",
+						style: .green
+					)
+					.onTapGesture { tap(onNewPlant) }
+					.transition(.offset(x: 10).combined(with: .opacity))
+					.animation(.bouncy(duration: 0.25, extraBounce: 0.10), value: isExpanded)
+				}
+
+				toggleButton
+			}
 		}
 		.padding(.horizontal, 20)
 		.padding(.bottom, 85)
@@ -55,7 +67,7 @@ extension ActionMenuGroup {
 
 	private var toggleButton: some View {
 		ButtonCircle(iconName: "icon-plus")
-			.frame(width: 65, height: 65)
+			.frame(width: actionButtonSize, height: actionButtonSize)
 			.onTapGesture {
 				UIImpactFeedbackGenerator(style: .light).impactOccurred()
 				withAnimation(Animation.bouncy(duration: 0.25, extraBounce: 0.10)) {
