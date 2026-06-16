@@ -31,9 +31,6 @@ struct EditAdditionalCareNotesView: View {
 					.padding(.horizontal)
 				}
 			}
-			.onAppear {
-				FirebaseEventManager.shared.logEvent(name: "EditAdditionalCareNotesCardView_appeared")
-			}
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
 				ToolbarItem(placement: .topBarTrailing) { saveChangesButton }
@@ -59,7 +56,6 @@ extension EditAdditionalCareNotesView {
 	
 	private var saveChangesButton: some View {
 		Button("Save") {
-			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if viewModel.plantAdditionalCareNotesEdited {
 				viewModel.editPlantAdditionalCareNotes(for: viewModel.plant)
@@ -74,7 +70,6 @@ extension EditAdditionalCareNotesView {
 	
 	private var cancelButton: some View {
 		Button("Cancel") {
-			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			viewModel.resetPlantAdditionalCareNotesEditedFlag()
 			dismiss()
 		}

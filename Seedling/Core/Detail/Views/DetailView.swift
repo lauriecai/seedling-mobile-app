@@ -41,7 +41,6 @@ struct DetailView: View {
 			ToolbarItem(placement: .topBarTrailing) { detailsButton }
 		}
 		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "DetailView_appeared")
 			viewModel.fetchPosts(for: viewModel.plant)
 			viewModel.showingActionMenu = false
 		}
@@ -121,7 +120,6 @@ extension DetailView {
 
 	private var deleteEventButton: some View {
 		Button("Delete Post", role: .destructive) {
-			FirebaseEventManager.shared.logEvent(name: "deleteEventButton_tapped")
 			if let selectedEvent = viewModel.selectedEvent {
 				withAnimation(Animation.bouncy(duration: 0.25, extraBounce: 0.10)) {
 					viewModel.deleteEvent(event: selectedEvent)
@@ -132,7 +130,6 @@ extension DetailView {
 
 	private var editCaptionButton: some View {
 		Button("Edit Caption") {
-			FirebaseEventManager.shared.logEvent(name: "editCaptionButton_tapped")
 			if let selectedPhoto = viewModel.selectedPhoto {
 				viewModel.beginEditingPhoto(selectedPhoto)
 			}
@@ -141,7 +138,6 @@ extension DetailView {
 
 	private var deletePhotoButton: some View {
 		Button("Delete Post", role: .destructive) {
-			FirebaseEventManager.shared.logEvent(name: "deletePhotoButton_tapped")
 			withAnimation(Animation.bouncy(duration: 0.25, extraBounce: 0.10)) {
 				viewModel.deletePhoto()
 			}
@@ -154,8 +150,6 @@ extension DetailView {
 
 	private var editNoteButton: some View {
 		Button("Edit note") {
-			FirebaseEventManager.shared.logEvent(name: "editNoteButton_tapped")
-
 			if let selectedNote = viewModel.selectedNote {
 				viewModel.beginEditingNote(selectedNote)
 			}
@@ -164,7 +158,6 @@ extension DetailView {
 
 	private var deleteNoteButton: some View {
 		Button("Delete Post", role: .destructive) {
-			FirebaseEventManager.shared.logEvent(name: "deleteNoteButton_tapped")
 			if let selectedNote = viewModel.selectedNote {
 				withAnimation(Animation.bouncy(duration: 0.25, extraBounce: 0.10)) {
 					viewModel.deleteNote(note: selectedNote)
@@ -181,21 +174,17 @@ extension DetailView {
 		ActionMenuGroup(
 			isExpanded: $viewModel.showingActionMenu,
 			onToggle: {
-				FirebaseEventManager.shared.logEvent(name: "addPostButton_tapped")
 				viewModel.showingActionMenu.toggle()
 			},
 			onAddNote: {
-				FirebaseEventManager.shared.logEvent(name: "addNoteButton_tapped")
 				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
-				FirebaseEventManager.shared.logEvent(name: "addPhotoButton_tapped")
 				imagePickerService.prepareForPicker(source: .detail)
 				viewModel.showingPhotosPicker.toggle()
 				viewModel.closeActionMenu()
 			},
 			onUpdateStage: {
-				FirebaseEventManager.shared.logEvent(name: "updateStageButton_tapped")
 				viewModel.beginStageDraft()
 			},
 			onNewPlant: nil
@@ -204,7 +193,6 @@ extension DetailView {
 
 	private var backButton: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "backButton_tapped")
 			dismiss()
 		} label: {
 			HStack(spacing: 5) {
@@ -219,7 +207,6 @@ extension DetailView {
 
 	private var detailsButton: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "detailsButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.showingPlantDetailsView.toggle()
 		} label: {

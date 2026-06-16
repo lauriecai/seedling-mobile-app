@@ -71,14 +71,10 @@ private struct HomeStageDraftContent: View {
 				stageDraftViewModel.updated = newStage != currentStage
 			}
 		}
-		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "HomeStageDraftView_appeared")
-		}
 	}
 
 	private var saveButton: some View {
 		Button("Update Stage") {
-			FirebaseEventManager.shared.logEvent(name: "HomeUpdateStage_saveButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.postStageDraft()
 		}
@@ -89,7 +85,6 @@ private struct HomeStageDraftContent: View {
 
 	private var cancelButton: some View {
 		Button("Cancel") {
-			FirebaseEventManager.shared.logEvent(name: "HomeUpdateStage_cancelButton_tapped")
 			viewModel.cancelStageDraft()
 		}
 		.font(.handjet(.medium, size: 20))

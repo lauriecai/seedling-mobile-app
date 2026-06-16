@@ -60,7 +60,6 @@ extension TaskRowView {
 	
 	private var taskActions: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "taskActions_tapped")
 			showActionSheet = true
 			showActionForTask = task
 		} label: {

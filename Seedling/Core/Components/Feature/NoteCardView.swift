@@ -62,7 +62,6 @@ extension NoteCardView {
 	
 	private var noteActions: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "noteActions_tapped")
 			showActionSheet = true
 			showActionsForNote = note
 		} label: {

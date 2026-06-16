@@ -30,9 +30,6 @@ struct CategorySelectionView: View {
 					.padding(.horizontal)
 				}
 			}
-			.onAppear {
-				FirebaseEventManager.shared.logEvent(name: "CategorySelectionView_appeared")
-			}
 			.navigationTitle("Category")
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationBarBackButtonHidden(true)
@@ -75,7 +72,6 @@ extension CategorySelectionView {
 						showActionSheet: $showingActionSheet,
 						showActionForCategory: $viewModel.showingActionSheetForCategory)
 					.onTapGesture {
-						FirebaseEventManager.shared.logEvent(name: "CategorySelectionCard_tapped")
 						withAnimation(.spring()) {
 							taskDraftViewModel.selectedCategory = category
 							taskDraftViewModel.selectedCategoryIndex = index
@@ -101,7 +97,6 @@ extension CategorySelectionView {
 	
 	private var deleteCategoryButton: some View {
 		Button("Delete Category", role: .destructive) {
-			FirebaseEventManager.shared.logEvent(name: "deleteCategoryButton_tapped")
 			guard let selectedCategory = viewModel.showingActionSheetForCategory else {
 				print("no selected category set")
 				return
@@ -114,7 +109,6 @@ extension CategorySelectionView {
 	
 	private var backButton: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "backButton_tapped")
 			dismiss()
 		} label: {
 			HStack(spacing: 5) {

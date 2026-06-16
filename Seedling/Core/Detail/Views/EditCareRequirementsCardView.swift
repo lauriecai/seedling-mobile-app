@@ -30,7 +30,6 @@ struct EditCareRequirementsCardView: View {
 					}
 					.padding(.horizontal)
 					.onAppear {
-						FirebaseEventManager.shared.logEvent(name: "EditCareRequirementsCardView_appeared")
 						DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
 							viewModel.activateTextFieldEditModeForAll()
 						}
@@ -100,7 +99,6 @@ extension EditCareRequirementsCardView {
 	
 	private var saveChangesButton: some View {
 		Button("Save") {
-			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if viewModel.plantCareRequirementsEdited {
 				viewModel.editPlantCareRequirements(for: viewModel.plant)
@@ -116,7 +114,6 @@ extension EditCareRequirementsCardView {
 	
 	private var cancelButton: some View {
 		Button("Cancel") {
-			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			viewModel.removeExtraneousSpaceForAll()
 			viewModel.resetPlantGeneralDetailsEditedFlag()
 			dismiss()

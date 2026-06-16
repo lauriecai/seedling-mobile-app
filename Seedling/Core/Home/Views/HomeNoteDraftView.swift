@@ -83,14 +83,10 @@ private struct HomeNoteDraftContent: View {
 				)
 			}
 		}
-		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "HomeNoteDraftView_appeared")
-		}
 	}
 
 	private var addNoteButton: some View {
 		Button("Add Note") {
-			FirebaseEventManager.shared.logEvent(name: "HomeAddNote_saveButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.postNoteDraft()
 		}
@@ -101,7 +97,6 @@ private struct HomeNoteDraftContent: View {
 
 	private var cancelButton: some View {
 		Button("Cancel") {
-			FirebaseEventManager.shared.logEvent(name: "HomeAddNote_cancelButton_tapped")
 			viewModel.cancelNoteDraft()
 		}
 		.font(.handjet(.medium, size: 20))

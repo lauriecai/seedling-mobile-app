@@ -71,7 +71,6 @@ extension PlantCardView {
 
 	private var moreOptions: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "plantActions_tapped")
 			showActionSheet = true
 			showActionForPlant = plant
 		} label: {

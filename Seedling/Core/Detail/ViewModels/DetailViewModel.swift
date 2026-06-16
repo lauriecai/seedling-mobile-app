@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import UIKit
 
 enum DetailSheet: Identifiable {
 	case noteDraft
@@ -109,25 +110,15 @@ class DetailViewModel: ObservableObject {
 //	MARK: - Post functions
 
 	func fetchPosts(for plant: Plant) {
-		PerformanceManager.shared.startTrace(name: "detail_vm_fetch_posts")
-
 		let notes = fetchNotes(for: plant) ?? []
-		PerformanceManager.shared.setValue(name: "detail_vm_fetch_posts", value: notes.count, metric: "number_of_notes")
-
 		let events = fetchEvents(for: plant) ?? []
-		PerformanceManager.shared.setValue(name: "detail_vm_fetch_posts", value: events.count, metric: "number_of_events")
-
 		let photos = photoService.fetchPhotos(for: plant) ?? []
-		PerformanceManager.shared.setValue(name: "detail_vm_fetch_posts", value: photos.count, metric: "number_of_photos")
 
 		let posts = notes.map { PlantPost(type: .note($0)) } +
 					events.map { PlantPost(type: .event($0)) } +
 					photos.map { PlantPost(type: .photo($0)) }
 
-		PerformanceManager.shared.setValue(name: "detail_vm_fetch_posts", value: posts.count, metric: "number_of_posts")
-
 		self.posts = posts.sorted { $0.timestamp > $1.timestamp }
-		PerformanceManager.shared.stopTrace(name: "detail_vm_fetch_posts")
 	}
 
 //	MARK: - Plant functions

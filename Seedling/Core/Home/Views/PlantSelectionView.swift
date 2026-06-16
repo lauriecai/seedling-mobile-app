@@ -46,9 +46,6 @@ struct PlantSelectionView: View {
 				ToolbarItem(placement: .topBarTrailing) { newPlantButton }
 			}
 		}
-		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "PlantSelectionView_appeared")
-		}
 	}
 	
 	private var noneRow: some View {
@@ -59,7 +56,6 @@ struct PlantSelectionView: View {
 			isSelected: selectedPlant == nil
 		)
 		.onTapGesture {
-			FirebaseEventManager.shared.logEvent(name: "PlantSelection_none_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			selectedPlant = nil
 			dismiss()
@@ -74,7 +70,6 @@ struct PlantSelectionView: View {
 			isSelected: selectedPlant?.objectID == plant.objectID
 		)
 		.onTapGesture {
-			FirebaseEventManager.shared.logEvent(name: "PlantSelection_plant_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			selectedPlant = plant
 			dismiss()
@@ -83,7 +78,6 @@ struct PlantSelectionView: View {
 	
 	private var backButton: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "PlantSelection_backButton_tapped")
 			dismiss()
 		} label: {
 			HStack(spacing: 5) {
@@ -98,7 +92,6 @@ struct PlantSelectionView: View {
 	
 	private var newPlantButton: some View {
 		Button("New Plant") {
-			FirebaseEventManager.shared.logEvent(name: "PlantSelection_newPlantButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			onRequestNewPlant?()
 		}

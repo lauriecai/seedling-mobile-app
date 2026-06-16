@@ -29,9 +29,6 @@ struct EditGeneralDetailsCardView: View {
 					.padding(.horizontal)
 				}
 			}
-			.onAppear {
-				FirebaseEventManager.shared.logEvent(name: "EditGeneralDetailsCardView_appeared")
-			}
 			.navigationBarBackButtonHidden(true)
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) { cancelButton }
@@ -110,7 +107,6 @@ extension EditGeneralDetailsCardView {
 	
 	private var saveChangesButton: some View {
 		Button("Save") {
-			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			
 			if viewModel.plantGeneralDetailsEdited {
@@ -131,7 +127,6 @@ extension EditGeneralDetailsCardView {
 	
 	private var cancelButton: some View {
 		Button("Cancel") {
-			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			viewModel.resetPlantGeneralDetailsEditedFlag()
 			dismiss()
 		}

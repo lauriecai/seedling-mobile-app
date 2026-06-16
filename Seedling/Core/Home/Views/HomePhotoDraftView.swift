@@ -83,14 +83,10 @@ private struct HomePhotoDraftContent: View {
 				)
 			}
 		}
-		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "HomePhotoDraftView_appeared")
-		}
 	}
 
 	private var addPhotoButton: some View {
 		Button("Add Photo") {
-			FirebaseEventManager.shared.logEvent(name: "HomeAddPhoto_saveButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.postPhotoDraft()
 		}
@@ -101,7 +97,6 @@ private struct HomePhotoDraftContent: View {
 
 	private var cancelButton: some View {
 		Button("Cancel") {
-			FirebaseEventManager.shared.logEvent(name: "HomeAddPhoto_cancelButton_tapped")
 			viewModel.cancelPhotoDraft()
 		}
 		.font(.handjet(.medium, size: 20))

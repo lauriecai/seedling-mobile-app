@@ -42,9 +42,6 @@ private struct DetailNoteDraftContent: View {
 				.padding(.horizontal)
 			}
 		}
-		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "DetailNoteDraftView_appeared")
-		}
 		.navigationTitle(noteDraftViewModel.editingExistingNote ? "Edit Note" : "New Note")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden(true)
@@ -83,7 +80,6 @@ private extension DetailNoteDraftContent {
 
 	var addNoteButton: some View {
 		Button("Add Note") {
-			FirebaseEventManager.shared.logEvent(name: "addNoteButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.postNoteDraft()
 		}
@@ -94,7 +90,6 @@ private extension DetailNoteDraftContent {
 
 	var saveChangesButton: some View {
 		Button("Save") {
-			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			if let selectedNote = viewModel.selectedNote {
 				viewModel.saveNoteEdit(selectedNote)
@@ -107,7 +102,6 @@ private extension DetailNoteDraftContent {
 
 	var cancelButton: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			viewModel.cancelNoteDraft()
 		} label: {
 			Text("Cancel")

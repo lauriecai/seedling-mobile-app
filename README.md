@@ -23,7 +23,6 @@ Seedling was created by [Laurie Cai](https://www.linkedin.com/in/lauriecai), a p
 * SwiftUI
 * CoreData
 * MVVM architecture
-* Firebase
 
 ## Features
 <img src="images/ui/01-plant-list.png" width="60%">

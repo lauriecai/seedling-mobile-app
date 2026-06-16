@@ -37,7 +37,6 @@ struct HomeView: View {
 				actionMenuGroup
 			}
 			.onAppear {
-				FirebaseEventManager.shared.logEvent(name: "HomeView_appeared")
 				viewModel.fetchPlants()
 				viewModel.showingActionMenu = false
 			}
@@ -140,7 +139,6 @@ extension HomeView {
 					}
 					.simultaneousGesture(
 						TapGesture().onEnded {
-							FirebaseEventManager.shared.logEvent(name: "PlantCardView_tapped")
 							UIImpactFeedbackGenerator(style: .light).impactOccurred()
 						}
 					)
@@ -154,24 +152,19 @@ extension HomeView {
 		ActionMenuGroup(
 			isExpanded: $viewModel.showingActionMenu,
 			onToggle: {
-				FirebaseEventManager.shared.logEvent(name: "homeCreateMenuButton_tapped")
 				viewModel.showingActionMenu.toggle()
 			},
 			onAddNote: {
-				FirebaseEventManager.shared.logEvent(name: "homeAddNoteButton_tapped")
 				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
-				FirebaseEventManager.shared.logEvent(name: "homeAddPhotoButton_tapped")
 				imagePickerService.prepareForPicker(source: .home)
 				viewModel.beginPhotoDraft()
 			},
 			onUpdateStage: viewModel.canShowUpdateStageAction ? {
-				FirebaseEventManager.shared.logEvent(name: "homeUpdateStageButton_tapped")
 				viewModel.beginStageDraft()
 			} : nil,
 			onNewPlant: {
-				FirebaseEventManager.shared.logEvent(name: "homeNewPlantButton_tapped")
 				viewModel.beginPlantDraft()
 			}
 		)
@@ -179,7 +172,6 @@ extension HomeView {
 	
 	private var editPlantNameButton: some View {
 		Button("Edit Name and Variety") {
-			FirebaseEventManager.shared.logEvent(name: "editPlantNameButton_tapped")
 			viewModel.resetPlantDetailsChangedFlag()
 			
 			if let selectedPlant = viewModel.selectedPlant {
@@ -192,7 +184,6 @@ extension HomeView {
 	
 	private var deletePlantButton: some View {
 		Button("Delete Plant", role: .destructive) {
-			FirebaseEventManager.shared.logEvent(name: "deletePlantButton_tapped")
 			if let selectedPlant = viewModel.selectedPlant {
 				withAnimation(Animation.bouncy(duration: 0.25, extraBounce: 0.10)) {
 					viewModel.deletePlant(plant: selectedPlant)

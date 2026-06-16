@@ -45,9 +45,6 @@ private struct DetailStageDraftContent: View {
 		.navigationTitle("Update Stage")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden(true)
-		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "DetailStageDraftView_appeared")
-		}
 		.toolbar {
 			ToolbarItem(placement: .topBarLeading) { cancelButton }
 			ToolbarItem(placement: .topBarTrailing) { saveChangesButton }
@@ -74,7 +71,6 @@ private extension DetailStageDraftContent {
 
 	var saveChangesButton: some View {
 		Button("Save") {
-			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.postStageDraft()
 		}
@@ -85,7 +81,6 @@ private extension DetailStageDraftContent {
 
 	var cancelButton: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			viewModel.cancelStageDraft()
 		} label: {
 			Text("Cancel")

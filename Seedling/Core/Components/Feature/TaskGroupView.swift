@@ -31,7 +31,6 @@ struct TaskGroupView: View {
 						showActionForTask: $selectedTask
 					)
 					.onTapGesture {
-						FirebaseEventManager.shared.logEvent(name: "TaskRowView_tapped")
 						UIImpactFeedbackGenerator(style: .light).impactOccurred()
 						task.isCompleted.toggle()
 						viewModel.fetchTaskCategories()

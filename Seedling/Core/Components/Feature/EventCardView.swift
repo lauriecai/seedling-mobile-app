@@ -54,7 +54,6 @@ extension EventCardView {
 	
 	private var eventActions: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "eventActions_tapped")
 			showActionSheet = true
 			showActionsForEvent = event
 		} label: {

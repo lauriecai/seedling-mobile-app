@@ -45,9 +45,6 @@ private struct TaskDraftContent: View {
 					.padding(.horizontal)
 				}
 			}
-			.onAppear {
-				FirebaseEventManager.shared.logEvent(name: "TaskDraftView_appeared")
-			}
 			.navigationTitle(taskDraftViewModel.editingExistingTask ? "Edit Task" : "New Task")
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationBarBackButtonHidden(true)
@@ -97,7 +94,6 @@ private extension TaskDraftContent {
 	
 	private var addTaskButton: some View {
 		Button("Add Task") {
-			FirebaseEventManager.shared.logEvent(name: "addTaskButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			
 			viewModel.postTaskDraft()
@@ -110,7 +106,6 @@ private extension TaskDraftContent {
 	
 	private var saveChangesButton: some View {
 		Button("Save") {
-			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			
 			if let selectedTask = viewModel.selectedTask {
@@ -126,7 +121,6 @@ private extension TaskDraftContent {
 	
 	private var cancelButton: some View {
 		Button("Cancel") {
-			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			dismiss()
 			viewModel.cancelTaskDraft()
 		}

@@ -50,9 +50,6 @@ private struct DetailPhotoDraftContent: View {
 				.padding(.horizontal)
 			}
 		}
-		.onAppear {
-			FirebaseEventManager.shared.logEvent(name: "DetailPhotoDraftView_appeared")
-		}
 		.navigationTitle(photoDraftViewModel.editingExistingImage ? "Edit Caption" : "New Photo")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden(true)
@@ -79,7 +76,6 @@ private extension DetailPhotoDraftContent {
 
 	var addPhotoButton: some View {
 		Button("Add Photo") {
-			FirebaseEventManager.shared.logEvent(name: "addPhotoButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.postPhotoDraft()
 		}
@@ -89,7 +85,6 @@ private extension DetailPhotoDraftContent {
 
 	var saveChangesButton: some View {
 		Button("Save") {
-			FirebaseEventManager.shared.logEvent(name: "saveChangesButton_tapped")
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
 			viewModel.savePhotoEdit()
 		}
@@ -100,7 +95,6 @@ private extension DetailPhotoDraftContent {
 
 	var cancelButton: some View {
 		Button {
-			FirebaseEventManager.shared.logEvent(name: "cancelButton_tapped")
 			viewModel.cancelPhotoDraft()
 		} label: {
 			Text("Cancel")
