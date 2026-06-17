@@ -41,7 +41,24 @@ struct HomeView: View {
 				viewModel.showingActionMenu = false
 			}
 			.sheet(item: $viewModel.activeSheet) { sheet in
-				homeSheetContent(for: sheet)
+				switch sheet {
+				case .addPlant(let presentation):
+					AddPlantView(viewModel: viewModel, presentation: presentation) { plant in
+						switch presentation {
+						case .standalone:
+							viewModel.dismissActiveSheet()
+						case .fromNoteDraft, .fromPhotoDraft:
+							viewModel.draftAssignedPlant = plant
+						}
+						viewModel.fetchPlants()
+					}
+				case .noteDraft:
+					HomeNoteDraftView(viewModel: viewModel)
+				case .photoDraft:
+					HomePhotoDraftView(viewModel: viewModel)
+				case .stageDraft:
+					HomeStageDraftView(viewModel: viewModel)
+				}
 			}
 			.sheet(isPresented: $viewModel.showingAddPlantView) {
 				AddPlantView(viewModel: viewModel, presentation: .standalone)
@@ -52,7 +69,7 @@ struct HomeView: View {
 			)
 			.onChange(of: imagePickerService.selectedImage) { _, newImage in
 				guard let newImage, imagePickerService.pickerSource == .home else { return }
-				viewModel.handlePhotoPickerResult(newImage)
+				viewModel.beginPhotoDraft(image: newImage)
 				imagePickerService.clearPickerState()
 				viewModel.showingPhotosPicker = false
 			}
@@ -68,29 +85,6 @@ struct HomeView: View {
 		}
     }
 	
-	@ViewBuilder
-	private func homeSheetContent(for sheet: HomeSheet) -> some View {
-		switch sheet {
-		case .addPlant(let presentation):
-			AddPlantView(viewModel: viewModel, presentation: presentation) { plant in
-				switch presentation {
-				case .standalone:
-					viewModel.dismissActiveSheet()
-				case .fromNoteDraft:
-					viewModel.draftAssignedPlant = plant
-				case .fromPhotoDraft:
-					viewModel.draftAssignedPlant = plant
-				}
-				viewModel.fetchPlants()
-			}
-		case .noteDraft:
-			HomeNoteDraftView(viewModel: viewModel)
-		case .photoDraft:
-			HomePhotoDraftView(viewModel: viewModel)
-		case .stageDraft:
-			HomeStageDraftView(viewModel: viewModel)
-		}
-	}
 }
 
 #Preview {
@@ -152,14 +146,14 @@ extension HomeView {
 		ActionMenuGroup(
 			isExpanded: $viewModel.showingActionMenu,
 			onToggle: {
-				viewModel.showingActionMenu.toggle()
+				viewModel.toggleActionMenu()
 			},
 			onAddNote: {
 				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
 				imagePickerService.prepareForPicker(source: .home)
-				viewModel.beginPhotoDraft()
+				viewModel.openPhotoPicker()
 			},
 			onUpdateStage: viewModel.canShowUpdateStageAction ? {
 				viewModel.beginStageDraft()

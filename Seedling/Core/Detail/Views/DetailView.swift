@@ -12,7 +12,7 @@ struct DetailView: View {
 
 	@StateObject private var viewModel: DetailViewModel
 
-	@EnvironmentObject var imagePickerService: ImagePickerService
+	@EnvironmentObject private var imagePickerService: ImagePickerService
 
 	@Environment(\.dismiss) var dismiss
 
@@ -45,17 +45,13 @@ struct DetailView: View {
 			viewModel.showingActionMenu = false
 		}
 		.sheet(item: $viewModel.activeSheet) { sheet in
-			switch sheet {
-			case .noteDraft:
-				NavigationView {
+			NavigationStack {
+				switch sheet {
+				case .noteDraft:
 					DetailNoteDraftView(viewModel: viewModel)
-				}
-			case .stageDraft:
-				NavigationView {
+				case .stageDraft:
 					DetailStageDraftView(viewModel: viewModel)
-				}
-			case .photoDraft:
-				NavigationView {
+				case .photoDraft:
 					DetailPhotoDraftView(viewModel: viewModel)
 				}
 			}
@@ -149,7 +145,7 @@ extension DetailView {
 	}
 
 	private var editNoteButton: some View {
-		Button("Edit note") {
+		Button("Edit Note") {
 			if let selectedNote = viewModel.selectedNote {
 				viewModel.beginEditingNote(selectedNote)
 			}
@@ -174,15 +170,14 @@ extension DetailView {
 		ActionMenuGroup(
 			isExpanded: $viewModel.showingActionMenu,
 			onToggle: {
-				viewModel.showingActionMenu.toggle()
+				viewModel.toggleActionMenu()
 			},
 			onAddNote: {
 				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
 				imagePickerService.prepareForPicker(source: .detail)
-				viewModel.showingPhotosPicker.toggle()
-				viewModel.closeActionMenu()
+				viewModel.openPhotoPicker()
 			},
 			onUpdateStage: {
 				viewModel.beginStageDraft()
@@ -208,7 +203,7 @@ extension DetailView {
 	private var detailsButton: some View {
 		Button {
 			UIImpactFeedbackGenerator(style: .light).impactOccurred()
-			viewModel.showingPlantDetailsView.toggle()
+			viewModel.showingPlantDetailsView = true
 		} label: {
 			Text("Details")
 				.font(.handjet(.extraBold, size: 20))

@@ -140,6 +140,10 @@ class DetailViewModel: ObservableObject {
 		fetchPosts(for: plant)
 	}
 
+	func toggleActionMenu() {
+		showingActionMenu.toggle()
+	}
+
 	func closeActionMenu() {
 		showingActionMenu = false
 	}
@@ -195,6 +199,11 @@ class DetailViewModel: ObservableObject {
 	}
 
 //	MARK: - Photo draft lifecycle
+
+	func openPhotoPicker() {
+		showingPhotosPicker = true
+		closeActionMenu()
+	}
 
 	func beginPhotoDraft(image: UIImage) {
 		photoDraftViewModel = PhotoDraftViewModel(plant: plant, newImage: image)

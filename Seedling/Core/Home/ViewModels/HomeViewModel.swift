@@ -129,23 +129,27 @@ class HomeViewModel: ObservableObject {
 		activeSheet = .noteDraft
 	}
 	
-	func beginPhotoDraft() {
-		closeActionMenu()
-		resetPhotoDraft()
-		showingPhotosPicker = true
-	}
-	
 	func beginStageDraft() {
 		closeActionMenu()
 		resetStageDraft()
 		activeSheet = .stageDraft
 	}
 	
-	func handlePhotoPickerResult(_ image: UIImage) {
+	func openPhotoPicker() {
+		closeActionMenu()
+		resetPhotoDraft()
+		showingPhotosPicker = true
+	}
+
+	func beginPhotoDraft(image: UIImage) {
 		photoDraftViewModel = PhotoDraftViewModel(newImage: image)
 		activeSheet = .photoDraft
 	}
 	
+	func toggleActionMenu() {
+		showingActionMenu.toggle()
+	}
+
 	func closeActionMenu() {
 		showingActionMenu = false
 	}
