@@ -89,9 +89,11 @@ class DetailViewModel: ObservableObject {
 
 	// PhotosPicker Segues
 	@Published var showingPhotosPicker: Bool = false
+	@Published var showingCameraPicker: Bool = false
+	@Published var cameraLibraryAccessDenied: Bool = false
 
 	// Services
-	private let photoService = PhotoService()
+
 
 	init(plant: Plant) {
 		self.plant = plant
@@ -112,7 +114,7 @@ class DetailViewModel: ObservableObject {
 	func fetchPosts(for plant: Plant) {
 		let notes = fetchNotes(for: plant) ?? []
 		let events = fetchEvents(for: plant) ?? []
-		let photos = photoService.fetchPhotos(for: plant) ?? []
+		let photos = PhotoService.fetchPhotos(for: plant) ?? []
 
 		let posts = notes.map { PlantPost(type: .note($0)) } +
 					events.map { PlantPost(type: .event($0)) } +
@@ -200,9 +202,40 @@ class DetailViewModel: ObservableObject {
 
 //	MARK: - Photo draft lifecycle
 
+	func routeAddPhoto(imagePickerService: ImagePickerService) {
+		Task {
+			await MainActor.run {
+				imagePickerService.prepareForPicker(source: .detail)
+			}
+
+			let cameraAuthorized: Bool
+			if PhotoCapturePermissions.isCameraAuthorized {
+				cameraAuthorized = true
+			} else if PhotoCapturePermissions.isCameraDenied {
+				cameraAuthorized = false
+			} else {
+				cameraAuthorized = await PhotoCapturePermissions.requestCameraAccess()
+			}
+
+			await MainActor.run {
+				if cameraAuthorized && PhotoCapturePermissions.canPresentCameraPicker {
+					openCameraPicker(libraryAccessDenied: PhotoCapturePermissions.isLibraryDenied)
+				} else {
+					openPhotoPicker()
+				}
+			}
+		}
+	}
+
 	func openPhotoPicker() {
 		showingPhotosPicker = true
 		closeActionMenu()
+	}
+
+	func openCameraPicker(libraryAccessDenied: Bool) {
+		closeActionMenu()
+		cameraLibraryAccessDenied = libraryAccessDenied
+		showingCameraPicker = true
 	}
 
 	func beginPhotoDraft(image: UIImage) {
@@ -368,7 +401,7 @@ class DetailViewModel: ObservableObject {
 	}
 
 	private func fetchPhotos(for plant: Plant) -> [Photo]? {
-		photoService.fetchPhotos(for: plant)
+		PhotoService.fetchPhotos(for: plant)
 	}
 
 //  MARK: - UI functions

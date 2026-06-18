@@ -22,7 +22,7 @@ class PhotoDraftViewModel: ObservableObject {
 	let coreDataManager = CoreDataManager.shared
 	let fileManager = FileManager()
 	
-	let photoService = PhotoService()
+
 	
 //	MARK: - Init
 	
@@ -46,7 +46,7 @@ class PhotoDraftViewModel: ObservableObject {
 //	MARK: - Public Methods
 	
 	func createPhoto(for plant: Plant) {
-		let newPhoto = photoService.createPhoto(for: plant, caption: caption)
+		let newPhoto = PhotoService.createPhoto(for: plant, caption: caption)
 		
 		coreDataManager.save()
 		fileManager.saveImage(id: newPhoto.wrappedImageUrlString, image: image)
@@ -72,6 +72,6 @@ class PhotoDraftViewModel: ObservableObject {
 	}
 	
 	private func fetchPhotos(for plant: Plant) -> [Photo]? {
-		photoService.fetchPhotos(for: plant)
+		PhotoService.fetchPhotos(for: plant)
 	}
 }
