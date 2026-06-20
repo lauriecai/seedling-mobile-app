@@ -35,3 +35,23 @@ extension View {
 		modifier(TabItemViewModifier(tab: tab, selection: selection))
 	}
 }
+
+private struct GardenPopToRootSignalKey: EnvironmentKey {
+	static let defaultValue: Int = 0
+}
+
+private struct TasksPopToRootSignalKey: EnvironmentKey {
+	static let defaultValue: Int = 0
+}
+
+extension EnvironmentValues {
+	var gardenPopToRootSignal: Int {
+		get { self[GardenPopToRootSignalKey.self] }
+		set { self[GardenPopToRootSignalKey.self] = newValue }
+	}
+	
+	var tasksPopToRootSignal: Int {
+		get { self[TasksPopToRootSignalKey.self] }
+		set { self[TasksPopToRootSignalKey.self] = newValue }
+	}
+}

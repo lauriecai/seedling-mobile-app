@@ -24,6 +24,9 @@ struct NavigationBar: View {
 	
 	let tabs: [TabItem]
 	@Binding var selection: TabItem
+	var onTabDoubleTap: (TabItem) -> Void = { _ in }
+	
+	@State private var lastTabTap: (tab: TabItem, date: Date)?
 	
 	var body: some View {
 		VStack {
@@ -32,8 +35,7 @@ struct NavigationBar: View {
 				ForEach(tabs, id: \.self) { tab in
 					tabView(tab: tab)
 						.onTapGesture {
-							UIImpactFeedbackGenerator(style: .light).impactOccurred()
-							switchToTab(tab: tab)
+							handleTabTap(tab)
 						}
 				}
 			}
@@ -72,6 +74,24 @@ extension NavigationBar {
 	
 	private func switchToTab(tab: TabItem) {
 		selection = tab
+	}
+	
+	private func handleTabTap(_ tab: TabItem) {
+		let now = Date()
+		
+		if let lastTabTap,
+		   lastTabTap.tab == tab,
+		   selection == tab,
+		   now.timeIntervalSince(lastTabTap.date) < 0.35 {
+			self.lastTabTap = nil
+			UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+			onTabDoubleTap(tab)
+			return
+		}
+		
+		lastTabTap = (tab, now)
+		UIImpactFeedbackGenerator(style: .light).impactOccurred()
+		switchToTab(tab: tab)
 	}
 }
 

@@ -50,6 +50,8 @@ struct NavigationContainer<Content: View>: View {
 	let content: Content
 	
 	@State private var tabs: [TabItem] = []
+	@State private var gardenPopToRootSignal = 0
+	@State private var tasksPopToRootSignal = 0
 	
 	init(selection: Binding<TabItem>, @ViewBuilder content: () -> Content) {
 		self._selection = selection
@@ -60,8 +62,19 @@ struct NavigationContainer<Content: View>: View {
 		VStack(spacing: 0) {
 			ZStack {
 				content
+					.environment(\.gardenPopToRootSignal, gardenPopToRootSignal)
+					.environment(\.tasksPopToRootSignal, tasksPopToRootSignal)
 				
-				NavigationBar(tabs: tabs, selection: $selection)
+				NavigationBar(tabs: tabs, selection: $selection) { tab in
+					switch tab {
+					case NavigationItem.garden.tabItem:
+						gardenPopToRootSignal += 1
+					case NavigationItem.tasks.tabItem:
+						tasksPopToRootSignal += 1
+					default:
+						break
+					}
+				}
 			}
 		}
 		.onPreferenceChange(TabItemsPreferenceKey.self) { value in

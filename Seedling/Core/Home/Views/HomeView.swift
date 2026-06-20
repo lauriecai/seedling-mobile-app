@@ -12,9 +12,12 @@ struct HomeView: View {
 	
 	@StateObject private var viewModel = HomeViewModel()
 	@EnvironmentObject private var imagePickerService: ImagePickerService
+	@Environment(\.gardenPopToRootSignal) private var gardenPopToRootSignal
+	
+	@State private var navigationPath = NavigationPath()
 	
 	var body: some View {
-		NavigationStack {
+		NavigationStack(path: $navigationPath) {
 			ZStack(alignment: .bottomTrailing) {
 				Color.theme.backgroundPrimary
 					.ignoresSafeArea()
@@ -87,6 +90,9 @@ struct HomeView: View {
 			}
 			.navigationDestination(for: Plant.self) { plant in
 				DetailView(plant: plant)
+			}
+			.onChange(of: gardenPopToRootSignal) { _, _ in
+				navigationPath = NavigationPath()
 			}
 		}
     }

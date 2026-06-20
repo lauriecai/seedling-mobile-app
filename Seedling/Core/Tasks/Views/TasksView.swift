@@ -10,9 +10,12 @@ import SwiftUI
 struct TasksView: View {
 	
 	@StateObject private var viewModel = TasksViewModel()
+	@Environment(\.tasksPopToRootSignal) private var tasksPopToRootSignal
+	
+	@State private var navigationPath = NavigationPath()
 	
     var body: some View {
-		NavigationStack {
+		NavigationStack(path: $navigationPath) {
 			ZStack(alignment: .bottomTrailing) {
 				Color.theme.backgroundPrimary
 					.ignoresSafeArea()
@@ -43,6 +46,9 @@ struct TasksView: View {
 				deleteTaskButton
 			} message: {
 				Text("What do you want to do with this task?")
+			}
+			.onChange(of: tasksPopToRootSignal) { _, _ in
+				navigationPath = NavigationPath()
 			}
 		}
     }
