@@ -5,6 +5,7 @@
 
 import Foundation
 
+@MainActor
 class NoteDraftViewModel: ObservableObject {
 
 	@Published var titleInput: String = ""

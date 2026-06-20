@@ -23,6 +23,7 @@ enum DetailSheet: Identifiable {
 	}
 }
 
+@MainActor
 class DetailViewModel: ObservableObject {
 
 	let coreDataManager = CoreDataManager.shared
@@ -204,25 +205,13 @@ class DetailViewModel: ObservableObject {
 
 	func routeAddPhoto(imagePickerService: ImagePickerService) {
 		Task {
-			await MainActor.run {
-				imagePickerService.prepareForPicker(source: .detail)
-			}
+			imagePickerService.prepareForPicker(source: .detail)
 
-			let cameraAuthorized: Bool
-			if PhotoCapturePermissions.isCameraAuthorized {
-				cameraAuthorized = true
-			} else if PhotoCapturePermissions.isCameraDenied {
-				cameraAuthorized = false
+			let cameraGranted = await PhotoCapturePermissions.resolveCamera()
+			if cameraGranted && PhotoCapturePermissions.canPresentCameraPicker {
+				openCameraPicker(libraryAccessDenied: PhotoCapturePermissions.libraryDenied)
 			} else {
-				cameraAuthorized = await PhotoCapturePermissions.requestCameraAccess()
-			}
-
-			await MainActor.run {
-				if cameraAuthorized && PhotoCapturePermissions.canPresentCameraPicker {
-					openCameraPicker(libraryAccessDenied: PhotoCapturePermissions.isLibraryDenied)
-				} else {
-					openPhotoPicker()
-				}
+				openPhotoPicker()
 			}
 		}
 	}

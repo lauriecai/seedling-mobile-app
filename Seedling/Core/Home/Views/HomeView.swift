@@ -60,8 +60,14 @@ struct HomeView: View {
 					HomeStageDraftView(viewModel: viewModel)
 				}
 			}
-			.sheet(isPresented: $viewModel.showingAddPlantView) {
-				AddPlantView(viewModel: viewModel, presentation: .standalone)
+			.sheet(isPresented: $viewModel.showingCameraPicker) {
+				CameraImagePickerView(
+					isPresented: $viewModel.showingCameraPicker,
+					libraryAccessDenied: viewModel.cameraLibraryAccessDenied,
+					onImagePicked: { image in
+						viewModel.beginPhotoDraft(image: image)
+					}
+				)
 			}
 			.photosPicker(
 				isPresented: $viewModel.showingPhotosPicker,
@@ -152,8 +158,7 @@ extension HomeView {
 				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
-				imagePickerService.prepareForPicker(source: .home)
-				viewModel.openPhotoPicker()
+				viewModel.routeAddPhoto(imagePickerService: imagePickerService)
 			},
 			onUpdateStage: viewModel.canShowUpdateStageAction ? {
 				viewModel.beginStageDraft()
@@ -170,7 +175,7 @@ extension HomeView {
 			
 			if let selectedPlant = viewModel.selectedPlant {
 				viewModel.editingExistingPlant = true
-				viewModel.showingAddPlantView = true
+				viewModel.activeSheet = .addPlant(.standalone)
 				viewModel.fetchExistingPlantNameAndVariety(for: selectedPlant)
 			}
 		}

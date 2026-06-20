@@ -56,6 +56,15 @@ struct DetailView: View {
 				}
 			}
 		}
+		.sheet(isPresented: $viewModel.showingCameraPicker) {
+			CameraImagePickerView(
+				isPresented: $viewModel.showingCameraPicker,
+				libraryAccessDenied: viewModel.cameraLibraryAccessDenied,
+				onImagePicked: { image in
+					viewModel.beginPhotoDraft(image: image)
+				}
+			)
+		}
 		.photosPicker(isPresented: $viewModel.showingPhotosPicker, selection: $imagePickerService.selectedPhotosPickerItem)
 		.onChange(of: imagePickerService.selectedImage) { _, newImage in
 			guard let newImage, imagePickerService.pickerSource == .detail else { return }
@@ -176,8 +185,7 @@ extension DetailView {
 				viewModel.beginNoteDraft()
 			},
 			onAddPhoto: {
-				imagePickerService.prepareForPicker(source: .detail)
-				viewModel.openPhotoPicker()
+				viewModel.routeAddPhoto(imagePickerService: imagePickerService)
 			},
 			onUpdateStage: {
 				viewModel.beginStageDraft()

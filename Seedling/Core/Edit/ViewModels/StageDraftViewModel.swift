@@ -5,6 +5,7 @@
 
 import Foundation
 
+@MainActor
 class StageDraftViewModel: ObservableObject {
 
 	@Published var plant: Plant?

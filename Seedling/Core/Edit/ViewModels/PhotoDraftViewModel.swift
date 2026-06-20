@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 class PhotoDraftViewModel: ObservableObject {
 	
 	@Published var plant: Plant?

@@ -61,6 +61,7 @@ enum AddPlantPresentation: Identifiable {
 	}
 }
 
+@MainActor
 class HomeViewModel: ObservableObject {
 	
 	let manager = CoreDataManager.shared
@@ -70,6 +71,8 @@ class HomeViewModel: ObservableObject {
 	@Published var showingActionMenu: Bool = false
 	@Published var activeSheet: HomeSheet?
 	@Published var showingPhotosPicker: Bool = false
+	@Published var showingCameraPicker: Bool = false
+	@Published var cameraLibraryAccessDenied: Bool = false
 	
 	// Add Plant View
 	@Published var plantNameInput: String = ""
@@ -85,7 +88,6 @@ class HomeViewModel: ObservableObject {
 	@Published var plantDetailsEdited: Bool = false
 	
 	// Plant card actions
-	@Published var showingAddPlantView: Bool = false
 	@Published var selectedPlant: Plant? = nil
 	@Published var showingActionSheet: Bool = false
 	
@@ -135,10 +137,30 @@ class HomeViewModel: ObservableObject {
 		activeSheet = .stageDraft
 	}
 	
+	func routeAddPhoto(imagePickerService: ImagePickerService) {
+		Task {
+			imagePickerService.prepareForPicker(source: .home)
+
+			let cameraGranted = await PhotoCapturePermissions.resolveCamera()
+			if cameraGranted && PhotoCapturePermissions.canPresentCameraPicker {
+				openCameraPicker(libraryAccessDenied: PhotoCapturePermissions.libraryDenied)
+			} else {
+				openPhotoPicker()
+			}
+		}
+	}
+
 	func openPhotoPicker() {
 		closeActionMenu()
 		resetPhotoDraft()
 		showingPhotosPicker = true
+	}
+
+	func openCameraPicker(libraryAccessDenied: Bool) {
+		closeActionMenu()
+		resetPhotoDraft()
+		cameraLibraryAccessDenied = libraryAccessDenied
+		showingCameraPicker = true
 	}
 
 	func beginPhotoDraft(image: UIImage) {

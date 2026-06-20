@@ -5,6 +5,7 @@
 
 import Foundation
 
+@MainActor
 class TaskDraftViewModel: ObservableObject {
 	
 	@Published var titleInput: String = ""
