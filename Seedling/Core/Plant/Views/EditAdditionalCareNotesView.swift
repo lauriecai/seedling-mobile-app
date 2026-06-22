@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditAdditionalCareNotesView: View {
 	
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 	
 	@Environment(\.dismiss) var dismiss
 	

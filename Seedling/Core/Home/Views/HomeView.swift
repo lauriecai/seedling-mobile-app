@@ -89,7 +89,7 @@ struct HomeView: View {
 				Text("What do you want to do with this plant?")
 			}
 			.navigationDestination(for: Plant.self) { plant in
-				DetailView(plant: plant)
+				PlantView(plant: plant)
 			}
 			.onChange(of: gardenPopToRootSignal) { _, _ in
 				navigationPath = NavigationPath()

@@ -14,7 +14,7 @@ import SwiftUI
 
 enum PhotoPickerSource {
 	case home
-	case detail
+	case plant
 }
 
 @MainActor

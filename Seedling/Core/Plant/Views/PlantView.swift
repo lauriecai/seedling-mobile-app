@@ -1,5 +1,5 @@
 //
-//  DetailView.swift
+//  PlantView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 2/11/24.
@@ -8,9 +8,9 @@
 import PhotosUI
 import SwiftUI
 
-struct DetailView: View {
+struct PlantView: View {
 
-	@StateObject private var viewModel: DetailViewModel
+	@StateObject private var viewModel: PlantViewModel
 
 	@EnvironmentObject private var imagePickerService: ImagePickerService
 
@@ -18,7 +18,7 @@ struct DetailView: View {
 
 //	MARK: - Init
 	init(plant: Plant) {
-		_viewModel = StateObject(wrappedValue: DetailViewModel(plant: plant))
+		_viewModel = StateObject(wrappedValue: PlantViewModel(plant: plant))
 	}
 
 //	MARK: - View
@@ -48,11 +48,11 @@ struct DetailView: View {
 			NavigationStack {
 				switch sheet {
 				case .noteDraft:
-					DetailNoteDraftView(viewModel: viewModel)
+					PlantNoteDraftView(viewModel: viewModel)
 				case .stageDraft:
-					DetailStageDraftView(viewModel: viewModel)
+					PlantStageDraftView(viewModel: viewModel)
 				case .photoDraft:
-					DetailPhotoDraftView(viewModel: viewModel)
+					PlantPhotoDraftView(viewModel: viewModel)
 				}
 			}
 		}
@@ -67,7 +67,7 @@ struct DetailView: View {
 		}
 		.photosPicker(isPresented: $viewModel.showingPhotosPicker, selection: $imagePickerService.selectedPhotosPickerItem)
 		.onChange(of: imagePickerService.selectedImage) { _, newImage in
-			guard let newImage, imagePickerService.pickerSource == .detail else { return }
+			guard let newImage, imagePickerService.pickerSource == .plant else { return }
 			viewModel.beginPhotoDraft(image: newImage)
 			imagePickerService.clearPickerState()
 			viewModel.showingPhotosPicker = false
@@ -80,7 +80,7 @@ struct DetailView: View {
 
 // MARK: - UI
 
-extension DetailView {
+extension PlantView {
 
 	private var postsList: some View {
 		ScrollView(showsIndicators: false) {

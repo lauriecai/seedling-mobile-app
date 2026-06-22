@@ -1,5 +1,5 @@
 //
-//  DetailNoteDraftView.swift
+//  PlantNoteDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 2/18/24.
@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct DetailNoteDraftView: View {
+struct PlantNoteDraftView: View {
 
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 
 	var body: some View {
-		DetailNoteDraftContent(
+		PlantNoteDraftContent(
 			viewModel: viewModel,
 			noteDraftViewModel: viewModel.noteDraftViewModel
 		)
 	}
 }
 
-private struct DetailNoteDraftContent: View {
+private struct PlantNoteDraftContent: View {
 
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 	@ObservedObject var noteDraftViewModel: NoteDraftViewModel
 
 	@FocusState private var keyboardFocused: Bool
@@ -61,7 +61,7 @@ private struct DetailNoteDraftContent: View {
     }
 }
 
-private extension DetailNoteDraftContent {
+private extension PlantNoteDraftContent {
 
 	var notePrompt: some View {
 		Text("How's your \(viewModel.plant.wrappedFullNameSentence.lowercased())?")

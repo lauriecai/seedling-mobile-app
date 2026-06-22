@@ -1,5 +1,5 @@
 //
-//  DetailViewModel.swift
+//  PlantViewModel.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 2/11/24.
@@ -7,9 +7,10 @@
 
 import CoreData
 import Foundation
+import PostHog
 import UIKit
 
-enum DetailSheet: Identifiable {
+enum PlantSheet: Identifiable {
 	case noteDraft
 	case stageDraft
 	case photoDraft
@@ -24,17 +25,17 @@ enum DetailSheet: Identifiable {
 }
 
 @MainActor
-class DetailViewModel: ObservableObject {
+class PlantViewModel: ObservableObject {
 
 	let coreDataManager = CoreDataManager.shared
 	let fileManager = FileManager()
 
-	// Detail View
+	// Plant View
 	@Published var plant: Plant
 	@Published var posts: [PlantPost] = []
 
 	@Published var showingActionMenu: Bool = false
-	@Published var activeSheet: DetailSheet?
+	@Published var activeSheet: PlantSheet?
 
 	// Note draft
 	@Published var noteDraftViewModel = NoteDraftViewModel()
@@ -70,7 +71,7 @@ class DetailViewModel: ObservableObject {
 	@Published var plantCareRequirementsEdited: Bool = false
 	@Published var plantAdditionalCareNotesEdited: Bool = false
 
-	// Detail View Segues
+	// Plant View Segues
 	@Published var showingPlantDetailsView: Bool = false
 
 	// Add Post View Segues
@@ -205,7 +206,7 @@ class DetailViewModel: ObservableObject {
 
 	func routeAddPhoto(imagePickerService: ImagePickerService) {
 		Task {
-			imagePickerService.prepareForPicker(source: .detail)
+			imagePickerService.prepareForPicker(source: .plant)
 
 			let cameraGranted = await PhotoCapturePermissions.resolveCamera()
 			if cameraGranted && PhotoCapturePermissions.canPresentCameraPicker {
@@ -298,6 +299,10 @@ class DetailViewModel: ObservableObject {
 			soilRequirement: soilRequirementInput,
 			fertilizerRequirement: fertilizerRequirementInput
 		)
+		PostHogSDK.shared.capture("plant_care_requirements_updated", properties: [
+			"plant_name": plant.wrappedName,
+			"plant_type": plant.wrappedType,
+		])
 	}
 
 	func resetPlantCareRequirementsEditedFlag() {
@@ -333,6 +338,9 @@ class DetailViewModel: ObservableObject {
 	}
 
 	func deleteNote(note: Note) {
+		PostHogSDK.shared.capture("note_deleted", properties: [
+			"plant_name": plant.wrappedName,
+		])
 		coreDataManager.deleteNote(note: note)
 		fetchPosts(for: plant)
 	}
@@ -375,6 +383,9 @@ class DetailViewModel: ObservableObject {
 		guard let imageUrlString = selectedPhoto?.imageUrlString,
 			  let savedPhoto = findExistingPhoto(for: plant) else { return }
 
+		PostHogSDK.shared.capture("photo_deleted", properties: [
+			"plant_name": plant.wrappedName,
+		])
 		fileManager.deleteImage(id: imageUrlString)
 		coreDataManager.deletePhoto(photo: savedPhoto)
 		fetchPosts(for: plant)

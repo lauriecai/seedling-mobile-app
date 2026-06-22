@@ -1,5 +1,5 @@
 //
-//  DetailStageDraftView.swift
+//  PlantStageDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 5/1/24.
@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct DetailStageDraftView: View {
+struct PlantStageDraftView: View {
 
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 
 	var body: some View {
-		DetailStageDraftContent(
+		PlantStageDraftContent(
 			viewModel: viewModel,
 			stageDraftViewModel: viewModel.stageDraftViewModel
 		)
 	}
 }
 
-private struct DetailStageDraftContent: View {
+private struct PlantStageDraftContent: View {
 
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 	@ObservedObject var stageDraftViewModel: StageDraftViewModel
 
 	var body: some View {
@@ -60,7 +60,7 @@ private struct DetailStageDraftContent: View {
 	}
 }
 
-private extension DetailStageDraftContent {
+private extension PlantStageDraftContent {
 
 	var updateStagePrompt: some View {
 		Text("Select a new stage:")

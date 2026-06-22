@@ -1,5 +1,5 @@
 //
-//  DetailPhotoDraftView.swift
+//  PlantPhotoDraftView.swift
 //  Seedling
 //
 //  Created by Laurie Cai on 7/2/24.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct DetailPhotoDraftView: View {
+struct PlantPhotoDraftView: View {
 
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 
 	var body: some View {
 		if let photoDraftViewModel = viewModel.photoDraftViewModel {
-			DetailPhotoDraftContent(
+			PlantPhotoDraftContent(
 				viewModel: viewModel,
 				photoDraftViewModel: photoDraftViewModel
 			)
@@ -21,9 +21,9 @@ struct DetailPhotoDraftView: View {
 	}
 }
 
-private struct DetailPhotoDraftContent: View {
+private struct PlantPhotoDraftContent: View {
 
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 	@ObservedObject var photoDraftViewModel: PhotoDraftViewModel
 
 	@FocusState private var keyboardFocused: Bool
@@ -68,7 +68,7 @@ private struct DetailPhotoDraftContent: View {
     }
 }
 
-private extension DetailPhotoDraftContent {
+private extension PlantPhotoDraftContent {
 
 	var photoCaptionInput: some View {
 		TextEditorInput(inputLabel: "Description", labelDescription: "Optional", inputPlaceholder: "Start writing...", accentTheme: true, text: $photoDraftViewModel.caption)

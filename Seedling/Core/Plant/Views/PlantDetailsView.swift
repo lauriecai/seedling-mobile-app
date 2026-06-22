@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlantDetailsView: View {
 	
-	@ObservedObject var viewModel: DetailViewModel
+	@ObservedObject var viewModel: PlantViewModel
 	
 	@Environment(\.dismiss) var dismiss
 	
