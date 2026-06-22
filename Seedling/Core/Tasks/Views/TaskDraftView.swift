@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/20/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct TaskDraftView: View {
@@ -16,6 +17,7 @@ struct TaskDraftView: View {
 			viewModel: viewModel,
 			taskDraftViewModel: viewModel.taskDraftViewModel
 		)
+		.onAppear { PostHogSDK.shared.screen("Task Draft") }
 	}
 }
 

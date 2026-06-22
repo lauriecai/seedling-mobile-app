@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/1/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct PlantStageDraftView: View {
@@ -16,6 +17,7 @@ struct PlantStageDraftView: View {
 			viewModel: viewModel,
 			stageDraftViewModel: viewModel.stageDraftViewModel
 		)
+		.onAppear { PostHogSDK.shared.screen("Stage Draft (Plant)") }
 	}
 }
 

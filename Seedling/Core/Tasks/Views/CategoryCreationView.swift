@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/29/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct CategoryCreationView: View {
@@ -43,6 +44,7 @@ struct CategoryCreationView: View {
 				}
 				.onAppear {
 					viewModel.eraseCategoryNameInput()
+					PostHogSDK.shared.screen("Category Creation")
 				}
 			}
 		}

@@ -3,6 +3,7 @@
 //  Seedling
 //
 
+import PostHog
 import SwiftUI
 
 struct HomeStageDraftView: View {
@@ -14,6 +15,7 @@ struct HomeStageDraftView: View {
 			viewModel: viewModel,
 			stageDraftViewModel: viewModel.stageDraftViewModel
 		)
+		.onAppear { PostHogSDK.shared.screen("Stage Draft (Home)") }
 	}
 }
 

@@ -3,6 +3,7 @@
 //  Seedling
 //
 
+import PostHog
 import SwiftUI
 
 struct PlantSelectionConfiguration {
@@ -46,6 +47,7 @@ struct PlantSelectionView: View {
 				ToolbarItem(placement: .topBarTrailing) { newPlantButton }
 			}
 		}
+		.onAppear { PostHogSDK.shared.screen("Plant Selection") }
 	}
 	
 	private var noneRow: some View {

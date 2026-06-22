@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/29/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct CategorySelectionView: View {
@@ -44,6 +45,7 @@ struct CategorySelectionView: View {
 			}
 			.onAppear {
 				viewModel.fetchTaskCategories()
+				PostHogSDK.shared.screen("Category Selection")
 			}
 		}
     }

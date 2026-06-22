@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 2/18/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct PlantNoteDraftView: View {
@@ -16,6 +17,7 @@ struct PlantNoteDraftView: View {
 			viewModel: viewModel,
 			noteDraftViewModel: viewModel.noteDraftViewModel
 		)
+		.onAppear { PostHogSDK.shared.screen("Note Draft (Plant)") }
 	}
 }
 

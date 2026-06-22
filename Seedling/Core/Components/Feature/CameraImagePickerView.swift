@@ -6,6 +6,7 @@
 //  For .camera there is no SwiftUI replacement — this wrapper is intentional until AVFoundation custom UI.
 //
 
+import PostHog
 import SwiftUI
 import UIKit
 
@@ -27,6 +28,7 @@ struct CameraImagePickerView: View {
 				libraryAccessBanner
 			}
 		}
+		.onAppear { PostHogSDK.shared.screen("Camera Image Picker") }
 	}
 
 	private var libraryAccessBanner: some View {

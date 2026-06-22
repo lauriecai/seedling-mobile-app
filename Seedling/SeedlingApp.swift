@@ -21,6 +21,7 @@ struct SeedlingApp: App {
 
 		let config = PostHogConfig(apiKey: posthogApiKey, host: posthogHost)
 		config.captureApplicationLifecycleEvents = true
+		config.captureScreenViews = false
 		PostHogSDK.shared.setup(config)
 
 		UINavigationBar.appearance().titleTextAttributes = [

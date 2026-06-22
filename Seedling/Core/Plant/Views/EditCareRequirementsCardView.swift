@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/15/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct EditCareRequirementsCardView: View {
@@ -47,6 +48,7 @@ struct EditCareRequirementsCardView: View {
 			.onChange(of: viewModel.humidityRequirementInput) { viewModel.plantCareRequirementsEdited = true }
 			.onChange(of: viewModel.soilRequirementInput) { viewModel.plantCareRequirementsEdited = true }
 			.onChange(of: viewModel.fertilizerRequirementInput) { viewModel.plantCareRequirementsEdited = true }
+			.onAppear { PostHogSDK.shared.screen("Edit Care Requirements Card") }
 		}
     }
 }

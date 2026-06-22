@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/15/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct EditGeneralDetailsCardView: View {
@@ -41,6 +42,7 @@ struct EditGeneralDetailsCardView: View {
 				viewModel.plantGeneralDetailsEdited = true
 				viewModel.plantStageUpdated = true
 			}
+			.onAppear { PostHogSDK.shared.screen("Edit General Details Card") }
 		}
     }
 }

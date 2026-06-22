@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/9/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct PlantDetailsView: View {
@@ -42,6 +43,7 @@ struct PlantDetailsView: View {
 		.sheet(isPresented: $viewModel.editingAdditionalCareNotes) {
 			EditAdditionalCareNotesView(viewModel: viewModel)
 		}
+		.onAppear { PostHogSDK.shared.screen("Plant Details") }
     }
 }
 

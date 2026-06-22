@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/21/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct TasksView: View {
@@ -35,6 +36,7 @@ struct TasksView: View {
 			}
 			.onAppear {
 				viewModel.fetchTaskCategories()
+				PostHogSDK.shared.screen("Tasks")
 			}
 			.sheet(isPresented: $viewModel.showingTaskDraftView) {
 				NavigationView {

@@ -6,6 +6,7 @@
 //
 
 import PhotosUI
+import PostHog
 import SwiftUI
 
 struct HomeView: View {
@@ -42,6 +43,7 @@ struct HomeView: View {
 			.onAppear {
 				viewModel.fetchPlants()
 				viewModel.showingActionMenu = false
+				PostHogSDK.shared.screen("Home")
 			}
 			.sheet(item: $viewModel.activeSheet) { sheet in
 				switch sheet {

@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 2/9/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct AddPlantView: View {
@@ -66,6 +67,7 @@ struct AddPlantView: View {
 				.onChange(of: viewModel.plantVarietyInput) { viewModel.plantDetailsEdited = true }
 				.keyboardType(.default)
 				.autocorrectionDisabled()
+				.onAppear { PostHogSDK.shared.screen("Add Plant") }
 			}
 		}
 	}

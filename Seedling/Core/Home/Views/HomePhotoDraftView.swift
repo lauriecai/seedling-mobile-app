@@ -3,6 +3,7 @@
 //  Seedling
 //
 
+import PostHog
 import SwiftUI
 
 private enum HomePhotoDraftRoute: Hashable {
@@ -19,6 +20,7 @@ struct HomePhotoDraftView: View {
 				viewModel: viewModel,
 				photoDraftViewModel: photoDraftViewModel
 			)
+			.onAppear { PostHogSDK.shared.screen("Photo Draft (Home)") }
 		}
 	}
 }

@@ -6,6 +6,7 @@
 //
 
 import PhotosUI
+import PostHog
 import SwiftUI
 
 struct PlantView: View {
@@ -43,6 +44,7 @@ struct PlantView: View {
 		.onAppear {
 			viewModel.fetchPosts(for: viewModel.plant)
 			viewModel.showingActionMenu = false
+			PostHogSDK.shared.screen("Plant")
 		}
 		.sheet(item: $viewModel.activeSheet) { sheet in
 			NavigationStack {
