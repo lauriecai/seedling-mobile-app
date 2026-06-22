@@ -5,16 +5,24 @@
 //  Created by Laurie Cai on 11/27/23.
 //
 
+import PostHog
 import SwiftUI
 
 @main
 struct SeedlingApp: App {
-	
+
 	@StateObject private var imagePickerService = ImagePickerService()
-	
+
 	@State private var showLaunchView: Bool = true
-	
+
 	init() {
+		let posthogApiKey = "phc_vCP5bbyYKeaZGwbhuTz6Na2JnCppzu8VAYfTbQHasdoq"
+		let posthogHost = "https://us.i.posthog.com"
+
+		let config = PostHogConfig(apiKey: posthogApiKey, host: posthogHost)
+		config.captureApplicationLifecycleEvents = true
+		PostHogSDK.shared.setup(config)
+
 		UINavigationBar.appearance().titleTextAttributes = [
 			.foregroundColor: UIColor(Color.theme.textPrimary),
 			.font: UIFont(name: "Handjet-Bold", size: 24)!

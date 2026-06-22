@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import PostHog
 
 @MainActor
 class StageDraftViewModel: ObservableObject {
@@ -40,5 +41,10 @@ class StageDraftViewModel: ObservableObject {
 	func postUpdate() {
 		guard let plant else { return }
 		coreDataManager.addStageUpdate(plant: plant, newStage: selectedStage.rawValue)
+		PostHogSDK.shared.capture("plant_stage_updated", properties: [
+			"plant_name": plant.wrappedName,
+			"plant_type": plant.wrappedType,
+			"new_stage": selectedStage.rawValue,
+		])
 	}
 }

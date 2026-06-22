@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import PostHog
 import UIKit
 
 enum HomeSheet: Identifiable {
@@ -195,12 +196,23 @@ class HomeViewModel: ObservableObject {
 	@discardableResult
 	func addPlant(name: String, variety: String, stage: String, type: String) -> Plant {
 		let newPlant = manager.addPlant(name: name, variety: variety, stage: stage, type: type)
+		PostHogSDK.shared.capture("plant_added", properties: [
+			"plant_name": name,
+			"plant_variety": variety,
+			"plant_stage": stage,
+			"plant_type": type,
+		])
 		resetAddPlantFormInputsAndFlags()
 		fetchPlants()
 		return newPlant
 	}
-	
+
 	func deletePlant(plant: Plant) {
+		PostHogSDK.shared.capture("plant_deleted", properties: [
+			"plant_name": plant.wrappedName,
+			"plant_type": plant.wrappedType,
+			"plant_stage": plant.wrappedStage,
+		])
 		manager.deletePlant(plant: plant)
 		fetchPlants()
 	}

@@ -5,6 +5,7 @@
 //  Created by Laurie Cai on 5/28/24.
 //
 
+import PostHog
 import SwiftUI
 
 struct TaskGroupView: View {
@@ -33,6 +34,11 @@ struct TaskGroupView: View {
 					.onTapGesture {
 						UIImpactFeedbackGenerator(style: .light).impactOccurred()
 						task.isCompleted.toggle()
+						if task.isCompleted {
+							PostHogSDK.shared.capture("task_completed", properties: [
+								"category": task.category?.wrappedName ?? "None",
+							])
+						}
 						viewModel.fetchTaskCategories()
 					}
 					

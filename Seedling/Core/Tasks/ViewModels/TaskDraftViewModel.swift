@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import PostHog
 
 @MainActor
 class TaskDraftViewModel: ObservableObject {
@@ -41,6 +42,9 @@ class TaskDraftViewModel: ObservableObject {
 	
 	func createTask() {
 		coreDataManager.addTask(categoryName: selectedCategory?.wrappedName ?? "", title: titleInput)
+		PostHogSDK.shared.capture("task_created", properties: [
+			"category": selectedCategory?.wrappedName ?? "None",
+		])
 	}
 	
 	func updateTask(_ task: TaskItem) {

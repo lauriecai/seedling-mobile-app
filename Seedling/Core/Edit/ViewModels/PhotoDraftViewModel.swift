@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PostHog
 import SwiftUI
 
 @MainActor
@@ -48,19 +49,27 @@ class PhotoDraftViewModel: ObservableObject {
 	
 	func createPhoto(for plant: Plant) {
 		let newPhoto = PhotoService.createPhoto(for: plant, caption: caption)
-		
+
 		coreDataManager.save()
 		fileManager.saveImage(id: newPhoto.wrappedImageUrlString, image: image)
+		PostHogSDK.shared.capture("photo_added", properties: [
+			"plant_name": plant.wrappedName,
+			"has_caption": !caption.isEmpty,
+		])
 	}
-	
+
 	func saveChanges(for plant: Plant) {
 		guard let imageUrlString,
 			  let savedPhoto = findExistingPhoto(for: plant) else { return }
-		
+
 		savedPhoto.caption = caption
-		
+
 		coreDataManager.save()
 		fileManager.saveImage(id: imageUrlString, image: image)
+		PostHogSDK.shared.capture("photo_caption_edited", properties: [
+			"plant_name": plant.wrappedName,
+			"has_caption": !caption.isEmpty,
+		])
 	}
 	
 //	MARK: - Private Methods

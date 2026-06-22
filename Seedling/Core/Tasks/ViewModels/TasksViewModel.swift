@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import PostHog
 
 @MainActor
 class TasksViewModel: ObservableObject {
@@ -118,6 +119,10 @@ class TasksViewModel: ObservableObject {
 	}
 	
 	func deleteTask(task: TaskItem) {
+		PostHogSDK.shared.capture("task_deleted", properties: [
+			"category": task.category?.wrappedName ?? "None",
+			"was_completed": task.isCompleted,
+		])
 		manager.deleteTask(task: task)
 		fetchTaskCategories()
 	}
