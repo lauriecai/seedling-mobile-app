@@ -218,34 +218,28 @@ class CoreDataManager {
 		save()
 	}
 	
-	private func findTaskCategory(named name: String) -> TaskCategory? {
-		let request = NSFetchRequest<TaskCategory>(entityName: "TaskCategory")
-		request.predicate = NSPredicate(format: "name == %@", name)
-		return try? context.fetch(request).first
-	}
-	
 //	MARK: - Task functions
-	
+
 	func requestTasks() -> NSFetchRequest<TaskItem> {
 		let request = NSFetchRequest<TaskItem>(entityName: "TaskItem")
 		request.sortDescriptors = [sortByOldest]
-		
+
 		return request
 	}
-	
-	func addTask(categoryName: String, title: String, isCompleted: Bool = false) {
+
+	func addTask(category: TaskCategory?, title: String, isCompleted: Bool = false) {
 		let newTask = TaskItem(context: context)
-		newTask.category = findTaskCategory(named: categoryName)
+		newTask.category = category
 		newTask.title = title
 		newTask.timestamp = Date()
-		
+
 		save()
 	}
-	
-	func updateTask(task: TaskItem, title: String, categoryName: String) {
+
+	func updateTask(task: TaskItem, title: String, category: TaskCategory?) {
 		task.title = title
-		task.category = findTaskCategory(named: categoryName)
-		
+		task.category = category
+
 		save()
 	}
 	

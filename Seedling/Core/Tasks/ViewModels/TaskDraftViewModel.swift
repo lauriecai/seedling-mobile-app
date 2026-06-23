@@ -41,13 +41,13 @@ class TaskDraftViewModel: ObservableObject {
 	}
 	
 	func createTask() {
-		coreDataManager.addTask(categoryName: selectedCategory?.wrappedName ?? "", title: titleInput)
+		coreDataManager.addTask(category: selectedCategory, title: titleInput)
 		PostHogSDK.shared.capture("task_created", properties: [
 			"category": selectedCategory?.wrappedName ?? "None",
 		])
 	}
 	
 	func updateTask(_ task: TaskItem) {
-		coreDataManager.updateTask(task: task, title: titleInput, categoryName: selectedCategory?.wrappedName ?? "")
+		coreDataManager.updateTask(task: task, title: titleInput, category: selectedCategory)
 	}
 }
