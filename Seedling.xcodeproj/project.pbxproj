@@ -22,7 +22,7 @@
 		3151A560DFB75EB9D451B6AB /* PlantDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7A2EB8C4F1A06488CC18CB /* PlantDetailsView.swift */; };
 		327061D420DAFF26A215B86B /* AddPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28B3D621922EAB133C2D48B /* AddPlantView.swift */; };
 		349E3B19BCA70730E7D37EC2 /* CategoryOptionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CBE5E5F8A10D0D5D2BDBD /* CategoryOptionCard.swift */; };
-		3621159740D9EE028934C5ED /* TabItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E220B7457E183933B5AB4279 /* TabItemsPreferenceKey.swift */; };
+		3621159740D9EE028934C5ED /* NavigationEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E220B7457E183933B5AB4279 /* NavigationEnvironment.swift */; };
 		36CD804E8A644654BC98F99E /* PlantStageDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8D42CD598841379F76874C /* PlantStageDraftView.swift */; };
 		416D910E919ABD7BBD95E555 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3FFD5CEE1F2D7E29B56184 /* UINavigationController.swift */; };
 		4362592B8DEA282E77FDF1C2 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66A088B86EF0E49ABB7918 /* TextInput.swift */; };
@@ -160,7 +160,7 @@
 		CD247EC86D782FDCBCEE58B4 /* PlantSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantSelectionView.swift; sourceTree = "<group>"; };
 		D2E3F4A5B6C7D8E9F0A1B2C3 /* PhotoCapturePermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCapturePermissions.swift; sourceTree = "<group>"; };
 		E0E2EFE52B84328093AFBD4E /* TaskDraftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDraftViewModel.swift; sourceTree = "<group>"; };
-		E220B7457E183933B5AB4279 /* TabItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemsPreferenceKey.swift; sourceTree = "<group>"; };
+		E220B7457E183933B5AB4279 /* NavigationEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEnvironment.swift; sourceTree = "<group>"; };
 		E2B37C8F10F99ACFCDAA5FEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3C34B3E08959A6E2959DBEC /* ButtonPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPill.swift; sourceTree = "<group>"; };
 		E7894F92DD20E618AC0511DF /* Photo+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+Extension.swift"; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				88F3E7A47B676CD80E9BCF4E /* CoreDataManager.swift */,
-				E220B7457E183933B5AB4279 /* TabItemsPreferenceKey.swift */,
+				E220B7457E183933B5AB4279 /* NavigationEnvironment.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -633,7 +633,7 @@
 				B650291AC07E6DD2453ED531 /* SeedlingApp.swift in Sources */,
 				971871D2929B96739746DF72 /* StageDraftViewModel.swift in Sources */,
 				8190D826408CC9B6EE206E9E /* StageOptionsList.swift in Sources */,
-				3621159740D9EE028934C5ED /* TabItemsPreferenceKey.swift in Sources */,
+				3621159740D9EE028934C5ED /* NavigationEnvironment.swift in Sources */,
 				87CA043560D85CDD262E7BB1 /* Task+Extension.swift in Sources */,
 				61335FBE8800E6798FC2FBE5 /* TaskCategory+Extension.swift in Sources */,
 				E02C375F0564DF6EC61CF70C /* TaskDraftView.swift in Sources */,

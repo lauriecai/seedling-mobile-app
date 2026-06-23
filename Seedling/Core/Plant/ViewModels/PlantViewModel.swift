@@ -373,6 +373,12 @@ class PlantViewModel: ObservableObject {
 	}
 
 	func deleteEvent(event: Event) {
+		if event.isStageUpdateEvent {
+			PostHogSDK.shared.capture("plant_stage_deleted", properties: [
+				"plant_name": plant.wrappedName,
+				"plant_type": plant.wrappedType,
+			])
+		}
 		coreDataManager.deleteEvent(event: event)
 		fetchPosts(for: plant)
 	}

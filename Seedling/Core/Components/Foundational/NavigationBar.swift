@@ -7,35 +7,41 @@
 
 import SwiftUI
 
-enum NavigationItem: CaseIterable {
-	case garden, tasks
-	
-	var tabItem: TabItem {
+enum NavigationItem: CaseIterable, Identifiable {
+	case home, tasks
+
+	var id: Self { self }
+
+	var iconName: String {
 		switch self {
-		case .garden:
-			return TabItem(iconName: "icon-garden", title: "Garden")
-		case .tasks:
-			return TabItem(iconName: "icon-tasks", title: "Tasks")
+		case .home: return "icon-garden"
+		case .tasks: return "icon-tasks"
+		}
+	}
+
+	var title: String {
+		switch self {
+		case .home: return "Garden"
+		case .tasks: return "Tasks"
 		}
 	}
 }
 
 struct NavigationBar: View {
-	
-	let tabs: [TabItem]
-	@Binding var selection: TabItem
-	var onTabDoubleTap: (TabItem) -> Void = { _ in }
-	
-	@State private var lastTabTap: (tab: TabItem, date: Date)?
-	
+
+	@Binding var selection: NavigationItem
+	var onTabReselect: (NavigationItem) -> Void = { _ in }
+
+	@State private var lastTap: (item: NavigationItem, date: Date)?
+
 	var body: some View {
 		VStack {
 			Spacer()
 			HStack(spacing: 140) {
-				ForEach(tabs, id: \.self) { tab in
-					tabView(tab: tab)
+				ForEach(NavigationItem.allCases) { item in
+					tabView(item)
 						.onTapGesture {
-							handleTabTap(tab)
+							handleTap(item)
 						}
 				}
 			}
@@ -46,56 +52,41 @@ struct NavigationBar: View {
 }
 
 #Preview {
-	NavigationBar(
-		tabs: [
-			NavigationItem.garden.tabItem,
-			NavigationItem.tasks.tabItem
-],
-		selection: .constant(NavigationItem.garden.tabItem)
-	)
+	NavigationBar(selection: .constant(.home))
 }
 
 extension NavigationBar {
-	
-	private func tabView(tab: TabItem) -> some View {
+
+	private func tabView(_ item: NavigationItem) -> some View {
 		VStack(spacing: 2) {
-			Image(tab.iconName)
+			Image(item.iconName)
 				.resizable()
 				.aspectRatio(contentMode: .fit)
-				.colorMultiply(selection == tab ? Color.theme.accentLightGreen : Color.theme.textLight)
+				.colorMultiply(selection == item ? Color.theme.accentLightGreen : Color.theme.textLight)
 				.frame(width: 28, height: 28)
-			
-			Text(tab.title)
+
+			Text(item.title)
 				.font(.handjet(.bold, size: 16))
-				.foregroundStyle(selection == tab ? Color.theme.accentLightGreen : Color.theme.textLight)
+				.foregroundStyle(selection == item ? Color.theme.accentLightGreen : Color.theme.textLight)
 		}
 		.padding(.vertical, 10)
 	}
-	
-	private func switchToTab(tab: TabItem) {
-		selection = tab
-	}
-	
-	private func handleTabTap(_ tab: TabItem) {
+
+	private func handleTap(_ item: NavigationItem) {
 		let now = Date()
-		
-		if let lastTabTap,
-		   lastTabTap.tab == tab,
-		   selection == tab,
-		   now.timeIntervalSince(lastTabTap.date) < 0.35 {
-			self.lastTabTap = nil
+
+		if let lastTap,
+		   lastTap.item == item,
+		   selection == item,
+		   now.timeIntervalSince(lastTap.date) < 0.35 {
+			self.lastTap = nil
 			UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-			onTabDoubleTap(tab)
+			onTabReselect(item)
 			return
 		}
-		
-		lastTabTap = (tab, now)
-		UIImpactFeedbackGenerator(style: .light).impactOccurred()
-		switchToTab(tab: tab)
-	}
-}
 
-struct TabItem: Hashable {
-	let iconName: String
-	let title: String
+		lastTap = (item, now)
+		UIImpactFeedbackGenerator(style: .light).impactOccurred()
+		selection = item
+	}
 }

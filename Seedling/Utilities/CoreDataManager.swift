@@ -171,7 +171,7 @@ class CoreDataManager {
 		let newEvent = Event(context: context)
 		newEvent.plant = plant
 		newEvent.timestamp = Date()
-		newEvent.title = "Added to the garden!"
+		newEvent.title = Event.plantAddedEventTitle
 		
 		save()
 	}

@@ -17,4 +17,10 @@ extension Event {
 		timestamp ?? Date()
 	}
 
+	static let plantAddedEventTitle = "Added to the garden!"
+
+	var isStageUpdateEvent: Bool {
+		wrappedTitle != Self.plantAddedEventTitle
+	}
+
 }

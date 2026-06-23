@@ -13,20 +13,19 @@ struct SeedlingApp: App {
 
 	@StateObject private var imagePickerService = ImagePickerService()
 
-	@State private var showLaunchView: Bool = true
-
 	init() {
-		let posthogApiKey = "phc_vCP5bbyYKeaZGwbhuTz6Na2JnCppzu8VAYfTbQHasdoq"
+		let posthogProjectToken = "phc_vCP5bbyYKeaZGwbhuTz6Na2JnCppzu8VAYfTbQHasdoq"
 		let posthogHost = "https://us.i.posthog.com"
 
-		let config = PostHogConfig(apiKey: posthogApiKey, host: posthogHost)
+		let config = PostHogConfig(projectToken: posthogProjectToken, host: posthogHost)
 		config.captureApplicationLifecycleEvents = true
 		config.captureScreenViews = false
+		config.sessionReplay = true
 		PostHogSDK.shared.setup(config)
 
 		UINavigationBar.appearance().titleTextAttributes = [
 			.foregroundColor: UIColor(Color.theme.textPrimary),
-			.font: UIFont(name: "Handjet-Bold", size: 24)!
+			.font: UIFont(name: "Handjet-Bold", size: 24) ?? .systemFont(ofSize: 24, weight: .bold)
 		]
 	}
 	
@@ -39,55 +38,47 @@ struct SeedlingApp: App {
 }
 
 struct ContentView: View {
-	
-	@State private var tabSelection: TabItem = TabItem(iconName: "icon-garden", title: "Garden")
-	
+
+	@State private var selection: NavigationItem = .home
+
 	var body: some View {
-		NavigationContainer(selection: $tabSelection) {
-			HomeView()
-				.tabItem(tab: TabItem(iconName: "icon-garden", title: "Garden"), selection: $tabSelection)
-			
-			TasksView()
-				.tabItem(tab: TabItem(iconName: "icon-tasks", title: "Tasks"), selection: $tabSelection)
-		}
+		NavigationContainer(selection: $selection)
+			.preferredColorScheme(.light)
 	}
 }
 
-struct NavigationContainer<Content: View>: View {
-	
-	@Binding var selection: TabItem
-	let content: Content
-	
-	@State private var tabs: [TabItem] = []
+struct NavigationContainer: View {
+
+	@Binding var selection: NavigationItem
+
 	@State private var gardenPopToRootSignal = 0
 	@State private var tasksPopToRootSignal = 0
-	
-	init(selection: Binding<TabItem>, @ViewBuilder content: () -> Content) {
-		self._selection = selection
-		self.content = content()
-	}
-	
+
 	var body: some View {
-		VStack(spacing: 0) {
-			ZStack {
-				content
-					.environment(\.gardenPopToRootSignal, gardenPopToRootSignal)
-					.environment(\.tasksPopToRootSignal, tasksPopToRootSignal)
-				
-				NavigationBar(tabs: tabs, selection: $selection) { tab in
-					switch tab {
-					case NavigationItem.garden.tabItem:
-						gardenPopToRootSignal += 1
-					case NavigationItem.tasks.tabItem:
-						tasksPopToRootSignal += 1
-					default:
-						break
-					}
+		ZStack {
+			Color.theme.backgroundPrimary
+				.ignoresSafeArea()
+
+			TabView(selection: $selection) {
+				HomeView()
+					.tag(NavigationItem.home)
+					.toolbar(.hidden, for: .tabBar)
+
+				TasksView()
+					.tag(NavigationItem.tasks)
+					.toolbar(.hidden, for: .tabBar)
+			}
+
+			NavigationBar(selection: $selection) { item in
+				switch item {
+				case .home:
+					gardenPopToRootSignal += 1
+				case .tasks:
+					tasksPopToRootSignal += 1
 				}
 			}
 		}
-		.onPreferenceChange(TabItemsPreferenceKey.self) { value in
-			self.tabs = value
-		}
+		.environment(\.gardenPopToRootSignal, gardenPopToRootSignal)
+		.environment(\.tasksPopToRootSignal, tasksPopToRootSignal)
 	}
 }
