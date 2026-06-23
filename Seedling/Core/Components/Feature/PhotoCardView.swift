@@ -16,9 +16,7 @@ struct PhotoCardView: View {
 	
     var body: some View {
 		VStack(spacing: 0) {
-			Image(uiImage: photo.uiImage)
-				.resizable()
-				.scaledToFit()
+			PhotoImageView(imageId: photo.wrappedImageUrlString)
 			
 			VStack(alignment: .leading, spacing: 10) {
 				if !photo.wrappedCaption.isEmpty { photoCaption }

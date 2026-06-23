@@ -58,6 +58,8 @@
 		BB82BBB758ABCB2DA2A4F281 /* ButtonPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C34B3E08959A6E2959DBEC /* ButtonPill.swift */; };
 		BC7472D68C186A08291306BA /* Handjet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EF7E4989403FECAEA253C23 /* Handjet-Regular.ttf */; };
 		BD1BC9601418C8B7F91A8E9B /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3C3FBD4980B7FC97BD502 /* PhotoService.swift */; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E1D0C9B8A7F6E5D4C3B2A1 /* ImageCache.swift */; };
+		B2C3D4E5F6A7B8C9D0E1F2A3 /* PhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F2E1D0C9B8A7F6E5D4C3B2 /* PhotoImageView.swift */; };
 		C1D2E3F4A5B6C7D8E9F0A1B2 /* PhotoCapturePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3F4A5B6C7D8E9F0A1B2C3 /* PhotoCapturePermissions.swift */; };
 		C27EF2B64F2C7FF03D6BE5CE /* EditCareRequirementsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD50B3888366B8C0D51D5A6 /* EditCareRequirementsCardView.swift */; };
 		C3F54371B2B6483797891288 /* CardSelectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E8DF35538C8B97E0CF058 /* CardSelectable.swift */; };
@@ -111,6 +113,8 @@
 		4D8D42CD598841379F76874C /* PlantStageDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantStageDraftView.swift; sourceTree = "<group>"; };
 		4DA837D6D1E4CA7DFD3AB810 /* ChevronRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronRight.swift; sourceTree = "<group>"; };
 		54D3C3FBD4980B7FC97BD502 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		F2E1D0C9B8A7F6E5D4C3B2A1 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		A3F2E1D0C9B8A7F6E5D4C3B2 /* PhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoImageView.swift; sourceTree = "<group>"; };
 		564A6D282AD699C3B888D20C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		598403F2A5DABACD7FB41E04 /* TaskDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDraftView.swift; sourceTree = "<group>"; };
 		63E3419F362AEED07E36F730 /* ImagePickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerService.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 				94455A82AF037A51C83AD3A8 /* EventCardView.swift */,
 				EE8EB2ACD0C0750E989B62BB /* NoteCardView.swift */,
 				10690ADB8C5C2B90806E9334 /* PhotoCardView.swift */,
+				A3F2E1D0C9B8A7F6E5D4C3B2 /* PhotoImageView.swift */,
 				317662488EE76AC6073D26F8 /* PlantCardView.swift */,
 				C3D4E5F6A7B8C9D0E1F2A3B4 /* PlantPickerRow.swift */,
 				37B8F1867215E153538B3752 /* StageOptionsList.swift */,
@@ -349,6 +354,7 @@
 				63E3419F362AEED07E36F730 /* ImagePickerService.swift */,
 				D2E3F4A5B6C7D8E9F0A1B2C3 /* PhotoCapturePermissions.swift */,
 				54D3C3FBD4980B7FC97BD502 /* PhotoService.swift */,
+				F2E1D0C9B8A7F6E5D4C3B2A1 /* ImageCache.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -620,8 +626,10 @@
 				E72DE8C6337445BCF016C522 /* NoteDraftViewModel.swift in Sources */,
 				F6F2B2D1B4DE770553A216B9 /* Photo+Extension.swift in Sources */,
 				E931D5DB4A0DF060F424B86E /* PhotoCardView.swift in Sources */,
+				B2C3D4E5F6A7B8C9D0E1F2A3 /* PhotoImageView.swift in Sources */,
 				B07BAA0619E2CD2277DFD1C8 /* PhotoDraftViewModel.swift in Sources */,
 				BD1BC9601418C8B7F91A8E9B /* PhotoService.swift in Sources */,
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* ImageCache.swift in Sources */,
 				F53FFDDD0CC8D2A651469279 /* PickerRow.swift in Sources */,
 				B5FB4F3C5EB73F8C7CA3B714 /* Plant+Extension.swift in Sources */,
 				DAFEAC180551359A8CB660B7 /* PlantCardView.swift in Sources */,

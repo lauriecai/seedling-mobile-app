@@ -23,8 +23,13 @@ extension Photo {
 	}
 	
 	var uiImage: UIImage {
+		if let cached = ImageCache.shared.image(for: wrappedImageUrlString) {
+			return cached
+		}
+
 		if !wrappedImageUrlString.isEmpty,
-		   let image = FileManager().fetchImage(id: wrappedImageUrlString) {
+		   let image = FileManager.default.fetchImage(id: wrappedImageUrlString) {
+			ImageCache.shared.insert(image, for: wrappedImageUrlString)
 			return image
 		} else {
 			return UIImage(systemName: "photo")! // need placeholder

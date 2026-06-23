@@ -393,6 +393,7 @@ class PlantViewModel: ObservableObject {
 			"plant_name": plant.wrappedName,
 		])
 		fileManager.deleteImage(id: imageUrlString)
+		ImageCache.shared.remove(for: imageUrlString)
 		coreDataManager.deletePhoto(photo: savedPhoto)
 		fetchPosts(for: plant)
 	}
