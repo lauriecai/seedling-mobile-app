@@ -91,33 +91,33 @@ extension PlantView {
 					switch post.type {
 					case .event(let event):
 						eventCard(for: event)
-							.confirmationDialog("Post Options", isPresented: $viewModel.showEventActionSheet) {
-								deleteEventButton
-							} message: {
-								Text("What do you want to do with this post?")
-							}
 					case .note(let note):
 						noteCard(for: note)
-							.confirmationDialog("Post Options", isPresented: $viewModel.showNoteActionSheet) {
-								editNoteButton
-								deleteNoteButton
-							} message: {
-								Text("What do you want to do with this post?")
-							}
 					case .photo(let photo):
 						photoCard(for: photo)
-							.confirmationDialog("Post Options", isPresented: $viewModel.showPhotoActionSheet) {
-								 editCaptionButton
-								 deletePhotoButton
-							} message: {
-								Text("What do you want to do with this post?")
-							}
 					}
 				}
 			}
 			.padding(.top, 7)
 			.padding(.horizontal)
 			.padding(.bottom, 160)
+		}
+		.confirmationDialog("Post Options", isPresented: $viewModel.showEventActionSheet) {
+			deleteEventButton
+		} message: {
+			Text("What do you want to do with this post?")
+		}
+		.confirmationDialog("Post Options", isPresented: $viewModel.showNoteActionSheet) {
+			editNoteButton
+			deleteNoteButton
+		} message: {
+			Text("What do you want to do with this post?")
+		}
+		.confirmationDialog("Post Options", isPresented: $viewModel.showPhotoActionSheet) {
+			editCaptionButton
+			deletePhotoButton
+		} message: {
+			Text("What do you want to do with this post?")
 		}
 	}
 
