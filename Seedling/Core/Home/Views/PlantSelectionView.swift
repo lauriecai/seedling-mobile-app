@@ -31,7 +31,7 @@ struct PlantSelectionView: View {
 						noneRow
 					}
 					
-					ForEach(plants, id: \.customHash) { plant in
+					ForEach(plants, id: \.objectID) { plant in
 						plantRow(for: plant)
 					}
 				}
