@@ -23,6 +23,10 @@ struct SeedlingApp: App {
 		config.sessionReplay = true
 		PostHogSDK.shared.setup(config)
 
+		#if DEBUG
+		PostHogSDK.shared.identify("laurie-dev", userProperties: ["is_tester": true])
+		#endif
+
 		UINavigationBar.appearance().titleTextAttributes = [
 			.foregroundColor: UIColor(Color.theme.textPrimary),
 			.font: UIFont(name: "Handjet-Bold", size: 24) ?? .systemFont(ofSize: 24, weight: .bold)

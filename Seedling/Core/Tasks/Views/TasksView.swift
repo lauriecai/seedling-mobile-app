@@ -24,7 +24,7 @@ struct TasksView: View {
 				VStack(alignment: .leading, spacing: 20) {
 					tasksHeader
 					
-					if viewModel.taskCategories.count <= 1 {
+					if viewModel.taskCategories.allSatisfy({ $0.tasksList.isEmpty }) {
 						nullState
 					} else {
 						tasksList

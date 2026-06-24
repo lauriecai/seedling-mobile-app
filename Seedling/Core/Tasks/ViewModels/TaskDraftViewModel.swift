@@ -36,14 +36,14 @@ class TaskDraftViewModel: ObservableObject {
 //	MARK: - Public Methods
 	
 	func selectDefaultCategory(from categories: [TaskCategory]) {
-		selectedCategory = categories.first(where: { $0.name == "None" })
+		selectedCategory = categories.first(where: { $0.isDefault })
 		selectedCategoryIndex = 0
 	}
 	
 	func createTask() {
 		coreDataManager.addTask(category: selectedCategory, title: titleInput)
 		PostHogSDK.shared.capture("task_created", properties: [
-			"category": selectedCategory?.wrappedName ?? "None",
+			"category": selectedCategory?.wrappedName ?? "Uncategorized",
 		])
 	}
 	

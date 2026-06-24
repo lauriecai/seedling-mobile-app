@@ -34,8 +34,9 @@
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="plant" inverseEntity="Photo"/>
     </entity>
     <entity name="TaskCategory" representedClassName="TaskCategory" syncable="YES" codeGenerationType="class">
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TaskItem" inverseName="category" inverseEntity="TaskItem"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskItem" inverseName="category" inverseEntity="TaskItem"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>

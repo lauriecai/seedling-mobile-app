@@ -35,7 +35,7 @@ struct CategoryOptionCard: View {
 				
 				Spacer()
 				
-				if category.wrappedName != "None" {
+				if !category.isDefault {
 					Button {
 						showActionSheet = true
 						showActionForCategory = category

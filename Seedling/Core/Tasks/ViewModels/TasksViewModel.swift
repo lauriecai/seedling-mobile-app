@@ -34,13 +34,22 @@ class TasksViewModel: ObservableObject {
 	
 	init() {
 		fetchTaskCategories()
-		
-		if !taskCategories.contains(where: { $0.name == "None" }) {
-			manager.addTaskCategory(name: "None")
-			fetchTaskCategories()
-		}
-		
+		ensureUnassignedCategory()
+
 		taskDraftViewModel.selectDefaultCategory(from: taskCategories)
+	}
+
+	/// Guarantees exactly one flagged default category exists. Adopts a legacy
+	/// string-named "None" row if present (migration), otherwise creates one.
+	private func ensureUnassignedCategory() {
+		guard !taskCategories.contains(where: { $0.isDefault }) else { return }
+
+		if let legacy = taskCategories.first(where: { $0.name == "None" }) {
+			manager.markCategoryAsDefault(legacy)
+		} else {
+			manager.addDefaultCategory()
+		}
+		fetchTaskCategories()
 	}
 	
 	//	MARK: - Task Category functions
@@ -50,7 +59,7 @@ class TasksViewModel: ObservableObject {
 		
 		do {
 			var categories = try manager.context.fetch(request)
-			prioritizeNoneCategory(in: &categories)
+			prioritizeUncategorizedTasks(in: &categories)
 			
 			taskCategories = categories
 			if taskDraftViewModel.selectedCategory == nil {
@@ -61,11 +70,11 @@ class TasksViewModel: ObservableObject {
 		}
 	}
 	
-	private func prioritizeNoneCategory(in categories: inout [TaskCategory]) {
-		if let noneCategoryIndex = categories.firstIndex(where: { $0.name == "None" }) {
-			let noneCategory = categories.remove(at: noneCategoryIndex)
-			
-			categories.insert(noneCategory, at: 0)
+	private func prioritizeUncategorizedTasks(in categories: inout [TaskCategory]) {
+		if let defaultIndex = categories.firstIndex(where: { $0.isDefault }) {
+			let defaultCategory = categories.remove(at: defaultIndex)
+
+			categories.insert(defaultCategory, at: 0)
 		}
 	}
 	
@@ -82,7 +91,10 @@ class TasksViewModel: ObservableObject {
 	}
 	
 	func deleteTaskCategory(taskCategory: TaskCategory) {
-		manager.deleteTaskCategory(taskCategory: taskCategory)
+		guard !taskCategory.isDefault else { return }
+
+		let fallback = taskCategories.first(where: { $0.isDefault })
+		manager.deleteTaskCategory(taskCategory: taskCategory, reassignTasksTo: fallback)
 		fetchTaskCategories()
 	}
 	
@@ -120,7 +132,7 @@ class TasksViewModel: ObservableObject {
 	
 	func deleteTask(task: TaskItem) {
 		PostHogSDK.shared.capture("task_deleted", properties: [
-			"category": task.category?.wrappedName ?? "None",
+			"category": task.category?.wrappedName ?? "Uncategorized",
 			"was_completed": task.isCompleted,
 		])
 		manager.deleteTask(task: task)

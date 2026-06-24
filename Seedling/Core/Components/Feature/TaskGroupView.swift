@@ -18,7 +18,7 @@ struct TaskGroupView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading, spacing: 15) {
-			if category.wrappedName != "None" {
+			if !category.isDefault {
 				Text(category.wrappedName)
 					.font(.handjet(.extraBold, size: 24))
 					.foregroundStyle(Color.theme.textPrimary)
@@ -36,7 +36,7 @@ struct TaskGroupView: View {
 						task.isCompleted.toggle()
 						if task.isCompleted {
 							PostHogSDK.shared.capture("task_completed", properties: [
-								"category": task.category?.wrappedName ?? "None",
+								"category": task.category?.wrappedName ?? "Uncategorized",
 							])
 						}
 						viewModel.fetchTaskCategories()

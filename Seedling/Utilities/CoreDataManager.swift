@@ -204,7 +204,23 @@ class CoreDataManager {
 	func addTaskCategory(name: String) {
 		let newCategory = TaskCategory(context: context)
 		newCategory.name = name
-		
+
+		save()
+	}
+
+	func addDefaultCategory() {
+		let newCategory = TaskCategory(context: context)
+		newCategory.name = "None"
+		newCategory.isDefault = true
+
+		save()
+	}
+
+	/// One-time migration shim: adopt a legacy string-identified "None" row as the flagged default.
+	func markCategoryAsDefault(_ taskCategory: TaskCategory) {
+		taskCategory.isDefault = true
+		taskCategory.name = "Uncategorized"
+
 		save()
 	}
 	
@@ -213,7 +229,12 @@ class CoreDataManager {
 		save()
 	}
 	
-	func deleteTaskCategory(taskCategory: TaskCategory) {
+	func deleteTaskCategory(taskCategory: TaskCategory, reassignTasksTo fallback: TaskCategory?) {
+		if let fallback {
+			for task in taskCategory.tasksList {
+				task.category = fallback
+			}
+		}
 		context.delete(taskCategory)
 		save()
 	}
