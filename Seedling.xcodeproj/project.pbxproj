@@ -46,11 +46,13 @@
 		96111579BF816CC6E185C383 /* Handjet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8DB8917BB29AA05EF8E07A7 /* Handjet-Medium.ttf */; };
 		971871D2929B96739746DF72 /* StageDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F128F7F9D9469693FE8FCD /* StageDraftViewModel.swift */; };
 		97FE50B4A75C2A687C55FCC8 /* Handjet-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7177FC809F4BBD6A9367B8A2 /* Handjet-ExtraBold.ttf */; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E1D0C9B8A7F6E5D4C3B2A1 /* ImageCache.swift */; };
 		A7CFF51E21EE7AF76E7D392F /* DarkOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB9A135AF7129E42DA5743 /* DarkOverlay.swift */; };
 		A8B6A07DEE6C521FB928D18C /* ActionMenuGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584C110DC9A94EEEE619E0E /* ActionMenuGroup.swift */; };
 		A9C8D7E6F5B4A39281706F5E /* CameraImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7C6E5F4A39281706F5E4D /* CameraImagePickerView.swift */; };
 		AA1BB2CC3DD4EE5FF6AA0011 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = AA1BB2CC3DD4EE5FF6AA0022 /* PostHog */; };
 		B07BAA0619E2CD2277DFD1C8 /* PhotoDraftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECD33E99CF2466F66057EFF /* PhotoDraftViewModel.swift */; };
+		B2C3D4E5F6A7B8C9D0E1F2A3 /* PhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F2E1D0C9B8A7F6E5D4C3B2 /* PhotoImageView.swift */; };
 		B3C1D2E4F5A6B7C8D9E0F1A2 /* PlantPickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6A7B8C9D0E1F2A3B4 /* PlantPickerRow.swift */; };
 		B41D5BC90F4A078EBE504FF3 /* PlantSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD247EC86D782FDCBCEE58B4 /* PlantSelectionView.swift */; };
 		B5FB4F3C5EB73F8C7CA3B714 /* Plant+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA47DDCA511A77927498E /* Plant+Extension.swift */; };
@@ -58,8 +60,6 @@
 		BB82BBB758ABCB2DA2A4F281 /* ButtonPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C34B3E08959A6E2959DBEC /* ButtonPill.swift */; };
 		BC7472D68C186A08291306BA /* Handjet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EF7E4989403FECAEA253C23 /* Handjet-Regular.ttf */; };
 		BD1BC9601418C8B7F91A8E9B /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3C3FBD4980B7FC97BD502 /* PhotoService.swift */; };
-		A1B2C3D4E5F6A7B8C9D0E1F2 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E1D0C9B8A7F6E5D4C3B2A1 /* ImageCache.swift */; };
-		B2C3D4E5F6A7B8C9D0E1F2A3 /* PhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F2E1D0C9B8A7F6E5D4C3B2 /* PhotoImageView.swift */; };
 		C1D2E3F4A5B6C7D8E9F0A1B2 /* PhotoCapturePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3F4A5B6C7D8E9F0A1B2C3 /* PhotoCapturePermissions.swift */; };
 		C27EF2B64F2C7FF03D6BE5CE /* EditCareRequirementsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD50B3888366B8C0D51D5A6 /* EditCareRequirementsCardView.swift */; };
 		C3F54371B2B6483797891288 /* CardSelectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E8DF35538C8B97E0CF058 /* CardSelectable.swift */; };
@@ -113,8 +113,6 @@
 		4D8D42CD598841379F76874C /* PlantStageDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantStageDraftView.swift; sourceTree = "<group>"; };
 		4DA837D6D1E4CA7DFD3AB810 /* ChevronRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronRight.swift; sourceTree = "<group>"; };
 		54D3C3FBD4980B7FC97BD502 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
-		F2E1D0C9B8A7F6E5D4C3B2A1 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		A3F2E1D0C9B8A7F6E5D4C3B2 /* PhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoImageView.swift; sourceTree = "<group>"; };
 		564A6D282AD699C3B888D20C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		598403F2A5DABACD7FB41E04 /* TaskDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDraftView.swift; sourceTree = "<group>"; };
 		63E3419F362AEED07E36F730 /* ImagePickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerService.swift; sourceTree = "<group>"; };
@@ -141,6 +139,7 @@
 		9EFB9A135AF7129E42DA5743 /* DarkOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkOverlay.swift; sourceTree = "<group>"; };
 		A28B3D621922EAB133C2D48B /* AddPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantView.swift; sourceTree = "<group>"; };
 		A300827DE80B2FA2C3DB0B6D /* ButtonRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRounded.swift; sourceTree = "<group>"; };
+		A3F2E1D0C9B8A7F6E5D4C3B2 /* PhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoImageView.swift; sourceTree = "<group>"; };
 		A4123BF900508440554541D3 /* Handjet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handjet-Bold.ttf"; sourceTree = "<group>"; };
 		A44140BC85C6AB182525F177 /* ButtonPillRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPillRow.swift; sourceTree = "<group>"; };
 		A59D3AA1B2A82C8A5621A5BE /* PlantPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantPost.swift; sourceTree = "<group>"; };
@@ -171,6 +170,7 @@
 		EE8EB2ACD0C0750E989B62BB /* NoteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCardView.swift; sourceTree = "<group>"; };
 		EFD50B3888366B8C0D51D5A6 /* EditCareRequirementsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCareRequirementsCardView.swift; sourceTree = "<group>"; };
 		F1920E721692FD05B73296A0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F2E1D0C9B8A7F6E5D4C3B2A1 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		F7EDADC12F23C663E48548E2 /* Seedling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seedling.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD3FFD5CEE1F2D7E29B56184 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -742,21 +742,21 @@
 				INFOPLIST_FILE = Seedling/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Seedling;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Seedling requires access to camera to take photos for posts.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Seedling requires access to photo library to select photos for posts.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Seedling requires access to camera to take photos for journal entries.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Seedling requires access to photo library to select photos for journal entries.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lauriecai.Seedling;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -785,21 +785,21 @@
 				INFOPLIST_FILE = Seedling/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Seedling;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Seedling requires access to camera to take photos for posts.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Seedling requires access to photo library to select photos for posts.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Seedling requires access to camera to take photos for journal entries.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Seedling requires access to photo library to select photos for journal entries.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lauriecai.Seedling;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

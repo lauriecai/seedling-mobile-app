@@ -20,7 +20,7 @@ struct SeedlingApp: App {
 		let config = PostHogConfig(projectToken: posthogProjectToken, host: posthogHost)
 		config.captureApplicationLifecycleEvents = true
 		config.captureScreenViews = false
-		config.sessionReplay = true
+		config.sessionReplay = false
 		PostHogSDK.shared.setup(config)
 
 		#if DEBUG
