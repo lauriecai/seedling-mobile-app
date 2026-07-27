@@ -1,7 +1,0 @@
-{
-  "plugins": {
-    "posthog": {
-      "enabled": true
-    }
-  }
-}

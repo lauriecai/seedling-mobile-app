@@ -18,8 +18,17 @@ class CoreDataManager {
 	
 	init() {
 		container = NSPersistentContainer(name: "Seedling")
+
+		// Needed after in-place model edits (e.g. TaskCategory.isDefault).
+		// Without this, an incompatible store can fail to load and crash soon after launch.
+		let description = container.persistentStoreDescriptions.first ?? NSPersistentStoreDescription()
+		description.shouldMigrateStoreAutomatically = true
+		description.shouldInferMappingModelAutomatically = true
+		container.persistentStoreDescriptions = [description]
+
 		container.loadPersistentStores { _, error in
 			if let error {
+				assertionFailure("Failed to load Core Data store: \(error)")
 				print("-----\nError loading Core Data. \(error)")
 			}
 		}
