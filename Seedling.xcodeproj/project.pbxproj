@@ -88,10 +88,14 @@
 		F5E32CA0F04B4B2797420651 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645D92F27D7E309610182FDE /* HomeView.swift */; };
 		F6F2B2D1B4DE770553A216B9 /* Photo+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7894F92DD20E618AC0511DF /* Photo+Extension.swift */; };
 		FCDB18CB15D24AB59DDE52DF /* PlantPhotoDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3A6CC414DE4DB88E298413 /* PlantPhotoDraftView.swift */; };
+		PH0G0001A2B3C4D5E6F70809 /* PostHogConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = PH0G0001A2B3C4D5E6F70808 /* PostHogConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		018D37208FB7344A01EBA488 /* SeedlingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedlingApp.swift; sourceTree = "<group>"; };
+		PH0G0001A2B3C4D5E6F70801 /* Seedling.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Seedling.xcconfig; sourceTree = "<group>"; };
+		PH0G0001A2B3C4D5E6F70802 /* Secrets.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig.example; sourceTree = "<group>"; };
+		PH0G0001A2B3C4D5E6F70808 /* PostHogConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogConfiguration.swift; sourceTree = "<group>"; };
 		0A343B8E421DD034B26FE09A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		0AF9B83300BB6E011F27840B /* TextEditorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorInput.swift; sourceTree = "<group>"; };
 		0E07F18043534EFA07F817E4 /* HomeNoteDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNoteDraftView.swift; sourceTree = "<group>"; };
@@ -344,8 +348,18 @@
 			children = (
 				88F3E7A47B676CD80E9BCF4E /* CoreDataManager.swift */,
 				E220B7457E183933B5AB4279 /* NavigationEnvironment.swift */,
+				PH0G0001A2B3C4D5E6F70808 /* PostHogConfiguration.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		PH0G0001A2B3C4D5E6F70803 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				PH0G0001A2B3C4D5E6F70801 /* Seedling.xcconfig */,
+				PH0G0001A2B3C4D5E6F70802 /* Secrets.xcconfig.example */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		72A5F13A124007E9EF79D52A /* Photos */ = {
@@ -477,6 +491,7 @@
 		D861418A574BA15FCB665AA4 = {
 			isa = PBXGroup;
 			children = (
+				PH0G0001A2B3C4D5E6F70803 /* Config */,
 				869DB1A0825639204004BD8A /* Seedling */,
 				59598866566415A41CD3CF25 /* Products */,
 			);
@@ -529,7 +544,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2650;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					A0961CE07B6C29CD85E7CF0F = {
 						DevelopmentTeam = 7YPJCXPNAH;
@@ -629,6 +644,7 @@
 				B2C3D4E5F6A7B8C9D0E1F2A3 /* PhotoImageView.swift in Sources */,
 				B07BAA0619E2CD2277DFD1C8 /* PhotoDraftViewModel.swift in Sources */,
 				BD1BC9601418C8B7F91A8E9B /* PhotoService.swift in Sources */,
+				PH0G0001A2B3C4D5E6F70809 /* PostHogConfiguration.swift in Sources */,
 				A1B2C3D4E5F6A7B8C9D0E1F2 /* ImageCache.swift in Sources */,
 				F53FFDDD0CC8D2A651469279 /* PickerRow.swift in Sources */,
 				B5FB4F3C5EB73F8C7CA3B714 /* Plant+Extension.swift in Sources */,
@@ -664,6 +680,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -728,6 +745,7 @@
 		};
 		39EDC51FFF01C2127616E592 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = PH0G0001A2B3C4D5E6F70801 /* Seedling.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -735,7 +753,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Seedling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -771,6 +789,7 @@
 		};
 		766805A43A4D63DC0B17F7CA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = PH0G0001A2B3C4D5E6F70801 /* Seedling.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -778,7 +797,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Seedling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -816,6 +835,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

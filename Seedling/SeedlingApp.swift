@@ -5,7 +5,6 @@
 //  Created by Laurie Cai on 11/27/23.
 //
 
-import PostHog
 import SwiftUI
 
 @main
@@ -14,31 +13,20 @@ struct SeedlingApp: App {
 	@StateObject private var imagePickerService = ImagePickerService()
 
 	init() {
-		let posthogProjectToken = "phc_vCP5bbyYKeaZGwbhuTz6Na2JnCppzu8VAYfTbQHasdoq"
-		let posthogHost = "https://us.i.posthog.com"
-
-		let config = PostHogConfig(projectToken: posthogProjectToken, host: posthogHost)
-		config.captureApplicationLifecycleEvents = true
-		config.captureScreenViews = false
-		config.sessionReplay = false
-		PostHogSDK.shared.setup(config)
-
-		#if DEBUG
-		PostHogSDK.shared.identify("laurie-dev", userProperties: ["is_tester": true])
-		#endif
+		PostHogConfiguration.setupIfConfigured()
 
 		UINavigationBar.appearance().titleTextAttributes = [
 			.foregroundColor: UIColor(Color.theme.textPrimary),
 			.font: UIFont(name: "Handjet-Bold", size: 24) ?? .systemFont(ofSize: 24, weight: .bold)
 		]
 	}
-	
-    var body: some Scene {
+
+	var body: some Scene {
 		WindowGroup {
 			ContentView()
 				.environmentObject(imagePickerService)
 		}
-    }
+	}
 }
 
 struct ContentView: View {

@@ -1,0 +1,5 @@
+// Shared build settings for the Seedling app target.
+// Optional: Config/Secrets.xcconfig (gitignored) supplies POSTHOG_API_KEY.
+#include? "Secrets.xcconfig"
+
+POSTHOG_HOST = https:/$()/us.i.posthog.com

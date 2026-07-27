@@ -1,2 +1,22 @@
+# Secrets & local env
 .env
+Config/Secrets.xcconfig
+
+# Agent / tooling outputs
 .claude/
+posthog-setup-report.md
+*-setup-report.md
+
+# macOS
+.DS_Store
+
+# Xcode user-specific
+xcuserdata/
+*.xcuserstate
+
+# Xcode build outputs
+DerivedData/
+build/
+
+# Cursor (keep shared rules if you add them later: use !.cursor/rules/)
+.cursor/
