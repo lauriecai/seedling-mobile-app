@@ -60,6 +60,19 @@ enum AddPlantPresentation: Identifiable {
 			return false
 		}
 	}
+
+	/// Whether the view should supply its own `NavigationStack`. When presented
+	/// as a standalone sheet it must; when pushed onto a draft's existing stack
+	/// it must not, otherwise the nested stack causes `dismiss()` to close the
+	/// whole draft sheet instead of popping back to the draft form.
+	var providesOwnNavigationStack: Bool {
+		switch self {
+		case .standalone:
+			return true
+		case .fromNoteDraft, .fromPhotoDraft:
+			return false
+		}
+	}
 }
 
 @MainActor

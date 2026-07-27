@@ -30,45 +30,53 @@ struct AddPlantView: View {
 	}
 	
     var body: some View {
-		NavigationStack {
-			ZStack {
-				Color.theme.backgroundPrimary
-					.ignoresSafeArea()
-				
-				ScrollView(showsIndicators: false) {
-					VStack(spacing: 15) {
-						plantTextInput
-							.focused($keyboardFocused)
-							.onAppear { keyboardFocused.toggle() }
-						
-						plantVarietyInput
-						
-						if !viewModel.editingExistingPlant {
-							plantStageSelection
-							plantTypeSelection
-						}
-					}
-					.padding(.horizontal)
-				}
-				.navigationTitle(viewModel.editingExistingPlant ? "Edit Plant" : "New Plant")
-				.navigationBarTitleDisplayMode(.inline)
-				.navigationBarBackButtonHidden(true)
-				.toolbar {
-					ToolbarItem(placement: .topBarLeading) { leadingButton }
-					ToolbarItem(placement: .topBarTrailing) {
-						if viewModel.editingExistingPlant {
-							saveChangesButton
-						} else {
-							addPlantButton
-						}
-					}
-				}
-				.onChange(of: viewModel.plantNameInput) { viewModel.plantDetailsEdited = true }
-				.onChange(of: viewModel.plantVarietyInput) { viewModel.plantDetailsEdited = true }
-				.keyboardType(.default)
-				.autocorrectionDisabled()
-				.onAppear { PostHogSDK.shared.screen("Add Plant") }
+		if presentation.providesOwnNavigationStack {
+			NavigationStack {
+				formContent
 			}
+		} else {
+			formContent
+		}
+	}
+
+	private var formContent: some View {
+		ZStack {
+			Color.theme.backgroundPrimary
+				.ignoresSafeArea()
+			
+			ScrollView(showsIndicators: false) {
+				VStack(spacing: 15) {
+					plantTextInput
+						.focused($keyboardFocused)
+						.onAppear { keyboardFocused.toggle() }
+					
+					plantVarietyInput
+					
+					if !viewModel.editingExistingPlant {
+						plantStageSelection
+						plantTypeSelection
+					}
+				}
+				.padding(.horizontal)
+			}
+			.navigationTitle(viewModel.editingExistingPlant ? "Edit Plant" : "New Plant")
+			.navigationBarTitleDisplayMode(.inline)
+			.navigationBarBackButtonHidden(true)
+			.toolbar {
+				ToolbarItem(placement: .topBarLeading) { leadingButton }
+				ToolbarItem(placement: .topBarTrailing) {
+					if viewModel.editingExistingPlant {
+						saveChangesButton
+					} else {
+						addPlantButton
+					}
+				}
+			}
+			.onChange(of: viewModel.plantNameInput) { viewModel.plantDetailsEdited = true }
+			.onChange(of: viewModel.plantVarietyInput) { viewModel.plantDetailsEdited = true }
+			.keyboardType(.default)
+			.autocorrectionDisabled()
+			.onAppear { PostHogSDK.shared.screen("Add Plant") }
 		}
 	}
 }
@@ -118,7 +126,12 @@ extension AddPlantView {
 			)
 			
 			onPlantCreated?(newPlant)
-			dismiss()
+			
+			// When pushed onto a draft's stack, the onPlantCreated callback pops
+			// back to the draft form; only dismiss the sheet in the standalone case.
+			if presentation.providesOwnNavigationStack {
+				dismiss()
+			}
 		}
 		.font(.handjet(.extraBold, size: 20))
 		.foregroundStyle(viewModel.plantNameInput.isEmpty ? Color.theme.textSecondary.opacity(0.5) : Color.theme.accentGreen)
